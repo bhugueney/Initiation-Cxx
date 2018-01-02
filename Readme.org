@@ -1,7 +1,8 @@
 #+TITLE: Initiation au C++
 #+AUTHOR: Bernard Hugueney
-#+OPTIONS: ^:nil toc:2
+#+OPTIONS: ^:nil toc:1
 #+LANGUAGE: fr
+#+REVEAL_ROOT:  https://cdn.jsdelivr.net/reveal.js/3.0.0/
 #+LATEX_HEADER: \usepackage[AUTO]{babel}
 #+LaTeX_HEADER: \addtolength{\oddsidemargin}{-.975in}
 #+LaTeX_HEADER:	\addtolength{\evensidemargin}{-.875in}
@@ -37,19 +38,20 @@
                                 (dot . t))))
 #+END_SRC
 
-* Objectifs
+* Méta
+** Objectifs
 
-Faciliter l'apprentissage ultérieur du C++
+ Faciliter l'apprentissage ultérieur du C++
 
-* Prérequis
+** Prérequis
 
-Comprendre le langage Python et savoir écrire des programmes en Python
+ Comprendre le langage Python et savoir écrire des programmes en Python
 
-* Méthode
-Pratique :
-Essayer d'executer les fragments de code, par exemple sur :
-- https://www.onlinegdb.com/
-- http://coliru.stacked-crooked.com/
+** Méthode
+ Pratique :
+ Essayer d'executer les fragments de code, par exemple sur :
+ - https://www.onlinegdb.com/
+ - http://coliru.stacked-crooked.com/
 
 * Qu'est-ce que le C++ ?
 Par rapport à Python, le C++ est un langage :
@@ -196,6 +198,7 @@ Mieux qu'une erreur à l'exécution !
    #+RESULTS:
    : simulation faite en 63.49054312705994 secondes.
    : Sur 100000000 fléchettes, 78538271 à l'intérieur. Pi ~ 3.14153084
+#+REVEAL: split
 #+BEGIN_SRC C++ :flags "-march=native -O4" :results output verbatim :exports both
   #include <iostream>
   #include <random>
@@ -245,127 +248,128 @@ Le C++ *permet* la Programmation Orientée Objet, mais nous ne nous y intéresse
 Pour utiliser des bibliothèques, on utilise la directive =#include=.
 
 Le programme est une fonction src_C[:exports code]{int main(int argc, char* argv[]){}}.
-* types primitifs
-** entiers
-Généralement, on utilise des types qui ne sont pas précisément spécifiés pour
-pouvoir correspondre avec l'architecture de compilation (e.g. 32 bits vs 64
-bits).
-- =char= 
-- =short=
-- =int=
-- =long=
-- =long long=
 
-=signed= (défaut) ou =unsigned=.
+* Types
 
-src_C[:exports code]{std::size_t} pour les indices positifs.
+** types primitifs
+*** entiers
+ Généralement, on utilise des types qui ne sont pas précisément spécifiés pour
+ pouvoir correspondre avec l'architecture de compilation (e.g. 32 bits vs 64
+ bits).
+ - =char= 
+ - =short=
+ - =int=
+ - =long=
+ - =long long=
 
-#+BEGIN_SRC C++ :includes <iostream> :results output verbatim :exports both
-std::cout<<"sizeof(char): "<< 1 <<std::endl;
-std::cout<<"sizeof(short): "<< sizeof(short) <<std::endl;
-std::cout<<"sizeof(int): "<< sizeof(int) <<std::endl;
-std::cout<<"sizeof(long): "<< sizeof(long) <<std::endl;
-std::cout<<"sizeof(long long): "<< sizeof(long long) <<std::endl;
-std::cout<<"sizeof(std::size_t): "<< sizeof(std::size_t) <<std::endl;
-#+END_SRC
+ =signed= (défaut) ou =unsigned=.
 
-#+RESULTS:
-: sizeof(char): 1
-: sizeof(short): 2
-: sizeof(int): 4
-: sizeof(long): 8
-: sizeof(long long): 8
-: sizeof(std::size_t): 8
-*** Débordements
+ src_C[:exports code]{std::size_t} pour les indices positifs.
 
-** virgule flottante
-- =float=
-- =double= 
+ #+BEGIN_SRC C++ :includes <iostream> :results output verbatim :exports both
+ std::cout<<"sizeof(char): "<< 1 <<std::endl;
+ std::cout<<"sizeof(short): "<< sizeof(short) <<std::endl;
+ std::cout<<"sizeof(int): "<< sizeof(int) <<std::endl;
+ std::cout<<"sizeof(long): "<< sizeof(long) <<std::endl;
+ std::cout<<"sizeof(long long): "<< sizeof(long long) <<std::endl;
+ std::cout<<"sizeof(std::size_t): "<< sizeof(std::size_t) <<std::endl;
+ #+END_SRC
 
-Comme en python :
-#+BEGIN_SRC C++ :includes <iostream> :exports output verbatim
-  if(0.1 * 3 == 0.3){
-    std::cout<<"on peut rêver…" <<std::endl;
-  }else{
-    std::cout<<"… ou pas !" <<std::endl;
-  }
-#+END_SRC
+ #+RESULTS:
+ : sizeof(char): 1
+ : sizeof(short): 2
+ : sizeof(int): 4
+ : sizeof(long): 8
+ : sizeof(long long): 8
+ : sizeof(std::size_t): 8
+**** Débordements
 
-#+RESULTS:
-: … ou pas !
+*** virgule flottante
+ - =float=
+ - =double= 
 
-** booléen
+ Comme en python :
+ #+BEGIN_SRC C++ :includes <iostream> :exports output verbatim
+   if(0.1 * 3 == 0.3){
+     std::cout<<"on peut rêver…" <<std::endl;
+   }else{
+     std::cout<<"… ou pas !" <<std::endl;
+   }
+ #+END_SRC
 
-* Tableaux, pointeurs, itérateurs
-** Tableaux
-   valeurs de même type, contiguës en mémoire la valeur représentant le tabeau
-   est en fait son adresse en mémoire (pas d'information sur le nombre
-   d'éléments !)
-#+BEGIN_SRC dot  :file arrays.png  :exports results
-digraph structs{
-node [shape=record];
-array_i [label="<f0> 1|<f1> 0|<f2> -1|<f3> 2"];
-array_d [label="<f0> 0.5|<f1> 6.|<f2> 1.2"];
-p0 [label="array_i", color= "white"];
-p0 -> array_i:f0;
-p1 [label="array_d", color= "white"];
-p1 -> array_d:f0;
-}
-#+END_SRC
-#+ATTR_LATEX: :width 7cm
-#+RESULTS:
-[[file:arrays.png]]
+ #+RESULTS:
+ : … ou pas !
 
-#+BEGIN_SRC C++ :includes <iostream> :results output verbatim :exports both
-int array_i[]={1,0,-1,2};
-double array_d[]={0.5, 6.,1.2};
-std::cout <<'@'<<array_i<<": "<<array_i[0]<<", @"<<(array_i+1)<<": "<<array_i[1]<<std::endl;
-std::cout <<'@'<<array_d<<": "<<array_d[0]<<", @"<<(array_d+1)<<": "<<array_d[1]<<std::endl;
+*** booléen
 
-#+END_SRC
-
-#+RESULTS:
-: @0x7ffcc6f00970: 1, @0x7ffcc6f00974: 0
-: @0x7ffcc6f00950: 0.5, @0x7ffcc6f00958: 6
-
-** Pointeurs
-   adresse (typée !) en mémoire
-
-#+BEGIN_SRC dot  :file ptr-array.png  :exports results
-digraph structs {
+** Tableaux, pointeurs, itérateurs
+*** Tableaux
+    valeurs de même type, contiguës en mémoire la valeur représentant le tabeau
+    est en fait son adresse en mémoire (pas d'information sur le nombre
+    d'éléments !)
+ #+BEGIN_SRC dot  :file arrays.png  :exports results
+ digraph structs{
  node [shape=record];
- a [label="a=1"];
- ptr_a [label="ptr_a"];
- arr[label="<f0>-1.5|<f1>0.5|<f2>0.2"];
- ptr_arr[label="ptr_arr"];
- ptr_a -> a;
- ptr_arr -> arr:f0;
- ptr_arr -> arr:f1[label="après ++", color="red"];
+ array_i [label="<f0> 1|<f1> 0|<f2> -1|<f3> 2"];
+ array_d [label="<f0> 0.5|<f1> 6.|<f2> 1.2"];
+ p0 [label="array_i", color= "white"];
+ p0 -> array_i:f0;
+ p1 [label="array_d", color= "white"];
+ p1 -> array_d:f0;
  }
-#+END_SRC
+ #+END_SRC
+ #+ATTR_LATEX: :width 7cm
+ #+RESULTS:
+ [[file:arrays.png]]
 
-#+ATTR_LATEX: :width 7cm
-#+RESULTS:
-[[file:ptr-array.png]]
+ #+BEGIN_SRC C++ :includes <iostream> :results output verbatim :exports both
+ int array_i[]={1,0,-1,2};
+ double array_d[]={0.5, 6.,1.2};
+ std::cout <<'@'<<array_i<<": "<<array_i[0]<<", @"<<(array_i+1)<<": "<<array_i[1]<<std::endl;
+ std::cout <<'@'<<array_d<<": "<<array_d[0]<<", @"<<(array_d+1)<<": "<<array_d[1]<<std::endl;
 
-   #+BEGIN_SRC C++ :includes <iostream> :results output verbatim :exports both
-   int a=0;
-   int *ptr_a = &a;
-   *ptr_a = 2;
-   std::cout<<"a= "<< a << std::endl;
-   double arr[] = {-1.5, 0.5, 0.2};
-   double * ptr_arr= arr; // = &(arr[0]);
-   *ptr_arr=0.25;
-   ++ptr_arr;
-   *ptr_arr= 1.;
-   std::cout<< "arr[0]:" << arr[0]<<", arr[1]:" << arr[1]<< std::endl;
-   std::cout<< "ptr_arr[-1]:" << ptr_arr[-1]<<", ptr_arr[0]:" << ptr_arr[0]<< std::endl;
-   #+END_SRC
+ #+END_SRC
 
-   #+RESULTS:
-   : a= 2
-   : arr[0]:0.25, arr[1]:1
-   : ptr_arr[-1]:0.25, ptr_arr[0]:1
+ #+RESULTS:
+ : @0x7ffcc6f00970: 1, @0x7ffcc6f00974: 0
+ : @0x7ffcc6f00950: 0.5, @0x7ffcc6f00958: 6
+
+*** Pointeurs
+    adresse (typée !) en mémoire
+
+ #+BEGIN_SRC dot  :file ptr-array.png  :exports results
+ digraph structs {
+  node [shape=record];
+  a [label="a=1"];
+  ptr_a [label="ptr_a"];
+  arr[label="<f0>-1.5|<f1>0.5|<f2>0.2"];
+  ptr_arr[label="ptr_arr"];
+  ptr_a -> a;
+  ptr_arr -> arr:f0;
+  ptr_arr -> arr:f1[label="après ++", color="red"];
+  }
+ #+END_SRC
+
+ #+ATTR_LATEX: :width 7cm
+ #+RESULTS:
+ [[file:ptr-array.png]]
+    #+BEGIN_SRC C++ :includes <iostream> :results output verbatim :exports both
+    int a=0;
+    int *ptr_a = &a;
+    *ptr_a = 2;
+    std::cout<<"a= "<< a << std::endl;
+    double arr[] = {-1.5, 0.5, 0.2};
+    double * ptr_arr= arr; // = &(arr[0]);
+    *ptr_arr=0.25;
+    ++ptr_arr; *ptr_arr= 1.;
+    std::cout<< "arr[0]:" << arr[0]<<", arr[1]:" << arr[1]<< std::endl;
+    std::cout<< "ptr_arr[-1]:" << ptr_arr[-1]<<", ptr_arr[0]:" << ptr_arr[0]<< std::endl;
+    #+END_SRC
+
+    #+RESULTS:
+    : a= 2
+    : arr[0]:0.25, arr[1]:1
+    : ptr_arr[-1]:0.25, ptr_arr[0]:1
 *** tableaux de tabeaux
 #+BEGIN_SRC C++ :results ouput verbatim :includes <iostream> :exports both
 int a[4][3]={{-1, 4, -1}, {0,1,3,}, {2, 1,0}, {0,0,0}};
@@ -395,84 +399,85 @@ digraph structs {
 #+RESULTS:
 [[file:array-array.png]]
 
-** Itérateurs
-   Généralisation du concept de pointeur pour traverser des ensembles de valeurs.
-   #+BEGIN_SRC C++ :results output verbatim :includes <iostream>, <unordered_set>, <string> :exports both
-   std::unordered_set<std::string> data({"red", "blue", "green"});
-   for(auto it= data.begin(); it != data.end(); ++it){
-     std::cout<< *it<<" ,";
-   }
-   #+END_SRC
+*** Itérateurs
+    Généralisation du concept de pointeur pour traverser des ensembles de valeurs.
+    #+BEGIN_SRC C++ :results output verbatim :includes <iostream>, <unordered_set>, <string> :exports both
+    std::unordered_set<std::string> data({"red", "blue", "green"});
+    for(auto it= data.begin(); it != data.end(); ++it){
+      std::cout<< *it<<" ,";
+    }
+    #+END_SRC
 
-   #+RESULTS:
-   : green ,blue ,red ,
+    #+RESULTS:
+    : green ,blue ,red ,
 
 
-* chaîne de caractères
-  pointeur sur un tableau de caractères (=char=) terminé par ='\0'=
-#+BEGIN_SRC dot  :file ptr1-str.png  :exports results
-digraph structs {
- node [shape=record];
- pointer [label="p"];
- pointer_1 [label="(p+1)", color= "white"];
- string [label="<f0>a|<f1>b|<f2>c|<f>d|<f3>\\0"];
- pointer -> string:f0;
- pointer_1 -> string:f1;
+** chaîne de caractères
+   pointeur sur un tableau de caractères (=char=) terminé par ='\0'=
+ #+BEGIN_SRC dot  :file ptr1-str.png  :exports results
+ digraph structs {
+  node [shape=record];
+  pointer [label="p"];
+  pointer_1 [label="(p+1)", color= "white"];
+  string [label="<f0>a|<f1>b|<f2>c|<f>d|<f3>\\0"];
+  pointer -> string:f0;
+  pointer_1 -> string:f1;
+  }
+ #+END_SRC
+
+ #+ATTR_LATEX: :width 7cm
+ #+RESULTS:
+ [[file:ptr1-str.png]]
+
+**** Attention aux caractères non ASCII !
+ #+BEGIN_SRC C++ :includes <iostream>, <cstring> :results output verbatim :exports both
+ char const * const str_ascii="e";
+ char const * const str_not_ascii="é";
+ std::cout << "strlen("<< str_ascii <<")="<<std::strlen(str_ascii) << std::endl;
+ std::cout << "strlen("<< str_not_ascii <<")="<<std::strlen(str_not_ascii) << std::endl;
+ #+END_SRC
+
+ #+RESULTS:
+ : strlen(e)=1
+ : strlen(é)=2
+#+REVEAL: split
+**** Attention aux comparaisons et affectactions
+ les opérations s'appliquent aux *pointeurs*:
+ #+BEGIN_SRC C++ :results output verbatim :includes <iostream> :exports both
+ char * str="toto";
+ char str2[]= {'t','o','t','o', '\0'};
+ std::cout<<"str:"<<str<<" str2:"<<str2<<" (str == str2): "<< (str == str2)<< std::endl;
+ char* str3= str2;
+ str3[1]='i';
+ std::cout<<"str2:"<<str2<<std::endl;
+ #+END_SRC
+
+ #+RESULTS:
+ : str:toto str2:toto (str == str2): 0
+ : str2:tito
+
+** std::string
+  [[http://www.cplusplus.com/reference/string/string/][std::string]] : /classe/ permettant de faire de opération sur des chaîne de caractères (par
+   exemple les copier et les comparer !)
+
+ Nécessite un src_C[:exports code]{#include <string>}.
+ #+BEGIN_SRC C++ :results output verbatim :exports both
+ #include <iostream>
+ #include <string>
+ int main(int argc, char* argv[]){
+   std::string str="toto";
+   char tmp[]= {'t','o','t','o', '\0'};
+   std::string str2=tmp ;
+   std::cout<<"str:"<<str<<" str2:"<<str2<<" (str == str2): "<< (str == str2)<< std::endl;
+   std::string str3= str2;
+   str3[1]='i';
+   std::cout<<"str2:"<<str2<<std::endl;
  }
-#+END_SRC
+ #+END_SRC
 
-#+ATTR_LATEX: :width 7cm
-#+RESULTS:
-[[file:ptr1-str.png]]
-
-*** Attention aux caractères non ASCII !
-#+BEGIN_SRC C++ :includes <iostream>, <cstring> :results output verbatim :exports both
-char const * const str_ascii="e";
-char const * const str_not_ascii="é";
-std::cout << "strlen("<< str_ascii <<")="<<std::strlen(str_ascii) << std::endl;
-std::cout << "strlen("<< str_not_ascii <<")="<<std::strlen(str_not_ascii) << std::endl;
-#+END_SRC
-
-#+RESULTS:
-: strlen(e)=1
-: strlen(é)=2
-*** Attention aux comparaisons et affectactions
-les opérations s'appliquent aux *pointeurs*:
-#+BEGIN_SRC C++ :results output verbatim :includes <iostream> :exports both
-char * str="toto";
-char str2[]= {'t','o','t','o', '\0'};
-std::cout<<"str:"<<str<<" str2:"<<str2<<" (str == str2): "<< (str == str2)<< std::endl;
-char* str3= str2;
-str3[1]='i';
-std::cout<<"str2:"<<str2<<std::endl;
-#+END_SRC
-
-#+RESULTS:
-: str:toto str2:toto (str == str2): 0
-: str2:tito
-
-* std::string
- [[http://www.cplusplus.com/reference/string/string/][std::string]] : /classe/ permettant de faire de opération sur des chaîne de caractères (par
-  exemple les copier et les comparer !)
-
-Nécessite un src_C[:exports code]{#include <string>}.
-#+BEGIN_SRC C++ :results output verbatim :exports both
-#include <iostream>
-#include <string>
-int main(int argc, char* argv[]){
-  std::string str="toto";
-  char tmp[]= {'t','o','t','o', '\0'};
-  std::string str2=tmp ;
-  std::cout<<"str:"<<str<<" str2:"<<str2<<" (str == str2): "<< (str == str2)<< std::endl;
-  std::string str3= str2;
-  str3[1]='i';
-  std::cout<<"str2:"<<str2<<std::endl;
-}
-#+END_SRC
-
-#+RESULTS:
-: str:toto str2:toto (str == str2): 1
-: str2:toto
+ #+RESULTS:
+ : str:toto str2:toto (str == str2): 1
+ : str2:toto
 
 * Syntaxe
 
@@ -639,7 +644,7 @@ for(int v : array){
 : 1,5,7,-3,
 
 * Passages d'arguments
-Les arguments sont passés passés par valeur sauf si l'on indique un passage par référence.
+Les arguments sont passés par valeur sauf si l'on indique un passage par référence.
 #+BEGIN_SRC C++ :results output verbatim :includes <iostream> :exports both
   void par_valeur(int i){
     i+= 1;
@@ -661,202 +666,203 @@ Les arguments sont passés passés par valeur sauf si l'on indique un passage pa
 : j= 1
 : j= 2
 
-* Structures de données
-** tuple
-L'utilisation de la classe [[http://www.cplusplus.com/reference/tuple/tuple/][std::tuple]] nécessite src_C++[:exports code]{#include <tuple>}
-#+BEGIN_SRC C++ :includes <iostream>, <tuple>, <string> :results output verbatim :exports both
-std::tuple<int, float> t_if(2, 0.5f);
-std::tuple<int, std::string> t_is= std::make_tuple(0, "toto");
+* Bibliothèque standard
+** Structures de données
+*** tuple
+ L'utilisation de la classe [[http://www.cplusplus.com/reference/tuple/tuple/][std::tuple]] nécessite src_C++[:exports code]{#include <tuple>}
+ #+BEGIN_SRC C++ :includes <iostream>, <tuple>, <string> :results output verbatim :exports both
+ std::tuple<int, float> t_if(2, 0.5f);
+ std::tuple<int, std::string> t_is= std::make_tuple(0, "toto");
 
-std::get<0>(t_is)= std::get<0>(t_if);
-std::cout<< std::get<0>(t_is)<<','<<std::get<1>(t_is)<<std::endl;
-#+END_SRC
+ std::get<0>(t_is)= std::get<0>(t_if);
+ std::cout<< std::get<0>(t_is)<<','<<std::get<1>(t_is)<<std::endl;
+ #+END_SRC
 
-#+RESULTS:
-: 2,toto
-** array
-L'utilisation de la classe [[http://www.cplusplus.com/reference/array/array/][std::array]] nécessite src_C++[:exports code]{#include <array>}.
- La taille fait partie du type (donc fixe). Joue pour les tableaux le
-même rôle que src_C++[:exports code]{std::string} pour les chaînes de
-caractères.
+ #+RESULTS:
+ : 2,toto
+*** array
+ L'utilisation de la classe [[http://www.cplusplus.com/reference/array/array/][std::array]] nécessite src_C++[:exports code]{#include <array>}.
+  La taille fait partie du type (donc fixe). Joue pour les tableaux le
+ même rôle que src_C++[:exports code]{std::string} pour les chaînes de
+ caractères.
 
-#+BEGIN_SRC C++ :includes <iostream> <array> :results output verbatim :exports both
-std::array<int, 3> a{-1, 2, 0};
-auto b= a;
-std::array<int, 3> c{-1, 2, 0};
-b[0]= 5;
-std::cout << a[0] << ", (a == c): "<<(a== c)<<std::endl;
-#+END_SRC
+ #+BEGIN_SRC C++ :includes <iostream> <array> :results output verbatim :exports both
+ std::array<int, 3> a{-1, 2, 0};
+ auto b= a;
+ std::array<int, 3> c{-1, 2, 0};
+ b[0]= 5;
+ std::cout << a[0] << ", (a == c): "<<(a== c)<<std::endl;
+ #+END_SRC
 
-#+RESULTS:
-: -1, (a == c): 1
+ #+RESULTS:
+ : -1, (a == c): 1
 
-** vector
-[[http://www.cplusplus.com/reference/vector/vector/][std::vector]] est semblable aux listes de python, mais avec éléments de même type.
-Nécessite src_C++[:exports code]{#include <vector>}
-#+BEGIN_SRC C++ :includes <iostream> <vector> :results output verbatim :exports both
-std::vector<int> v_i;
-v_i.push_back(1);
-v_i.push_back(2);
-v_i.push_back(4);
-v_i.pop_back();
-std::cout<<v_i.size()<<" elts:"<<v_i[0]<<","<<v_i[1]<<std::endl;
-#+END_SRC
+*** vector
+ [[http://www.cplusplus.com/reference/vector/vector/][std::vector]] est semblable aux listes de python, mais avec éléments de même type.
+ Nécessite src_C++[:exports code]{#include <vector>}
+ #+BEGIN_SRC C++ :includes <iostream> <vector> :results output verbatim :exports both
+ std::vector<int> v_i;
+ v_i.push_back(1);
+ v_i.push_back(2);
+ v_i.push_back(4);
+ v_i.pop_back();
+ std::cout<<v_i.size()<<" elts:"<<v_i[0]<<","<<v_i[1]<<std::endl;
+ #+END_SRC
 
-#+RESULTS:
-: 2 elts:1,2
+ #+RESULTS:
+ : 2 elts:1,2
 
-** list
-[[http://www.cplusplus.com/reference/list/list/][std::list]] permet des opérations efficaces en tête de liste (/front/). Ne permet pas un accès aléatoire.
-Nécessite src_C++[:exports code]{#include <list>}
-#+BEGIN_SRC C++ :includes <iostream> <list> :results output verbatim :exports both
-std::list<int> c;
-c.push_front(1);
-c.pop_back();
-c.push_front(2);
-c.push_front(4);
-std::cout<<"c.empty():"<<c.empty()<<", elts:";
-auto it=c.begin();
-std::cout<< *it<<',';
-++it;
-std::cout<<*it<<std::endl;
-#+END_SRC
+*** list
+ [[http://www.cplusplus.com/reference/list/list/][std::list]] permet des opérations efficaces en tête de liste (/front/). Ne permet pas un accès aléatoire.
+ Nécessite src_C++[:exports code]{#include <list>}
+ #+BEGIN_SRC C++ :includes <iostream> <list> :results output verbatim :exports both
+ std::list<int> c;
+ c.push_front(1);
+ c.pop_back();
+ c.push_front(2);
+ c.push_front(4);
+ std::cout<<"c.empty():"<<c.empty()<<", elts:";
+ auto it=c.begin();
+ std::cout<< *it<<',';
+ ++it;
+ std::cout<<*it<<std::endl;
+ #+END_SRC
 
-#+RESULTS:
-: c.empty():0, elts:4,2
+ #+RESULTS:
+ : c.empty():0, elts:4,2
 
-** unordered_map
-[[http://www.cplusplus.com/reference/unordered_map/unordered_map/][std::unordered_map]] est équivalent aux dictionnaires de python, mais avec des types.
+*** unordered_map
+ [[http://www.cplusplus.com/reference/unordered_map/unordered_map/][std::unordered_map]] est équivalent aux dictionnaires de python, mais avec des types.
 
-Nécessite src_C++[:exports code]{#include <unordered_map>}.
-#+BEGIN_SRC C++ :includes <iostream> <unordered_map> :results output verbatim :exports both
-std::unordered_map<std::string, int> name_to_score;
-name_to_score["toto"]=5;
-name_to_score["bernard"]= 32;
-name_to_score["patrick"]= 64;
-for(auto const & kv : name_to_score){
-  std::cout<<kv.first<<" : "<<kv.second<<std::endl;
-}
-#+END_SRC
+ Nécessite src_C++[:exports code]{#include <unordered_map>}.
+ #+BEGIN_SRC C++ :includes <iostream> <unordered_map> :results output verbatim :exports both
+ std::unordered_map<std::string, int> name_to_score;
+ name_to_score["toto"]=5;
+ name_to_score["bernard"]= 32;
+ name_to_score["patrick"]= 64;
+ for(auto const & kv : name_to_score){
+   std::cout<<kv.first<<" : "<<kv.second<<std::endl;
+ }
+ #+END_SRC
 
-#+RESULTS:
-: patrick : 64
-: toto : 5
-: bernard : 32
+ #+RESULTS:
+ : patrick : 64
+ : toto : 5
+ : bernard : 32
 
-** unordered_set
-[[http://www.cplusplus.com/reference/unordered_set/unordered_set/][std::unordered_set]] ermet de tester *efficacement* si un ensemle contient un élément, et d'éviter
-les doublons.
+*** unordered_set
+ [[http://www.cplusplus.com/reference/unordered_set/unordered_set/][std::unordered_set]] ermet de tester *efficacement* si un ensemle contient un élément, et d'éviter
+ les doublons.
 
-#+BEGIN_SRC C++ :includes <iostream> <unordered_set> :results output verbatim :exports both
-std::unordered_set<std::string> names;
-names.insert("toto");
-names.insert("titi");
-names.insert("toto");
-std::string to_find("titi");
-if(names.find(to_find) != names.end()){
-  std::cout << to_find <<" trouvé dans ";
-}
-for(auto name : names){
-  std::cout<< name <<", ";
-}
-#+END_SRC
+ #+BEGIN_SRC C++ :includes <iostream> <unordered_set> :results output verbatim :exports both
+ std::unordered_set<std::string> names;
+ names.insert("toto");
+ names.insert("titi");
+ names.insert("toto");
+ std::string to_find("titi");
+ if(names.find(to_find) != names.end()){
+   std::cout << to_find <<" trouvé dans ";
+ }
+ for(auto name : names){
+   std::cout<< name <<", ";
+ }
+ #+END_SRC
 
-#+RESULTS:
-: titi trouvé dans titi, toto,
+ #+RESULTS:
+ : titi trouvé dans titi, toto,
 
-* Itérateurs
-Les structures de données, entre autres !, donnent accès aux éléments à travers
-des /iterateurs/. Ils sont catégorisés selon les opérations qu'ils permettent
-(en plus de l'accès par l'opérateur src_C++[:exports code]{ * } et de la
-comparaison par l'opérateur src_C++[:exports code]{ == }).
-** forward iterator
-   Incrémentation pour passer à l'élément suivant avec l'opérateur
-src_C++[:exports code]{++}.
+** Itérateurs
+ Les structures de données, entre autres !, donnent accès aux éléments à travers
+ des /iterateurs/. Ils sont catégorisés selon les opérations qu'ils permettent
+ (en plus de l'accès par l'opérateur src_C++[:exports code]{ * } et de la
+ comparaison par l'opérateur src_C++[:exports code]{ == }).
+*** forward iterator
+    Incrémentation pour passer à l'élément suivant avec l'opérateur
+ src_C++[:exports code]{++}.
 
-#+BEGIN_SRC C++ :results output verbatim :includes <iostream> <iterator> :exports both
-std::ostream_iterator<int> out(std::cout, ", ");
-for(int i=0; i != 5; ++i, ++out){
-  *out= i;
-}
-#+END_SRC
+ #+BEGIN_SRC C++ :results output verbatim :includes <iostream> <iterator> :exports both
+ std::ostream_iterator<int> out(std::cout, ", ");
+ for(int i=0; i != 5; ++i, ++out){
+   *out= i;
+ }
+ #+END_SRC
 
-#+RESULTS:
-: 0, 1, 2, 3, 4,
+ #+RESULTS:
+ : 0, 1, 2, 3, 4,
 
-** Bidirectional iterator
-   En plus des opérations du /forward iterator/, on peut aussi décrémenter pour
-   aller à l'élément précédant :
-#+BEGIN_SRC C++ :includes <iostream> <list> :results output verbatim :exports both
-std::list<int> c{2, 3, 5, 7};
-auto it=c.begin();
-std::cout<< *it <<',';
-++it;
-std::cout<< *it <<std::endl;
---it;
-std::cout<< *it <<std::endl;
-#+END_SRC
+*** Bidirectional iterator
+    En plus des opérations du /forward iterator/, on peut aussi décrémenter pour
+    aller à l'élément précédant :
+ #+BEGIN_SRC C++ :includes <iostream> <list> :results output verbatim :exports both
+ std::list<int> c{2, 3, 5, 7};
+ auto it=c.begin();
+ std::cout<< *it <<',';
+ ++it;
+ std::cout<< *it <<std::endl;
+ --it;
+ std::cout<< *it <<std::endl;
+ #+END_SRC
 
-#+RESULTS:
-: 2,3
-: 2
+ #+RESULTS:
+ : 2,3
+ : 2
  
-** Random access iterator
-En plus des opérations du /bidirection iterator/, on peut aller directement à
-n'importe quel élément situé à =n= positions dans un sens ou dans l'autre (comme
-par opérations arithmétiques sur des pointeurs) :
-#+BEGIN_SRC C++ :includes <iostream> <vector> :results output verbatim :exports both
-std::vector<int> v_i {2, 3, 5, 7, 11};
-auto it= v_i.begin();
-it += 2;
-std::cout<< *it <<' '<< *(it-2) <<' '<< *(it + 2) <<std::endl;
-#+END_SRC
+*** Random access iterator
+ En plus des opérations du /bidirection iterator/, on peut aller directement à
+ n'importe quel élément situé à =n= positions dans un sens ou dans l'autre (comme
+ par opérations arithmétiques sur des pointeurs) :
+ #+BEGIN_SRC C++ :includes <iostream> <vector> :results output verbatim :exports both
+ std::vector<int> v_i {2, 3, 5, 7, 11};
+ auto it= v_i.begin();
+ it += 2;
+ std::cout<< *it <<' '<< *(it-2) <<' '<< *(it + 2) <<std::endl;
+ #+END_SRC
 
-#+RESULTS:
-: 5 2 11
+ #+RESULTS:
+ : 5 2 11
 
-* Algorithmes
-On peut appliquer [[http://www.cplusplus.com/reference/algorithm/copy/][des algorithmes]] sur n'importe quel intervalle de n'importe
-quelle structure de données grâce à des intervalles \( \left[ begin, end \right[
-\) et des itérateurs en écriture. Ils nécessire l'inclusion du header
-correspondant avec src_C++[:exports code]{#include <algorithm>}
-** copy
-[[http://www.cplusplus.com/reference/algorithm/copy/][std::copy]]
-#+BEGIN_SRC C++ :includes <iostream> <vector> <iterator> :results output verbatim :exports both
-std::vector<int> v{2, 3, 5, 7, 11};
-std::copy(v.begin(), v.end(), std::ostream_iterator<int>(std::cout, ", "));
-#+END_SRC
+** Algorithmes
+ On peut appliquer [[http://www.cplusplus.com/reference/algorithm/copy/][des algorithmes]] sur n'importe quel intervalle de n'importe
+ quelle structure de données grâce à des intervalles \( \left[ begin, end \right[
+ \) et des itérateurs en écriture. Ils nécessire l'inclusion du header
+ correspondant avec src_C++[:exports code]{#include <algorithm>}
+*** copy
+ [[http://www.cplusplus.com/reference/algorithm/copy/][std::copy]]
+ #+BEGIN_SRC C++ :includes <iostream> <vector> <iterator> :results output verbatim :exports both
+ std::vector<int> v{2, 3, 5, 7, 11};
+ std::copy(v.begin(), v.end(), std::ostream_iterator<int>(std::cout, ", "));
+ #+END_SRC
 
-#+RESULTS:
-: 2, 3, 5, 7, 11,
-** shuffle
-[[http://www.cplusplus.com/reference/algorithm/shuffle/][std::shuffle]] nécessite un générateur de nombres aléatoires (Random Numbers Generator), avec
-src_C++[:exports code]{#include <random>}. L'initialisation de celui-ci peut
-changer en se basant sur l'instant au moment d'exécution (cf. src_C++[:exports
-code]{#include <chrono>}.
-#+BEGIN_SRC C++ :includes <chrono> <iostream> <vector> <algorithm> <random> <iterator> :results output verbatim :export both
-std::vector<int> v{2, 3, 5, 7, 11};
-std::size_t seed = std::chrono::system_clock::now().time_since_epoch().count();
-std::shuffle(v.begin(), v.end(), std::default_random_engine(seed)); 
-std::copy(v.begin(), v.end(), std::ostream_iterator<int>(std::cout, ", "));
-#+END_SRC
+ #+RESULTS:
+ : 2, 3, 5, 7, 11,
+*** shuffle
+ [[http://www.cplusplus.com/reference/algorithm/shuffle/][std::shuffle]] nécessite un générateur de nombres aléatoires (Random Numbers Generator), avec
+ src_C++[:exports code]{#include <random>}. L'initialisation de celui-ci peut
+ changer en se basant sur l'instant au moment d'exécution (cf. src_C++[:exports
+ code]{#include <chrono>}.
+ #+BEGIN_SRC C++ :includes <chrono> <iostream> <vector> <algorithm> <random> <iterator> :results output verbatim :export both
+ std::vector<int> v{2, 3, 5, 7, 11};
+ std::size_t seed = std::chrono::system_clock::now().time_since_epoch().count();
+ std::shuffle(v.begin(), v.end(), std::default_random_engine(seed)); 
+ std::copy(v.begin(), v.end(), std::ostream_iterator<int>(std::cout, ", "));
+ #+END_SRC
 
-#+RESULTS:
-: 3, 11, 5, 2, 7,
+ #+RESULTS:
+ : 3, 11, 5, 2, 7,
 
-** sort
-On peut trier un intervalle d'éléments d'une séquence avec [[http://www.cplusplus.com/reference/algorithm/sort/][std::sort]]. La relation d'ordre est paramétrable.
+*** sort
+ On peut trier un intervalle d'éléments d'une séquence avec [[http://www.cplusplus.com/reference/algorithm/sort/][std::sort]]. La relation d'ordre est paramétrable.
 
-#+BEGIN_SRC C++ :includes <chrono> <iostream> <vector> <algorithm> <random> <iterator> :results output verbatim :export both
-std::vector<int> v{7, 3, 2, 5, 11};
-std::size_t seed = std::chrono::system_clock::now().time_since_epoch().count();
-std::shuffle(v.begin(), v.end(), std::default_random_engine(seed)); 
-std::sort(v.begin(), v.end());
-std::copy(v.begin(), v.end(), std::ostream_iterator<int>(std::cout, ", "));
-#+END_SRC
+ #+BEGIN_SRC C++ :includes <chrono> <iostream> <vector> <algorithm> <random> <iterator> :results output verbatim :export both
+ std::vector<int> v{7, 3, 2, 5, 11};
+ std::size_t seed = std::chrono::system_clock::now().time_since_epoch().count();
+ std::shuffle(v.begin(), v.end(), std::default_random_engine(seed)); 
+ std::sort(v.begin(), v.end());
+ std::copy(v.begin(), v.end(), std::ostream_iterator<int>(std::cout, ", "));
+ #+END_SRC
 
-#+RESULTS:
-: 2, 3, 5, 7, 11,
+ #+RESULTS:
+ : 2, 3, 5, 7, 11,
 
 * Sémantique
 Par défaut les valeurs sont passées par *copie*.
@@ -915,6 +921,7 @@ On peut vouloir :
 - permettre la modification d'une variable passée en argument
 
 \rightarrow passage par référence
+#+REVEAL: split
 #+BEGIN_SRC C++ :results output verbatim :includes <iostream> <vector> :exports both
 void f(int& i){
   i +=1;
@@ -939,6 +946,7 @@ int main(int argc, char* argv[]){
 * Exemples 
 Traductions en C++ de fonctions vues en DS.
 ** Limites
+
 #+BEGIN_SRC C++
   std::tuple<int> limites(std::vector<int> const& xs){
     int min_x= xs[0];
@@ -953,7 +961,6 @@ Traductions en C++ de fonctions vues en DS.
     }
     return std::make_tuple(min_x, max_x);
   }
-
   template<typename T>
   std::tuple<T> limites_generic(std::vector<T> const& xs){
     T min_x= xs[0];
@@ -968,8 +975,10 @@ Traductions en C++ de fonctions vues en DS.
     }
     return std::make_tuple(min_x, max_x);
   }
+#+END_SRC
 
-
+#+REVEAL: split
+#+BEGIN_SRC C++
   template<typename It>
   std::tuple<decltype(*It), decltype(*It)>
   limites_iter(It begin, It end){
@@ -986,7 +995,9 @@ Traductions en C++ de fonctions vues en DS.
     }
     return std::make_tuple(min_x, max_x);
   }
-
+#+END_SRC
+#+REVEAL: split
+#+BEGIN_SRC C++
   template<typename It>
   std::tuple<decltype(*It), decltype(*It)>
   limites_iter2(It begin, It end){
@@ -1068,15 +1079,11 @@ Traductions en C++ de fonctions vues en DS.
     }
     return true;
   }
-
-
   bool palindrom_idiomatic(It begin, It end){
     std::size_t const half= std::distance(begin, end)/2;
     std::reverse_iterator<It> rbegin(end);
     for(std::size_t i=0; i != half; ++i, ++begin, ++rbegin){
-      if(*begin != *rbegin){
-        return false;
-      }
+      if(*begin != *rbegin){return false;}
     }
     return true;
   }
@@ -1149,10 +1156,10 @@ Traductions en C++ de fonctions vues en DS.
 * Programmes
 
 ** Pendu
-On eut essayer de réécrire le programme de eu de pendu en C++. Cependant, la
+On eut essayer de [[https://gist.github.com/bhugueney/55bbd89b3092ce9860a3d28c118b9cb3][réécrire le programme de jeu de pendu en C++]]. Cependant, la
 notion de lettre n'étant pas gérée (ne pas confondre lettres et caractères !),
 le programme ne marchera pas avec des lettres codées sur plusieurs octets
-(accentuées par exemple). our ce genre de programme sans impératifs de
+(accentuées par exemple). Pour ce genre de programmes sans impératifs de
 performance, python est donc plus adapté.
 
 #+BEGIN_SRC C++ :tangle pendu.cxx
@@ -1167,6 +1174,9 @@ performance, python est donc plus adapté.
     }
     return res;
   }
+#+END_SRC
+#+REVEAL: split
+#+BEGIN_SRC C++
 
   void affichage_mot_mystere(std::string const& mot_mystere){
     for(char const& c : mot_mystere){
@@ -1188,6 +1198,9 @@ performance, python est donc plus adapté.
     }
     return saisie[0];
   }
+#+END_SRC
+#+REVEAL: split
+#+BEGIN_SRC C++
 
   std::string mise_a_jour_mot_mystere(char lettre, std::string const& mot, std::string const& mot_mystere){
     std::string res;
@@ -1204,6 +1217,9 @@ performance, python est donc plus adapté.
     char lettre_saisie= saisie_joueur2();
     return mise_a_jour_mot_mystere(lettre_saisie, mot, mot_mystere);
   }
+#+END_SRC
+#+REVEAL: split
+#+BEGIN_SRC C++
 
   bool test_jeu_fini(std::string const& mot_mystere, int nb_coups_restants){
     if(mot_mystere.find('_') == std::string::npos){
@@ -1215,6 +1231,9 @@ performance, python est donc plus adapté.
     }
     return false;
   }
+#+END_SRC
+#+REVEAL: split
+#+BEGIN_SRC C++
 
   int main(int argc, char* argv[]){
     while(true){
@@ -1266,6 +1285,7 @@ python ./chaos-game.py 5  | convert pgm:- chaos-game-py-frame-5.pgm
 #+END_SRC
 
 pour d'obtenir l'image suivante :
+#+REVEAL: split
 [[file:chaos-game-py-frame-5.png]]
 
 On voudrait faire varier progressivement le paramètre de 3.00 à 8.00 avec un
@@ -1273,6 +1293,7 @@ incrément de 0.01 pour générer une animation. Comme le programme python met 2
 minutes par image, les 500 images nécessaires prendraient 1000 minutes, soit
 beaucoup trop longtemps ! On va donc réécrire le programme en C++.
 *** Programme en Python
+[[https://gist.github.com/bhugueney/570df58e6f0e2172f90785ed21c200a2][Implémentation en python]]
 #+BEGIN_SRC python :tangle chaos-game.py
   import sys
   import math
@@ -1342,7 +1363,7 @@ beaucoup trop longtemps ! On va donc réécrire le programme en C++.
 
 *** Réécriture partielle en C++
 Au lieu de 17 heures pour générer les 500 images, on peut réduite le temps d'exécution à 17 minutes sur la
-base du programme suivant.
+base du [[https://gist.github.com/bhugueney/affd277baac3eb8f8ae8801d54eee285][programme suivant]]. 
 
 #+BEGIN_SRC C++ :tangle chaos-game-double.cxx
   #include <iostream>

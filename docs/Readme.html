@@ -1,0 +1,2040 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<title>Initiation au C++</title>
+<meta name="author" content="(Bernard Hugueney)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/reveal.js/3.0.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/moon.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/reveal.js/3.0.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Initiation au C++</h1><h2 class="author">Bernard Hugueney</h2><p class="date">Created: 2018-01-02 Tue 23:32</p>
+</section>
+<section id="table-of-contents">
+<div id="table-of-contents">
+<h2>Table des matières</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#/slide-orgc84c215">1. Méta</a></li>
+<li><a href="#/slide-org50acd9a">2. Qu'est-ce que le C++ ?</a></li>
+<li><a href="#/slide-org645730f">3. Un langage polyvalent et multi-paradigme</a></li>
+<li><a href="#/slide-org4e10c84">4. Programmation Orientée Objet</a></li>
+<li><a href="#/slide-org623e723">5. Remarques générales</a></li>
+<li><a href="#/slide-orge76a672">6. Types</a></li>
+<li><a href="#/slide-org72d382d">7. Syntaxe</a></li>
+<li><a href="#/slide-org0bda66c">8. Passages d'arguments</a></li>
+<li><a href="#/slide-orga983122">9. Bibliothèque standard</a></li>
+<li><a href="#/slide-org8ddd9a9">10. Sémantique</a></li>
+<li><a href="#/slide-org11a286f">11. Exemples</a></li>
+<li><a href="#/slide-orgb1faeb7">12. Programmes</a></li>
+</ul>
+</div>
+</div>
+</section>
+
+
+<section>
+<section id="slide-orgc84c215">
+<h2 id="orgc84c215"><span class="section-number-2">1</span> Méta</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+</section>
+<section id="slide-org9a31f80">
+<h3 id="org9a31f80"><span class="section-number-3">1.1</span> Objectifs</h3>
+<p>
+Faciliter l'apprentissage ultérieur du C++
+</p>
+
+</section>
+<section id="slide-org41ad823">
+<h3 id="org41ad823"><span class="section-number-3">1.2</span> Prérequis</h3>
+<p>
+Comprendre le langage Python et savoir écrire des programmes en Python
+</p>
+
+</section>
+<section id="slide-orgabc1fb2">
+<h3 id="orgabc1fb2"><span class="section-number-3">1.3</span> Méthode</h3>
+<p>
+Pratique :
+Essayer d'executer les fragments de code, par exemple sur :
+</p>
+<ul>
+<li><a href="https://www.onlinegdb.com/">https://www.onlinegdb.com/</a></li>
+<li><a href="http://coliru.stacked-crooked.com/">http://coliru.stacked-crooked.com/</a></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org50acd9a">
+<h2 id="org50acd9a"><span class="section-number-2">2</span> Qu'est-ce que le C++ ?</h2>
+<p>
+Par rapport à Python, le C++ est un langage :
+</p>
+<ul>
+<li>compilé</li>
+<li>avec typage statique</li>
+
+</ul>
+</section>
+<section id="slide-orgb944cfd">
+<h3 id="orgb944cfd"><span class="section-number-3">2.1</span> Compilation</h3>
+<p>
+Le code C++ n'est pas exécuté directement et il n'y a pas de console (REPL) C++.
+Les programmes en C++ sont "traduits" (compilés) en <i>exécutables</i>.
+<a href="https://godbolt.org/">https://godbolt.org/</a>
+</p>
+</section>
+<section id="slide-org428e464">
+<h4 id="org428e464"><span class="section-number-4">2.1.1</span> Inconvénients de la compilation</h4>
+<ul>
+<li>pas d'interactivité</li>
+<li>les exécutables sont spécifiques à l'architecture (CPU &amp; Système d'exploitation)</li>
+
+</ul>
+</section>
+<section id="slide-org4862a30">
+<h4 id="org4862a30"><span class="section-number-4">2.1.2</span> Avantages de la compilation</h4>
+<ul>
+<li>rapidité d'exécution</li>
+<li>permet de tirer parti du <i>typage statique</i> pour avoir des erreurs de
+compilations (!)</li>
+<li>(permettra l'écriture de programme parallèles)</li>
+
+</ul>
+
+</section>
+<section id="slide-orga2b0723">
+<h4 id="orga2b0723"><span class="section-number-4">2.1.3</span> compilation en pratique</h4>
+<p>
+utilisation d'un compilateur sur chaque fichier source, puis édition de liens.
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-shell">gcc fichier-source.cxx -o fichier-executable
+</pre>
+</div>
+</section>
+<section id="slide-orgfbeb339">
+<h3 id="orgfbeb339"><span class="section-number-3">2.2</span> Typage statique</h3>
+<p>
+Toutes les expressions ont un type connu à la compilation (<b>avant</b> l'exécution !)
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">is_inside_unit_circle</span><span style="color: #4f97d7;">(</span>x, y<span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7; font-weight: bold;">return</span> x*x + y*y &lt; <span style="color: #a45bad;">1</span>
+</pre>
+</div>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">bool</span> <span style="color: #bc6ec5; font-weight: bold;">is_inside_unit_circle</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">x</span>, <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">y</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> x*x + y*y &lt; <span style="color: #a45bad;">1</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+</section>
+<section id="slide-org739e953">
+<h4 id="org739e953"><span class="section-number-4">2.2.1</span> Typage générique</h4>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #4f97d7; font-weight: bold;">template</span><span style="color: #4f97d7;">&lt;</span>T<span style="color: #4f97d7;">&gt;</span> <span style="color: #ce537a; font-weight: bold;">bool</span> <span style="color: #bc6ec5; font-weight: bold;">is_inside_unit_circle</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">T</span> <span style="color: #7590db;">x</span>, <span style="color: #ce537a; font-weight: bold;">T</span> <span style="color: #7590db;">y</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> x*x + y*y &lt; <span style="color: #a45bad;">1</span>;
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #ce537a; font-weight: bold;">bool</span> <span style="color: #7590db;">test</span>= is_inside_unit_circle<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">0.1</span>, <span style="color: #a45bad;">0.1</span><span style="color: #4f97d7;">)</span>;
+</pre>
+</div>
+
+</section>
+<section id="slide-orgbc8360a">
+<h4 id="orgbc8360a"><span class="section-number-4">2.2.2</span> Typage automatique</h4>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">str</span><span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"test"</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">str2</span>=str + <span style="color: #2d9574;">" concat"</span>;
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>= <span style="color: #a45bad;">5</span>;
+<span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">j</span> = i/<span style="color: #a45bad;">2</span>;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt; str2 &lt;&lt; <span style="color: #2d9574;">" "</span>&lt;&lt; j;
+</pre>
+</div>
+
+<pre class="example">
+test concat 2
+
+</pre>
+
+</section>
+<section id="slide-org7e52bc2">
+<h4 id="org7e52bc2"><span class="section-number-4">2.2.3</span> conversions de type</h4>
+<p>
+<code>-Wconversion -Werror</code>
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">c</span>= <span style="color: #a45bad;">13.5f</span>;
+<span style="color: #ce537a; font-weight: bold;">float</span> <span style="color: #7590db;">d</span>= c/<span style="color: #a45bad;">2</span>;
+<span style="color: #ce537a; font-weight: bold;">unsigned</span> <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">e</span> = -<span style="color: #a45bad;">1</span>; 
+<span style="color: #a45bad;">std</span>::cout&lt;&lt; c &lt;&lt; <span style="color: #2d9574;">" "</span> &lt;&lt; d &lt;&lt; <span style="color: #2d9574;">" "</span> &lt;&lt; e &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+error: conversion to ‘int’ alters ‘float’ constant value [-Werror=float-conversion]
+int c= 13.5f;
+       ^~~~~
+cc1plus: all warnings being treated as errors
+
+</pre>
+
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">c</span>= <span style="color: #4f97d7; font-weight: bold;">static_cast</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #4f97d7;">&gt;(</span><span style="color: #a45bad;">13.5f</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #ce537a; font-weight: bold;">float</span> <span style="color: #7590db;">d</span>= <span style="color: #4f97d7; font-weight: bold;">static_cast</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">float</span><span style="color: #4f97d7;">&gt;(</span>c/<span style="color: #a45bad;">2</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #ce537a; font-weight: bold;">unsigned</span> <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">e</span> = <span style="color: #4f97d7; font-weight: bold;">static_cast</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #4f97d7;">&gt;(</span>-<span style="color: #a45bad;">1</span><span style="color: #4f97d7;">)</span>; 
+<span style="color: #a45bad;">std</span>::cout&lt;&lt; c &lt;&lt; <span style="color: #2d9574;">" "</span> &lt;&lt; d &lt;&lt; <span style="color: #2d9574;">" "</span> &lt;&lt; e &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt; <span style="color: #4f97d7;">(</span>-<span style="color: #a45bad;">1</span> % <span style="color: #a45bad;">4</span><span style="color: #4f97d7;">)</span> &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">13</td>
+<td class="org-right">6</td>
+<td class="org-right">4294967295</td>
+</tr>
+
+<tr>
+<td class="org-right">-1</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+</section>
+<section id="slide-org9f8d4ec">
+<h3 id="org9f8d4ec"><span class="section-number-3">2.3</span> Le type peut indiquer qu'une valeur est constante</h3>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #4f97d7; font-weight: bold;">import</span> math
+<span style="color: #7590db;">math.pi</span>= <span style="color: #a45bad;">2</span>
+<span style="color: #4f97d7; font-weight: bold;">print</span><span style="color: #4f97d7;">(</span>math.cos<span style="color: #bc6ec5;">(</span>math.pi/<span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+0.5403023058681398
+
+</pre>
+
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">pi</span>= <span style="color: #a45bad;">std</span>::acos<span style="color: #4f97d7;">(</span>-<span style="color: #a45bad;">1</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">nice try</span>
+pi= <span style="color: #a45bad;">2.0</span>;
+<span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #a45bad;">std</span>::cos<span style="color: #4f97d7;">(</span>pi/<span style="color: #a45bad;">2</span>.<span style="color: #4f97d7;">)</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+error: assignment of read-only variable ‘pi’
+pi= 2.0;
+    ^~~
+
+</pre>
+
+
+</section>
+<section id="slide-org6925d4d">
+<h3 id="org6925d4d"><span class="section-number-3">2.4</span> Erreurs de compilation</h3>
+<p>
+Détection automatique des erreurs de type.
+</p>
+
+
+<p>
+Mieux qu'une erreur à l'exécution !
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #7590db;">n</span>= <span style="color: #4f97d7;">input</span><span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"Entrez le nombre de fl&#233;chettes &#224; lancer"</span><span style="color: #4f97d7;">)</span>
+<span style="color: #7590db;">inside</span>= <span style="color: #a45bad;">0</span>
+<span style="color: #4f97d7; font-weight: bold;">for</span> i <span style="color: #4f97d7; font-weight: bold;">in</span> <span style="color: #4f97d7;">range</span><span style="color: #4f97d7;">(</span>n<span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7; font-weight: bold;">if</span> is_inside_unit_circle<span style="color: #4f97d7;">(</span>random.random<span style="color: #bc6ec5;">()</span>, random.random<span style="color: #bc6ec5;">()</span><span style="color: #4f97d7;">)</span>:
+        <span style="color: #7590db;">inside</span> +=<span style="color: #a45bad;">1</span>
+<span style="color: #4f97d7; font-weight: bold;">print</span><span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"Sur {} fl&#233;chettes, {} &#224; l'int&#233;rieur. Pi ~ {}"</span>.<span style="color: #4f97d7;">format</span><span style="color: #bc6ec5;">(</span>n, inside, <span style="color: #a45bad;">4</span> * inside/n<span style="color: #bc6ec5;">)</span> <span style="color: #4f97d7;">)</span>
+
+</pre>
+</div>
+
+</section>
+<section id="slide-org1631465">
+<h3 id="org1631465"><span class="section-number-3">2.5</span> Performance</h3>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #4f97d7; font-weight: bold;">import</span> random
+<span style="color: #4f97d7; font-weight: bold;">import</span> time
+
+<span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">is_inside_unit_circle</span><span style="color: #4f97d7;">(</span>x, y<span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7; font-weight: bold;">return</span> x*x + y*y &lt; <span style="color: #a45bad;">1</span>
+
+<span style="color: #7590db;">n</span>= <span style="color: #a45bad;">100000000</span> <span style="color: #2aa1ae; background-color: #292e34;">#</span><span style="color: #2aa1ae; background-color: #292e34;">int(input("Entrez le nombre de fl&#233;chettes &#224; lancer"))</span>
+<span style="color: #7590db;">inside</span>= <span style="color: #a45bad;">0</span>
+<span style="color: #7590db;">start</span>= time.time<span style="color: #4f97d7;">()</span>
+<span style="color: #4f97d7; font-weight: bold;">for</span> i <span style="color: #4f97d7; font-weight: bold;">in</span> <span style="color: #4f97d7;">range</span><span style="color: #4f97d7;">(</span>n<span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7; font-weight: bold;">if</span> is_inside_unit_circle<span style="color: #4f97d7;">(</span>random.random<span style="color: #bc6ec5;">()</span>, random.random<span style="color: #bc6ec5;">()</span><span style="color: #4f97d7;">)</span>:
+        <span style="color: #7590db;">inside</span> +=<span style="color: #a45bad;">1</span>
+<span style="color: #4f97d7; font-weight: bold;">print</span><span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"simulation faite en {} secondes."</span>.<span style="color: #4f97d7;">format</span><span style="color: #bc6ec5;">(</span>time.time<span style="color: #2d9574;">()</span> - start<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7; font-weight: bold;">print</span><span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"Sur {} fl&#233;chettes, {} &#224; l'int&#233;rieur. Pi ~ {}"</span>.<span style="color: #4f97d7;">format</span><span style="color: #bc6ec5;">(</span>n, inside, <span style="color: #a45bad;">4</span> * inside/n<span style="color: #bc6ec5;">)</span> <span style="color: #4f97d7;">)</span>
+
+</pre>
+</div>
+
+<pre class="example">
+simulation faite en 63.49054312705994 secondes.
+Sur 100000000 fléchettes, 78538271 à l'intérieur. Pi ~ 3.14153084
+
+</pre>
+</section>
+<section >
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">iostream</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">random</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">chrono</span><span style="color: #4f97d7;">&gt;</span>
+
+
+<span style="color: #ce537a; font-weight: bold;">bool</span> <span style="color: #bc6ec5; font-weight: bold;">is_inside_unit_circle</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">x</span>, <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">y</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> x*x + y*y &lt; <span style="color: #a45bad;">1</span>;
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">arc</span>, <span style="color: #ce537a; font-weight: bold;">char</span>* <span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">default_random_engine</span> <span style="color: #7590db;">generator</span>;
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">uniform_real_distribution</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">double</span><span style="color: #bc6ec5;">&gt;</span> <span style="color: #7590db;">distribution</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">0.0</span>,<span style="color: #a45bad;">1.0</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">std::cout&lt;&lt;"Entrez le nombre de fl&#233;chettes &#224; lancer :";</span>
+  <span style="color: #ce537a; font-weight: bold;">long</span> <span style="color: #7590db;">n</span>= <span style="color: #a45bad;">100000000</span>; <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">std::cin &gt;&gt; n ;</span>
+  <span style="color: #ce537a; font-weight: bold;">long</span> <span style="color: #7590db;">inside</span>= <span style="color: #a45bad;">0</span>;
+  <span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">start</span>= <span style="color: #a45bad;">std</span>::<span style="color: #a45bad;">chrono</span>::<span style="color: #a45bad;">system_clock</span>::now<span style="color: #bc6ec5;">()</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">long</span> <span style="color: #7590db;">i</span>=<span style="color: #a45bad;">0</span>; i != n; ++i<span style="color: #bc6ec5;">){</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #2d9574;">(</span>is_inside_unit_circle<span style="color: #67b11d;">(</span>distribution<span style="color: #b1951d;">(</span>generator<span style="color: #b1951d;">)</span>, distribution<span style="color: #b1951d;">(</span>generator<span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">){</span>
+      ++inside;
+    <span style="color: #2d9574;">}</span>
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">nanosecs</span>= <span style="color: #a45bad;">std</span>::<span style="color: #a45bad;">chrono</span>::<span style="color: #a45bad;">system_clock</span>::now<span style="color: #bc6ec5;">()</span> - start;
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"simulation faite en "</span>&lt;&lt; nanosecs.count<span style="color: #bc6ec5;">()</span>/<span style="color: #a45bad;">10.e9</span> &lt;&lt; <span style="color: #2d9574;">" secondes."</span>&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"Sur "</span>&lt;&lt;n&lt;&lt;<span style="color: #2d9574;">" fl&#233;chettes, "</span>&lt;&lt; inside &lt;&lt; <span style="color: #2d9574;">" &#224; l'int&#233;rieur. Pi ~ "</span>
+           &lt;&lt; <span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">4</span>. * inside<span style="color: #bc6ec5;">)</span>/n &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+<span style="color: #4f97d7;">}</span>
+
+</pre>
+</div>
+
+<pre class="example">
+simulation faite en 0.209304 secondes.
+Sur 100000000 fléchettes, 78544111 à l'intérieur. Pi ~ 3.14176
+
+</pre>
+
+</section>
+<section id="slide-orgf233b72">
+<h3 id="orgf233b72"><span class="section-number-3">2.6</span> Remarques sur la performance en python</h3>
+<p>
+Il est possible d'écrire des programmes performants en Python !
+</p>
+
+<p>
+En utilisant des bibliothèques qui ne sont pas implémentées en python (e.g.
+<code>Numpy</code>) (Elles sont souvent implémentées en C++ !)
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org645730f">
+<h2 id="org645730f"><span class="section-number-2">3</span> Un langage polyvalent et multi-paradigme</h2>
+<p>
+On peut programmer à peu près n'importe quoi et n'importe comment !
+</p>
+
+<p>
+Le C++ a <b>beaucoup</b> évolué depuis 20 ans ! (&rarr; chercher des sources récentes) 
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org4e10c84">
+<h2 id="org4e10c84"><span class="section-number-2">4</span> Programmation Orientée Objet</h2>
+<p>
+Le C++ <b>permet</b> la Programmation Orientée Objet, mais nous ne nous y intéresserons pas (cf. cours de Java).
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org623e723">
+<h2 id="org623e723"><span class="section-number-2">5</span> Remarques générales</h2>
+<p>
+Pour utiliser des bibliothèques, on utilise la directive <code>#include</code>.
+</p>
+
+<p>
+Le programme est une fonction <code class="src src-C"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span>* <span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">){}</span></code>.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orge76a672">
+<h2 id="orge76a672"><span class="section-number-2">6</span> Types</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+</section>
+<section id="slide-org7a6c380">
+<h3 id="org7a6c380"><span class="section-number-3">6.1</span> types primitifs</h3>
+<div class="outline-text-3" id="text-6-1">
+</div>
+</section>
+<section id="slide-orgca1134b">
+<h4 id="orgca1134b"><span class="section-number-4">6.1.1</span> entiers</h4>
+<p>
+Généralement, on utilise des types qui ne sont pas précisément spécifiés pour
+pouvoir correspondre avec l'architecture de compilation (e.g. 32 bits vs 64
+bits).
+</p>
+<ul>
+<li><code>char</code></li>
+<li><code>short</code></li>
+<li><code>int</code></li>
+<li><code>long</code></li>
+<li><code>long long</code></li>
+
+</ul>
+
+<p>
+<code>signed</code> (défaut) ou <code>unsigned</code>.
+</p>
+
+<p>
+<code class="src src-C">std::size_t</code> pour les indices positifs.
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"sizeof(char): "</span>&lt;&lt; <span style="color: #a45bad;">1</span> &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"sizeof(short): "</span>&lt;&lt; <span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">short</span><span style="color: #4f97d7;">)</span> &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"sizeof(int): "</span>&lt;&lt; <span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #4f97d7;">)</span> &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"sizeof(long): "</span>&lt;&lt; <span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">long</span><span style="color: #4f97d7;">)</span> &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"sizeof(long long): "</span>&lt;&lt; <span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">long</span> <span style="color: #ce537a; font-weight: bold;">long</span><span style="color: #4f97d7;">)</span> &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"sizeof(std::size_t): "</span>&lt;&lt; <span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::size_t<span style="color: #4f97d7;">)</span> &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+sizeof(char): 1
+sizeof(short): 2
+sizeof(int): 4
+sizeof(long): 8
+sizeof(long long): 8
+sizeof(std::size_t): 8
+
+</pre>
+<ol class="org-ol">
+<li><a id="orgee84bf6"></a>Débordements<br /></li>
+</ol>
+
+</section>
+<section id="slide-org8e29bc7">
+<h4 id="org8e29bc7"><span class="section-number-4">6.1.2</span> virgule flottante</h4>
+<ul>
+<li><code>float</code></li>
+<li><code>double</code></li>
+
+</ul>
+
+<p>
+Comme en python :
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">0.1</span> * <span style="color: #a45bad;">3</span> == <span style="color: #a45bad;">0.3</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"on peut r&#234;ver&#8230;"</span> &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #4f97d7;">}</span><span style="color: #4f97d7; font-weight: bold;">else</span><span style="color: #4f97d7;">{</span>
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"&#8230; ou pas !"</span> &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+<pre class="example">
+… ou pas !
+
+</pre>
+
+</section>
+<section id="slide-org952b294">
+<h4 id="org952b294"><span class="section-number-4">6.1.3</span> booléen</h4>
+
+</section>
+<section id="slide-orgc44e209">
+<h3 id="orgc44e209"><span class="section-number-3">6.2</span> Tableaux, pointeurs, itérateurs</h3>
+<div class="outline-text-3" id="text-6-2">
+</div>
+</section>
+<section id="slide-org5b78fa5">
+<h4 id="org5b78fa5"><span class="section-number-4">6.2.1</span> Tableaux</h4>
+<p>
+valeurs de même type, contiguës en mémoire la valeur représentant le tabeau
+est en fait son adresse en mémoire (pas d'information sur le nombre
+d'éléments !)
+</p>
+
+<div class="figure">
+<p><img src="arrays.png" alt="arrays.png" />
+</p>
+</div>
+
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">array_i</span><span style="color: #4f97d7;">[]</span>=<span style="color: #4f97d7;">{</span><span style="color: #a45bad;">1</span>,<span style="color: #a45bad;">0</span>,-<span style="color: #a45bad;">1</span>,<span style="color: #a45bad;">2</span><span style="color: #4f97d7;">}</span>;
+<span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">array_d</span><span style="color: #4f97d7;">[]</span>=<span style="color: #4f97d7;">{</span><span style="color: #a45bad;">0.5</span>, <span style="color: #a45bad;">6</span>.,<span style="color: #a45bad;">1.2</span><span style="color: #4f97d7;">}</span>;
+<span style="color: #a45bad;">std</span>::cout &lt;&lt;<span style="color: #2d9574;">'@'</span>&lt;&lt;array_i&lt;&lt;<span style="color: #2d9574;">": "</span>&lt;&lt;array_i<span style="color: #4f97d7;">[</span><span style="color: #a45bad;">0</span><span style="color: #4f97d7;">]</span>&lt;&lt;<span style="color: #2d9574;">", @"</span>&lt;&lt;<span style="color: #4f97d7;">(</span>array_i+<span style="color: #a45bad;">1</span><span style="color: #4f97d7;">)</span>&lt;&lt;<span style="color: #2d9574;">": "</span>&lt;&lt;array_i<span style="color: #4f97d7;">[</span><span style="color: #a45bad;">1</span><span style="color: #4f97d7;">]</span>&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #a45bad;">std</span>::cout &lt;&lt;<span style="color: #2d9574;">'@'</span>&lt;&lt;array_d&lt;&lt;<span style="color: #2d9574;">": "</span>&lt;&lt;array_d<span style="color: #4f97d7;">[</span><span style="color: #a45bad;">0</span><span style="color: #4f97d7;">]</span>&lt;&lt;<span style="color: #2d9574;">", @"</span>&lt;&lt;<span style="color: #4f97d7;">(</span>array_d+<span style="color: #a45bad;">1</span><span style="color: #4f97d7;">)</span>&lt;&lt;<span style="color: #2d9574;">": "</span>&lt;&lt;array_d<span style="color: #4f97d7;">[</span><span style="color: #a45bad;">1</span><span style="color: #4f97d7;">]</span>&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+
+</pre>
+</div>
+
+<pre class="example">
+@0x7ffcc6f00970: 1, @0x7ffcc6f00974: 0
+@0x7ffcc6f00950: 0.5, @0x7ffcc6f00958: 6
+
+</pre>
+
+</section>
+<section id="slide-org9e32ed4">
+<h4 id="org9e32ed4"><span class="section-number-4">6.2.2</span> Pointeurs</h4>
+<p>
+adresse (typée !) en mémoire
+</p>
+
+
+<div class="figure">
+<p><img src="ptr-array.png" alt="ptr-array.png" />
+</p>
+</div>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">a</span>=<span style="color: #a45bad;">0</span>;
+<span style="color: #ce537a; font-weight: bold;">int</span> *<span style="color: #7590db;">ptr_a</span> = &amp;a;
+*ptr_a = <span style="color: #a45bad;">2</span>;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"a= "</span>&lt;&lt; a &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+<span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">arr</span><span style="color: #4f97d7;">[]</span> = <span style="color: #4f97d7;">{</span>-<span style="color: #a45bad;">1.5</span>, <span style="color: #a45bad;">0.5</span>, <span style="color: #a45bad;">0.2</span><span style="color: #4f97d7;">}</span>;
+<span style="color: #ce537a; font-weight: bold;">double</span> * <span style="color: #7590db;">ptr_arr</span>= arr; <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">= &amp;(arr[0]);</span>
+*ptr_arr=<span style="color: #a45bad;">0.25</span>;
+++ptr_arr; *ptr_arr= <span style="color: #a45bad;">1</span>.;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt; <span style="color: #2d9574;">"arr[0]:"</span> &lt;&lt; arr<span style="color: #4f97d7;">[</span><span style="color: #a45bad;">0</span><span style="color: #4f97d7;">]</span>&lt;&lt;<span style="color: #2d9574;">", arr[1]:"</span> &lt;&lt; arr<span style="color: #4f97d7;">[</span><span style="color: #a45bad;">1</span><span style="color: #4f97d7;">]</span>&lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt; <span style="color: #2d9574;">"ptr_arr[-1]:"</span> &lt;&lt; ptr_arr<span style="color: #4f97d7;">[</span>-<span style="color: #a45bad;">1</span><span style="color: #4f97d7;">]</span>&lt;&lt;<span style="color: #2d9574;">", ptr_arr[0]:"</span> &lt;&lt; ptr_arr<span style="color: #4f97d7;">[</span><span style="color: #a45bad;">0</span><span style="color: #4f97d7;">]</span>&lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+a= 2
+arr[0]:0.25, arr[1]:1
+ptr_arr[-1]:0.25, ptr_arr[0]:1
+
+</pre>
+</section>
+<section id="slide-org0390e0c">
+<h4 id="org0390e0c"><span class="section-number-4">6.2.3</span> tableaux de tabeaux</h4>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">a</span><span style="color: #4f97d7;">[</span><span style="color: #a45bad;">4</span><span style="color: #4f97d7;">][</span><span style="color: #a45bad;">3</span><span style="color: #4f97d7;">]</span>=<span style="color: #4f97d7;">{</span><span style="color: #bc6ec5;">{</span>-<span style="color: #a45bad;">1</span>, <span style="color: #a45bad;">4</span>, -<span style="color: #a45bad;">1</span><span style="color: #bc6ec5;">}</span>, <span style="color: #bc6ec5;">{</span><span style="color: #a45bad;">0</span>,<span style="color: #a45bad;">1</span>,<span style="color: #a45bad;">3</span>,<span style="color: #bc6ec5;">}</span>, <span style="color: #bc6ec5;">{</span><span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">1</span>,<span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">}</span>, <span style="color: #bc6ec5;">{</span><span style="color: #a45bad;">0</span>,<span style="color: #a45bad;">0</span>,<span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">}</span>;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt; <span style="color: #2d9574;">"a[0][1]="</span>&lt;&lt; a<span style="color: #4f97d7;">[</span><span style="color: #a45bad;">0</span><span style="color: #4f97d7;">][</span><span style="color: #a45bad;">1</span><span style="color: #4f97d7;">]</span>&lt;&lt;<span style="color: #2d9574;">" **a="</span>&lt;&lt; **a &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+a[0][1]=4 **a=-1
+
+</pre>
+
+
+<div class="figure">
+<p><img src="array-array.png" alt="array-array.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgc5ea566">
+<h4 id="orgc5ea566"><span class="section-number-4">6.2.4</span> Itérateurs</h4>
+<p>
+Généralisation du concept de pointeur pour traverser des ensembles de valeurs.
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">unordered_set</span><span style="color: #4f97d7;">&lt;</span><span style="color: #a45bad;">std</span>::string<span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">data</span><span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span><span style="color: #2d9574;">"red"</span>, <span style="color: #2d9574;">"blue"</span>, <span style="color: #2d9574;">"green"</span><span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">it</span>= data.begin<span style="color: #bc6ec5;">()</span>; it != data.end<span style="color: #bc6ec5;">()</span>; ++it<span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt; *it&lt;&lt;<span style="color: #2d9574;">" ,"</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+<pre class="example">
+green ,blue ,red ,
+
+</pre>
+
+
+</section>
+<section id="slide-org316b622">
+<h3 id="org316b622"><span class="section-number-3">6.3</span> chaîne de caractères</h3>
+<p>
+pointeur sur un tableau de caractères (<code>char</code>) terminé par <code>'\0'</code>
+</p>
+
+<div class="figure">
+<p><img src="ptr1-str.png" alt="ptr1-str.png" />
+</p>
+</div>
+
+<ol class="org-ol">
+<li><a id="org064dc2b"></a>Attention aux caractères non ASCII !<br />
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #4f97d7; font-weight: bold;">const</span> * <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">str_ascii</span>=<span style="color: #2d9574;">"e"</span>;
+<span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #4f97d7; font-weight: bold;">const</span> * <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">str_not_ascii</span>=<span style="color: #2d9574;">"&#233;"</span>;
+<span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #2d9574;">"strlen("</span>&lt;&lt; str_ascii &lt;&lt;<span style="color: #2d9574;">")="</span>&lt;&lt;<span style="color: #a45bad;">std</span>::strlen<span style="color: #4f97d7;">(</span>str_ascii<span style="color: #4f97d7;">)</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+<span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #2d9574;">"strlen("</span>&lt;&lt; str_not_ascii &lt;&lt;<span style="color: #2d9574;">")="</span>&lt;&lt;<span style="color: #a45bad;">std</span>::strlen<span style="color: #4f97d7;">(</span>str_not_ascii<span style="color: #4f97d7;">)</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+strlen(e)=1
+strlen(é)=2
+
+</pre>
+</section>
+<section >
+</li>
+<li><a id="orgb72f19f"></a>Attention aux comparaisons et affectactions<br />
+<p>
+les opérations s'appliquent aux <b>pointeurs</b>:
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">char</span> * <span style="color: #7590db;">str</span>=<span style="color: #2d9574;">"toto"</span>;
+<span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">str2</span><span style="color: #4f97d7;">[]</span>= <span style="color: #4f97d7;">{</span><span style="color: #2d9574;">'t'</span>,<span style="color: #2d9574;">'o'</span>,<span style="color: #2d9574;">'t'</span>,<span style="color: #2d9574;">'o'</span>, <span style="color: #2d9574;">'\0'</span><span style="color: #4f97d7;">}</span>;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"str:"</span>&lt;&lt;str&lt;&lt;<span style="color: #2d9574;">" str2:"</span>&lt;&lt;str2&lt;&lt;<span style="color: #2d9574;">" (str == str2): "</span>&lt;&lt; <span style="color: #4f97d7;">(</span>str == str2<span style="color: #4f97d7;">)</span>&lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+<span style="color: #ce537a; font-weight: bold;">char</span>* <span style="color: #7590db;">str3</span>= str2;
+str3<span style="color: #4f97d7;">[</span><span style="color: #a45bad;">1</span><span style="color: #4f97d7;">]</span>=<span style="color: #2d9574;">'i'</span>;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"str2:"</span>&lt;&lt;str2&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+str:toto str2:toto (str == str2): 0
+str2:tito
+
+</pre>
+</li>
+</ol>
+
+</section>
+<section id="slide-org7c6a699">
+<h3 id="org7c6a699"><span class="section-number-3">6.4</span> std::string</h3>
+<p>
+<a href="http://www.cplusplus.com/reference/string/string/">std::string</a> : <i>classe</i> permettant de faire de opération sur des chaîne de caractères (par
+ exemple les copier et les comparer !)
+</p>
+
+<p>
+Nécessite un <code class="src src-C"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">string</span><span style="color: #4f97d7;">&gt;</span></code>.
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">iostream</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">string</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span>* <span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">str</span>=<span style="color: #2d9574;">"toto"</span>;
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">tmp</span><span style="color: #bc6ec5;">[]</span>= <span style="color: #bc6ec5;">{</span><span style="color: #2d9574;">'t'</span>,<span style="color: #2d9574;">'o'</span>,<span style="color: #2d9574;">'t'</span>,<span style="color: #2d9574;">'o'</span>, <span style="color: #2d9574;">'\0'</span><span style="color: #bc6ec5;">}</span>;
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">str2</span>=tmp ;
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"str:"</span>&lt;&lt;str&lt;&lt;<span style="color: #2d9574;">" str2:"</span>&lt;&lt;str2&lt;&lt;<span style="color: #2d9574;">" (str == str2): "</span>&lt;&lt; <span style="color: #bc6ec5;">(</span>str == str2<span style="color: #bc6ec5;">)</span>&lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">str3</span>= str2;
+  str3<span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">1</span><span style="color: #bc6ec5;">]</span>=<span style="color: #2d9574;">'i'</span>;
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"str2:"</span>&lt;&lt;str2&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+<pre class="example">
+str:toto str2:toto (str == str2): 1
+str2:toto
+
+</pre>
+
+</section>
+</section>
+<section>
+<section id="slide-org72d382d">
+<h2 id="org72d382d"><span class="section-number-2">7</span> Syntaxe</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+</section>
+<section id="slide-org754cbb1">
+<h3 id="org754cbb1"><span class="section-number-3">7.1</span> instructions</h3>
+<p>
+séparées par des <code>;</code>
+</p>
+</section>
+<section id="slide-org6004160">
+<h3 id="org6004160"><span class="section-number-3">7.2</span> blocs de code</h3>
+<p>
+Délimités par des <code>{</code> et <code>}</code> et non pas indiqués par l'indentation (qui reste
+utilisées, mais seulement pour permettre la visualisation).
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #4f97d7; font-weight: bold;">while</span> x % <span style="color: #a45bad;">2</span> == <span style="color: #a45bad;">0</span>:
+  <span style="color: #4f97d7; font-weight: bold;">if</span> x &gt; <span style="color: #a45bad;">0</span>:
+      <span style="color: #4f97d7; font-weight: bold;">print</span><span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"strictement positif"</span><span style="color: #4f97d7;">)</span>
+  <span style="color: #4f97d7; font-weight: bold;">elif</span> x &lt; <span style="color: #a45bad;">0</span>:
+      <span style="color: #4f97d7; font-weight: bold;">print</span><span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"strictement n&#233;gatif"</span><span style="color: #4f97d7;">)</span>
+  <span style="color: #4f97d7; font-weight: bold;">else</span>:
+    <span style="color: #4f97d7; font-weight: bold;">print</span><span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"nul"</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #4f97d7; font-weight: bold;">while</span><span style="color: #4f97d7;">(</span>x % <span style="color: #a45bad;">2</span> == <span style="color: #a45bad;">0</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>x &gt; <span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">){</span>
+    <span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"strictement positif"</span>&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+  <span style="color: #bc6ec5;">}</span><span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>x &lt; <span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">){</span>
+    <span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"strictement positif"</span>&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+  <span style="color: #bc6ec5;">}</span><span style="color: #4f97d7; font-weight: bold;">else</span><span style="color: #bc6ec5;">{</span>
+    <span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"nul"</span>&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+  <span style="color: #bc6ec5;">}</span>
+ <span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+</section>
+<section id="slide-org03d01a0">
+<h3 id="org03d01a0"><span class="section-number-3">7.3</span> ATTENTION aux blocs "manquants" !</h3>
+<p>
+Les blocs sont syntaxiquement facultatifs.
+</p>
+
+<p>
+Une instruction vide <code>;</code> est valide.
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">x</span>= -<span style="color: #a45bad;">1</span>;
+<span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #4f97d7;">(</span> x &gt; <span style="color: #a45bad;">0</span><span style="color: #4f97d7;">)</span>
+  <span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #2d9574;">"positif"</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+  <span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #2d9574;">"still positif ?"</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+<span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #2d9574;">"not indented"</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl; 
+</pre>
+</div>
+
+<pre class="example">
+still positif ?
+not indented
+
+</pre>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">x</span>= -<span style="color: #a45bad;">1</span>;
+<span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #4f97d7;">(</span> x &gt; <span style="color: #a45bad;">0</span><span style="color: #4f97d7;">)</span>;
+  <span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #2d9574;">"positif"</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+  <span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #2d9574;">"still positif ?"</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+<span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #2d9574;">"not indented"</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl; 
+</pre>
+</div>
+
+<pre class="example">
+positif
+still positif ?
+not indented
+
+</pre>
+
+</section>
+<section id="slide-org599b6f9">
+<h3 id="org599b6f9"><span class="section-number-3">7.4</span> redéfinition d'opérateurs</h3>
+<p>
+Le sens de certain opérateurs dépend de ce quoi à ils s'appliquent !
+<code>&lt;&lt;</code>, <code>*</code>,…
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">a</span>=<span style="color: #a45bad;">1</span>;
+a= a &lt;&lt; <span style="color: #a45bad;">1</span>;
+<span style="color: #ce537a; font-weight: bold;">int</span> *<span style="color: #7590db;">ptr_a</span>=&amp;a;
+a= a * *ptr_a;
+<span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #2d9574;">"a="</span>&lt;&lt; a &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+a=4
+
+</pre>
+
+</section>
+<section id="slide-org4d47fe9">
+<h3 id="org4d47fe9"><span class="section-number-3">7.5</span> Exécution conditionnelle : <code>if</code></h3>
+<p>
+L'expression testée est fausse si elle vaut <code>0</code>, vraie sinon.
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>=<span style="color: #a45bad;">55</span>;
+
+<span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #4f97d7;">(</span>i<span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt; i &lt;&lt; <span style="color: #2d9574;">" est vrai"</span> &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #4f97d7;">}</span><span style="color: #4f97d7; font-weight: bold;">else</span><span style="color: #4f97d7;">{</span>
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt; i &lt;&lt; <span style="color: #2d9574;">" est faux"</span> &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #a45bad;">std</span>::cout&lt;&lt; <span style="color: #2d9574;">"true vaut "</span>&lt;&lt; <span style="color: #a45bad;">true</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+55 est vrai
+true vaut 1
+
+</pre>
+
+</section>
+<section id="slide-org9da8c06">
+<h3 id="org9da8c06"><span class="section-number-3">7.6</span> Évaluation conditionnelle : <code>?:</code></h3>
+<p>
+l'expression <code class="src src-C"><span style="color: #4f97d7;">(</span> e ? t : v<span style="color: #4f97d7;">)</span></code> est équivalente à l'expression python scr_python[:export code]{t if e else v}
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>=<span style="color: #a45bad;">55</span>;
+
+<span style="color: #a45bad;">std</span>::cout&lt;&lt; i &lt;&lt; <span style="color: #2d9574;">" est "</span>&lt;&lt; <span style="color: #4f97d7;">(</span> i ? <span style="color: #2d9574;">"vrai"</span> : <span style="color: #2d9574;">"faux"</span><span style="color: #4f97d7;">)</span> &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt; <span style="color: #2d9574;">"true vaut "</span>&lt;&lt; <span style="color: #a45bad;">true</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+55 est vrai
+true vaut 1
+
+</pre>
+
+</section>
+<section id="slide-orgb899484">
+<h3 id="orgb899484"><span class="section-number-3">7.7</span> Exécution conditionnelle : <code>switch</code></h3>
+<p>
+branchement conditionnel selon différentes valeurs entières pour une expression testée.
+Attention au <code>break</code> !
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>= <span style="color: #a45bad;">10</span>;
+<span style="color: #4f97d7; font-weight: bold;">switch</span> <span style="color: #4f97d7;">(</span>i<span style="color: #4f97d7;">){</span>
+<span style="color: #4f97d7; font-weight: bold;">case</span> <span style="color: #a45bad;">0</span>: <span style="color: #bc6ec5;">{</span> <span style="color: #a45bad;">std</span>::cout&lt;&lt; <span style="color: #2d9574;">" i vaut z&#233;ro"</span>; <span style="color: #4f97d7; font-weight: bold;">break</span>;<span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7; font-weight: bold;">case</span> <span style="color: #a45bad;">10</span>: <span style="color: #bc6ec5;">{</span><span style="color: #a45bad;">std</span>::cout &lt;&lt;<span style="color: #2d9574;">" i vaut dix"</span>; <span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7; font-weight: bold;">case</span> <span style="color: #a45bad;">20</span>: <span style="color: #bc6ec5;">{</span><span style="color: #a45bad;">std</span>::cout &lt;&lt;<span style="color: #2d9574;">" i vaut vingt (ou j'ai oubli&#233; le break avant)"</span>; <span style="color: #4f97d7; font-weight: bold;">break</span>;<span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7; font-weight: bold;">default</span>:<span style="color: #bc6ec5;">{</span> <span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #2d9574;">"i vaut "</span>&lt;&lt;i;<span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+<pre class="example">
+i vaut dix i vaut vingt (ou j'ai oublié le break avant)
+
+</pre>
+
+</section>
+<section id="slide-org7c44a90">
+<h3 id="org7c44a90"><span class="section-number-3">7.8</span> Boucle <code>while</code></h3>
+<p>
+Comme la boucle <code>while</code> en python, mais il existe aussi une variante <code>do{}while();</code>
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">next</span>;
+<span style="color: #4f97d7; font-weight: bold;">do</span><span style="color: #4f97d7;">{</span>
+  next= <span style="color: #a45bad;">std</span>::rand<span style="color: #bc6ec5;">()</span> % <span style="color: #a45bad;">100</span>;
+<span style="color: #4f97d7;">}</span><span style="color: #4f97d7; font-weight: bold;">while</span><span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">(</span>next % <span style="color: #a45bad;">2</span> == <span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span> || <span style="color: #bc6ec5;">(</span>next % <span style="color: #a45bad;">3</span> == <span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt;next&lt;&lt;<span style="color: #2d9574;">" n 'est divisible ni par 2 ni par 3"</span>;
+</pre>
+</div>
+
+<pre class="example">
+83 n 'est divisible ni par 2 ni par 3
+
+</pre>
+
+</section>
+<section id="slide-orgd8bc0e9">
+<h3 id="orgd8bc0e9"><span class="section-number-3">7.9</span> Boucle <code>for</code></h3>
+<p>
+<code class="src src-C"><span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #4f97d7;">(</span> initialisation; test; mise <span style="color: #ce537a; font-weight: bold;">&#224;</span> <span style="color: #7590db;">jour</span><span style="color: #4f97d7;">)</span></code>
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">i</span>=<span style="color: #a45bad;">0</span>; i != <span style="color: #a45bad;">5</span>; ++i<span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt;i&lt;&lt;<span style="color: #2d9574;">' '</span>;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #ce537a; font-weight: bold;">char</span>* <span style="color: #7590db;">str</span>=<span style="color: #2d9574;">"toto"</span>;
+<span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>=<span style="color: #a45bad;">0</span>; str<span style="color: #bc6ec5;">[</span>i<span style="color: #bc6ec5;">]</span> != <span style="color: #2d9574;">'\0'</span>; ++i<span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt;str<span style="color: #bc6ec5;">[</span>i<span style="color: #bc6ec5;">]</span>&lt;&lt; <span style="color: #2d9574;">' '</span>;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">char</span>* <span style="color: #7590db;">ptr</span>=str; *ptr; ++ptr<span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt; *ptr &lt;&lt; <span style="color: #2d9574;">'_'</span>;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+0 1 2 3 4 
+t o t o 
+t_o_t_o_
+
+</pre>
+
+</section>
+<section id="slide-org0b52ba9">
+<h3 id="org0b52ba9"><span class="section-number-3">7.10</span> Boucle <code>for</code> sur une séquence</h3>
+<p>
+Comme en python mais avec typage :
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">array</span><span style="color: #4f97d7;">[]</span>=<span style="color: #4f97d7;">{</span><span style="color: #a45bad;">1</span>, <span style="color: #a45bad;">5</span>, <span style="color: #a45bad;">7</span>, -<span style="color: #a45bad;">3</span><span style="color: #4f97d7;">}</span>;
+<span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">v</span> : array<span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt; v &lt;&lt;<span style="color: #2d9574;">','</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+<pre class="example">
+1,5,7,-3,
+
+</pre>
+
+</section>
+</section>
+<section>
+<section id="slide-org0bda66c">
+<h2 id="org0bda66c"><span class="section-number-2">8</span> Passages d'arguments</h2>
+<p>
+Les arguments sont passés par valeur sauf si l'on indique un passage par référence.
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">par_valeur</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span><span style="color: #4f97d7;">){</span>
+  i+= <span style="color: #a45bad;">1</span>;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">par_reference</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span>&amp; <span style="color: #7590db;">i</span><span style="color: #4f97d7;">){</span>
+  i+= <span style="color: #a45bad;">1</span>;
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span>* <span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">j</span>= <span style="color: #a45bad;">1</span>;
+  par_valeur<span style="color: #bc6ec5;">(</span>j<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt; <span style="color: #2d9574;">"j= "</span>&lt;&lt; j &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+  par_reference<span style="color: #bc6ec5;">(</span>j<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt; <span style="color: #2d9574;">"j= "</span>&lt;&lt; j &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+<pre class="example">
+j= 1
+j= 2
+
+</pre>
+
+</section>
+</section>
+<section>
+<section id="slide-orga983122">
+<h2 id="orga983122"><span class="section-number-2">9</span> Bibliothèque standard</h2>
+<div class="outline-text-2" id="text-9">
+</div>
+</section>
+<section id="slide-org69c08f5">
+<h3 id="org69c08f5"><span class="section-number-3">9.1</span> Structures de données</h3>
+<div class="outline-text-3" id="text-9-1">
+</div>
+</section>
+<section id="slide-orgc2ec815">
+<h4 id="orgc2ec815"><span class="section-number-4">9.1.1</span> tuple</h4>
+<p>
+L'utilisation de la classe <a href="http://www.cplusplus.com/reference/tuple/tuple/">std::tuple</a> nécessite <code class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">tuple</span><span style="color: #4f97d7;">&gt;</span></code>
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">tuple</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span>, <span style="color: #ce537a; font-weight: bold;">float</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">t_if</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">0.5f</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">tuple</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span>, <span style="color: #a45bad;">std</span>::string<span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">t_is</span>= <span style="color: #a45bad;">std</span>::make_tuple<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">0</span>, <span style="color: #2d9574;">"toto"</span><span style="color: #4f97d7;">)</span>;
+
+<span style="color: #a45bad;">std</span>::get<span style="color: #4f97d7;">&lt;</span><span style="color: #a45bad;">0</span><span style="color: #4f97d7;">&gt;(</span>t_is<span style="color: #4f97d7;">)</span>= <span style="color: #a45bad;">std</span>::get<span style="color: #4f97d7;">&lt;</span><span style="color: #a45bad;">0</span><span style="color: #4f97d7;">&gt;(</span>t_if<span style="color: #4f97d7;">)</span>;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt; <span style="color: #a45bad;">std</span>::get<span style="color: #4f97d7;">&lt;</span><span style="color: #a45bad;">0</span><span style="color: #4f97d7;">&gt;(</span>t_is<span style="color: #4f97d7;">)</span>&lt;&lt;<span style="color: #2d9574;">','</span>&lt;&lt;<span style="color: #a45bad;">std</span>::get<span style="color: #4f97d7;">&lt;</span><span style="color: #a45bad;">1</span><span style="color: #4f97d7;">&gt;(</span>t_is<span style="color: #4f97d7;">)</span>&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+2,toto
+
+</pre>
+</section>
+<section id="slide-orgc6585dd">
+<h4 id="orgc6585dd"><span class="section-number-4">9.1.2</span> array</h4>
+<p>
+L'utilisation de la classe <a href="http://www.cplusplus.com/reference/array/array/">std::array</a> nécessite <code class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">array</span><span style="color: #4f97d7;">&gt;</span></code>.
+ La taille fait partie du type (donc fixe). Joue pour les tableaux le
+même rôle que <code class="src src-C++"><span style="color: #a45bad;">std</span>::string</code> pour les chaînes de
+caractères.
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">array</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span>, <span style="color: #a45bad;">3</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">a</span><span style="color: #4f97d7;">{</span>-<span style="color: #a45bad;">1</span>, <span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">0</span><span style="color: #4f97d7;">}</span>;
+<span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">b</span>= a;
+<span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">array</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span>, <span style="color: #a45bad;">3</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">c</span><span style="color: #4f97d7;">{</span>-<span style="color: #a45bad;">1</span>, <span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">0</span><span style="color: #4f97d7;">}</span>;
+b<span style="color: #4f97d7;">[</span><span style="color: #a45bad;">0</span><span style="color: #4f97d7;">]</span>= <span style="color: #a45bad;">5</span>;
+<span style="color: #a45bad;">std</span>::cout &lt;&lt; a<span style="color: #4f97d7;">[</span><span style="color: #a45bad;">0</span><span style="color: #4f97d7;">]</span> &lt;&lt; <span style="color: #2d9574;">", (a == c): "</span>&lt;&lt;<span style="color: #4f97d7;">(</span>a== c<span style="color: #4f97d7;">)</span>&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+-1, (a == c): 1
+
+</pre>
+
+</section>
+<section id="slide-org92894e1">
+<h4 id="org92894e1"><span class="section-number-4">9.1.3</span> vector</h4>
+<p>
+<a href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a> est semblable aux listes de python, mais avec éléments de même type.
+Nécessite <code class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">vector</span><span style="color: #4f97d7;">&gt;</span></code>
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">v_i</span>;
+v_i.push_back<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">1</span><span style="color: #4f97d7;">)</span>;
+v_i.push_back<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">2</span><span style="color: #4f97d7;">)</span>;
+v_i.push_back<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">4</span><span style="color: #4f97d7;">)</span>;
+v_i.pop_back<span style="color: #4f97d7;">()</span>;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt;v_i.size<span style="color: #4f97d7;">()</span>&lt;&lt;<span style="color: #2d9574;">" elts:"</span>&lt;&lt;v_i<span style="color: #4f97d7;">[</span><span style="color: #a45bad;">0</span><span style="color: #4f97d7;">]</span>&lt;&lt;<span style="color: #2d9574;">","</span>&lt;&lt;v_i<span style="color: #4f97d7;">[</span><span style="color: #a45bad;">1</span><span style="color: #4f97d7;">]</span>&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+2 elts:1,2
+
+</pre>
+
+</section>
+<section id="slide-org04db332">
+<h4 id="org04db332"><span class="section-number-4">9.1.4</span> list</h4>
+<p>
+<a href="http://www.cplusplus.com/reference/list/list/">std::list</a> permet des opérations efficaces en tête de liste (<i>front</i>). Ne permet pas un accès aléatoire.
+Nécessite <code class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">list</span><span style="color: #4f97d7;">&gt;</span></code>
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">list</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">c</span>;
+c.push_front<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">1</span><span style="color: #4f97d7;">)</span>;
+c.pop_back<span style="color: #4f97d7;">()</span>;
+c.push_front<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">2</span><span style="color: #4f97d7;">)</span>;
+c.push_front<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">4</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"c.empty():"</span>&lt;&lt;c.empty<span style="color: #4f97d7;">()</span>&lt;&lt;<span style="color: #2d9574;">", elts:"</span>;
+<span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">it</span>=c.begin<span style="color: #4f97d7;">()</span>;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt; *it&lt;&lt;<span style="color: #2d9574;">','</span>;
+++it;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt;*it&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+c.empty():0, elts:4,2
+
+</pre>
+
+</section>
+<section id="slide-orgbcb4a78">
+<h4 id="orgbcb4a78"><span class="section-number-4">9.1.5</span> unordered_map</h4>
+<p>
+<a href="http://www.cplusplus.com/reference/unordered_map/unordered_map/">std::unordered_map</a> est équivalent aux dictionnaires de python, mais avec des types.
+</p>
+
+<p>
+Nécessite <code class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">unordered_map</span><span style="color: #4f97d7;">&gt;</span></code>.
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">unordered_map</span><span style="color: #4f97d7;">&lt;</span><span style="color: #a45bad;">std</span>::string, <span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">name_to_score</span>;
+name_to_score<span style="color: #4f97d7;">[</span><span style="color: #2d9574;">"toto"</span><span style="color: #4f97d7;">]</span>=<span style="color: #a45bad;">5</span>;
+name_to_score<span style="color: #4f97d7;">[</span><span style="color: #2d9574;">"bernard"</span><span style="color: #4f97d7;">]</span>= <span style="color: #a45bad;">32</span>;
+name_to_score<span style="color: #4f97d7;">[</span><span style="color: #2d9574;">"patrick"</span><span style="color: #4f97d7;">]</span>= <span style="color: #a45bad;">64</span>;
+<span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #4f97d7; font-weight: bold;">const</span> &amp; <span style="color: #7590db;">kv</span> : name_to_score<span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt;kv.first&lt;&lt;<span style="color: #2d9574;">" : "</span>&lt;&lt;kv.second&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+<pre class="example">
+patrick : 64
+toto : 5
+bernard : 32
+
+</pre>
+
+</section>
+<section id="slide-org7aabf40">
+<h4 id="org7aabf40"><span class="section-number-4">9.1.6</span> unordered_set</h4>
+<p>
+<a href="http://www.cplusplus.com/reference/unordered_set/unordered_set/">std::unordered_set</a> ermet de tester <b>efficacement</b> si un ensemle contient un élément, et d'éviter
+les doublons.
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">unordered_set</span><span style="color: #4f97d7;">&lt;</span><span style="color: #a45bad;">std</span>::string<span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">names</span>;
+names.insert<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"toto"</span><span style="color: #4f97d7;">)</span>;
+names.insert<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"titi"</span><span style="color: #4f97d7;">)</span>;
+names.insert<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"toto"</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">to_find</span><span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"titi"</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #4f97d7;">(</span>names.find<span style="color: #bc6ec5;">(</span>to_find<span style="color: #bc6ec5;">)</span> != names.end<span style="color: #bc6ec5;">()</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::cout &lt;&lt; to_find &lt;&lt;<span style="color: #2d9574;">" trouv&#233; dans "</span>;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">name</span> : names<span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt; name &lt;&lt;<span style="color: #2d9574;">", "</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+<pre class="example">
+titi trouvé dans titi, toto,
+
+</pre>
+
+</section>
+<section id="slide-org6a4ca72">
+<h3 id="org6a4ca72"><span class="section-number-3">9.2</span> Itérateurs</h3>
+<p>
+Les structures de données, entre autres !, donnent accès aux éléments à travers
+des <i>iterateurs</i>. Ils sont catégorisés selon les opérations qu'ils permettent
+(en plus de l'accès par l'opérateur <code class="src src-C++"> ,* </code> et de la
+comparaison par l'opérateur <code class="src src-C++"> == </code>).
+</p>
+</section>
+<section id="slide-orga75e43a">
+<h4 id="orga75e43a"><span class="section-number-4">9.2.1</span> forward iterator</h4>
+<p>
+   Incrémentation pour passer à l'élément suivant avec l'opérateur
+<code class="src src-C++">++</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">ostream_iterator</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">out</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::cout, <span style="color: #2d9574;">", "</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>=<span style="color: #a45bad;">0</span>; i != <span style="color: #a45bad;">5</span>; ++i, ++out<span style="color: #4f97d7;">){</span>
+  *out= i;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+<pre class="example">
+0, 1, 2, 3, 4,
+
+</pre>
+
+</section>
+<section id="slide-orgc7206cf">
+<h4 id="orgc7206cf"><span class="section-number-4">9.2.2</span> Bidirectional iterator</h4>
+<p>
+En plus des opérations du <i>forward iterator</i>, on peut aussi décrémenter pour
+aller à l'élément précédant :
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">list</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">c</span><span style="color: #4f97d7;">{</span><span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">3</span>, <span style="color: #a45bad;">5</span>, <span style="color: #a45bad;">7</span><span style="color: #4f97d7;">}</span>;
+<span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">it</span>=c.begin<span style="color: #4f97d7;">()</span>;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt; *it &lt;&lt;<span style="color: #2d9574;">','</span>;
+++it;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt; *it &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+--it;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt; *it &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+2,3
+2
+
+</pre>
+
+</section>
+<section id="slide-org80f80cd">
+<h4 id="org80f80cd"><span class="section-number-4">9.2.3</span> Random access iterator</h4>
+<p>
+En plus des opérations du <i>bidirection iterator</i>, on peut aller directement à
+n'importe quel élément situé à <code>n</code> positions dans un sens ou dans l'autre (comme
+par opérations arithmétiques sur des pointeurs) :
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">v_i</span> <span style="color: #4f97d7;">{</span><span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">3</span>, <span style="color: #a45bad;">5</span>, <span style="color: #a45bad;">7</span>, <span style="color: #a45bad;">11</span><span style="color: #4f97d7;">}</span>;
+<span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">it</span>= v_i.begin<span style="color: #4f97d7;">()</span>;
+it += <span style="color: #a45bad;">2</span>;
+<span style="color: #a45bad;">std</span>::cout&lt;&lt; *it &lt;&lt;<span style="color: #2d9574;">' '</span>&lt;&lt; *<span style="color: #4f97d7;">(</span>it-<span style="color: #a45bad;">2</span><span style="color: #4f97d7;">)</span> &lt;&lt;<span style="color: #2d9574;">' '</span>&lt;&lt; *<span style="color: #4f97d7;">(</span>it + <span style="color: #a45bad;">2</span><span style="color: #4f97d7;">)</span> &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+</pre>
+</div>
+
+<pre class="example">
+5 2 11
+
+</pre>
+
+</section>
+<section id="slide-org6fad17e">
+<h3 id="org6fad17e"><span class="section-number-3">9.3</span> Algorithmes</h3>
+<p>
+On peut appliquer <a href="http://www.cplusplus.com/reference/algorithm/copy/">des algorithmes</a> sur n'importe quel intervalle de n'importe
+quelle structure de données grâce à des intervalles \( \left[ begin, end \right[
+ \) et des itérateurs en écriture. Ils nécessire l'inclusion du header
+correspondant avec <code class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">algorithm</span><span style="color: #4f97d7;">&gt;</span></code>
+</p>
+</section>
+<section id="slide-orgf8b868a">
+<h4 id="orgf8b868a"><span class="section-number-4">9.3.1</span> copy</h4>
+<p>
+<a href="http://www.cplusplus.com/reference/algorithm/copy/">std::copy</a>
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">v</span><span style="color: #4f97d7;">{</span><span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">3</span>, <span style="color: #a45bad;">5</span>, <span style="color: #a45bad;">7</span>, <span style="color: #a45bad;">11</span><span style="color: #4f97d7;">}</span>;
+<span style="color: #a45bad;">std</span>::copy<span style="color: #4f97d7;">(</span>v.begin<span style="color: #bc6ec5;">()</span>, v.end<span style="color: #bc6ec5;">()</span>, <span style="color: #a45bad;">std</span>::ostream_iterator<span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #bc6ec5;">&gt;(</span><span style="color: #a45bad;">std</span>::cout, <span style="color: #2d9574;">", "</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>;
+</pre>
+</div>
+
+<pre class="example">
+2, 3, 5, 7, 11,
+
+</pre>
+</section>
+<section id="slide-org35c3e1d">
+<h4 id="org35c3e1d"><span class="section-number-4">9.3.2</span> shuffle</h4>
+<p>
+<a href="http://www.cplusplus.com/reference/algorithm/shuffle/">std::shuffle</a> nécessite un générateur de nombres aléatoires (Random Numbers Generator), avec
+<code class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">random</span><span style="color: #4f97d7;">&gt;</span></code>. L'initialisation de celui-ci peut
+changer en se basant sur l'instant au moment d'exécution (cf. <code class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">chrono</span><span style="color: #4f97d7;">&gt;</span></code>.
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">v</span><span style="color: #4f97d7;">{</span><span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">3</span>, <span style="color: #a45bad;">5</span>, <span style="color: #a45bad;">7</span>, <span style="color: #a45bad;">11</span><span style="color: #4f97d7;">}</span>;
+<span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">seed</span> = <span style="color: #a45bad;">std</span>::<span style="color: #a45bad;">chrono</span>::<span style="color: #a45bad;">system_clock</span>::now<span style="color: #4f97d7;">()</span>.time_since_epoch<span style="color: #4f97d7;">()</span>.count<span style="color: #4f97d7;">()</span>;
+<span style="color: #a45bad;">std</span>::shuffle<span style="color: #4f97d7;">(</span>v.begin<span style="color: #bc6ec5;">()</span>, v.end<span style="color: #bc6ec5;">()</span>, <span style="color: #a45bad;">std</span>::default_random_engine<span style="color: #bc6ec5;">(</span>seed<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>; 
+<span style="color: #a45bad;">std</span>::copy<span style="color: #4f97d7;">(</span>v.begin<span style="color: #bc6ec5;">()</span>, v.end<span style="color: #bc6ec5;">()</span>, <span style="color: #a45bad;">std</span>::ostream_iterator<span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #bc6ec5;">&gt;(</span><span style="color: #a45bad;">std</span>::cout, <span style="color: #2d9574;">", "</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>;
+</pre>
+</div>
+
+</section>
+<section id="slide-orge3bf555">
+<h4 id="orge3bf555"><span class="section-number-4">9.3.3</span> sort</h4>
+<p>
+On peut trier un intervalle d'éléments d'une séquence avec <a href="http://www.cplusplus.com/reference/algorithm/sort/">std::sort</a>. La relation d'ordre est paramétrable.
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">v</span><span style="color: #4f97d7;">{</span><span style="color: #a45bad;">7</span>, <span style="color: #a45bad;">3</span>, <span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">5</span>, <span style="color: #a45bad;">11</span><span style="color: #4f97d7;">}</span>;
+<span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">seed</span> = <span style="color: #a45bad;">std</span>::<span style="color: #a45bad;">chrono</span>::<span style="color: #a45bad;">system_clock</span>::now<span style="color: #4f97d7;">()</span>.time_since_epoch<span style="color: #4f97d7;">()</span>.count<span style="color: #4f97d7;">()</span>;
+<span style="color: #a45bad;">std</span>::shuffle<span style="color: #4f97d7;">(</span>v.begin<span style="color: #bc6ec5;">()</span>, v.end<span style="color: #bc6ec5;">()</span>, <span style="color: #a45bad;">std</span>::default_random_engine<span style="color: #bc6ec5;">(</span>seed<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>; 
+<span style="color: #a45bad;">std</span>::sort<span style="color: #4f97d7;">(</span>v.begin<span style="color: #bc6ec5;">()</span>, v.end<span style="color: #bc6ec5;">()</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #a45bad;">std</span>::copy<span style="color: #4f97d7;">(</span>v.begin<span style="color: #bc6ec5;">()</span>, v.end<span style="color: #bc6ec5;">()</span>, <span style="color: #a45bad;">std</span>::ostream_iterator<span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #bc6ec5;">&gt;(</span><span style="color: #a45bad;">std</span>::cout, <span style="color: #2d9574;">", "</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>;
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org8ddd9a9">
+<h2 id="org8ddd9a9"><span class="section-number-2">10</span> Sémantique</h2>
+<p>
+Par défaut les valeurs sont passées par <b>copie</b>.
+</p>
+</section>
+<section id="slide-orgd943962">
+<h3 id="orgd943962"><span class="section-number-3">10.1</span> passage par copie</h3>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">f</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span><span style="color: #4f97d7;">){</span>
+  i+=<span style="color: #a45bad;">1</span>;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">f</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #bc6ec5;">&gt;</span> <span style="color: #7590db;">v</span><span style="color: #4f97d7;">){</span>
+ v.push_back<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span>;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span>* <span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">){</span>
+ <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>=<span style="color: #a45bad;">0</span>;
+ f<span style="color: #bc6ec5;">(</span>i<span style="color: #bc6ec5;">)</span>;
+ <span style="color: #a45bad;">std</span>::cout&lt;&lt; i &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+ <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #bc6ec5;">&gt;</span> <span style="color: #7590db;">v</span><span style="color: #bc6ec5;">{</span><span style="color: #a45bad;">1</span>, <span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">}</span>;
+ f<span style="color: #bc6ec5;">(</span>v<span style="color: #bc6ec5;">)</span>;
+ <span style="color: #a45bad;">std</span>::cout&lt;&lt; v.size<span style="color: #bc6ec5;">()</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+<pre class="example">
+0
+2
+
+</pre>
+
+</section>
+<section id="slide-orgc9f2628">
+<h3 id="orgc9f2628"><span class="section-number-3">10.2</span> passage par pointeur</h3>
+<p>
+Attention, si le pointeur est invalide (<i>NULL</i> ou <a href="http://en.cppreference.com/w/cpp/language/nullptr">nullptr</a>), tout utilisation (sauf test de comparaison avec <code class="src src-C++"><span style="color: #a45bad;">nullptr</span></code>) provoquera un plantage !
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">f</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span>* <span style="color: #7590db;">i</span><span style="color: #4f97d7;">){</span>
+  *i +=<span style="color: #a45bad;">1</span>;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">f</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #bc6ec5;">&gt;</span>* <span style="color: #7590db;">v</span><span style="color: #4f97d7;">){</span>
+ <span style="color: #bc6ec5;">(</span>*v<span style="color: #bc6ec5;">)</span>.push_back<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span>;
+ v-&gt;push_back<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span>;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span>* <span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">){</span>
+ <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>=<span style="color: #a45bad;">0</span>;
+ f<span style="color: #bc6ec5;">(</span>&amp;i<span style="color: #bc6ec5;">)</span>;
+ <span style="color: #a45bad;">std</span>::cout&lt;&lt; i &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+ <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #bc6ec5;">&gt;</span> <span style="color: #7590db;">v</span><span style="color: #bc6ec5;">{</span><span style="color: #a45bad;">1</span>, <span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">}</span>;
+ f<span style="color: #bc6ec5;">(</span>&amp;v<span style="color: #bc6ec5;">)</span>;
+ <span style="color: #a45bad;">std</span>::cout&lt;&lt; v.size<span style="color: #bc6ec5;">()</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+<pre class="example">
+1
+4
+
+</pre>
+
+</section>
+<section id="slide-org0ce7806">
+<h3 id="org0ce7806"><span class="section-number-3">10.3</span> passage par référence</h3>
+<p>
+On peut vouloir :
+</p>
+<ul>
+<li>éviter de payer les coûts d'une copie</li>
+<li>assurer qu'il y a bien une valeur (pas un pointeur invalide)</li>
+<li>permettre la modification d'une variable passée en argument</li>
+
+</ul>
+
+<p>
+&rarr; passage par référence
+</p>
+</section>
+<section >
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">f</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span>&amp; <span style="color: #7590db;">i</span><span style="color: #4f97d7;">){</span>
+  i +=<span style="color: #a45bad;">1</span>;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">f</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #bc6ec5;">&gt;</span>&amp; <span style="color: #7590db;">v</span><span style="color: #4f97d7;">){</span>
+ v.push_back<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span>;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span>* <span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">){</span>
+ <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>=<span style="color: #a45bad;">0</span>;
+ f<span style="color: #bc6ec5;">(</span>i<span style="color: #bc6ec5;">)</span>;
+ <span style="color: #a45bad;">std</span>::cout&lt;&lt; i &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+ <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #bc6ec5;">&gt;</span> <span style="color: #7590db;">v</span><span style="color: #bc6ec5;">{</span><span style="color: #a45bad;">1</span>, <span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">}</span>;
+ f<span style="color: #bc6ec5;">(</span>v<span style="color: #bc6ec5;">)</span>;
+ <span style="color: #a45bad;">std</span>::cout&lt;&lt; v.size<span style="color: #bc6ec5;">()</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+<pre class="example">
+1
+3
+
+</pre>
+
+</section>
+</section>
+<section>
+<section id="slide-org11a286f">
+<h2 id="org11a286f"><span class="section-number-2">11</span> Exemples</h2>
+<p>
+Traductions en C++ de fonctions vues en DS.
+</p>
+</section>
+<section id="slide-org4f348bf">
+<h3 id="org4f348bf"><span class="section-number-3">11.1</span> Limites</h3>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">tuple</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #bc6ec5; font-weight: bold;">limites</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #bc6ec5;">&gt;</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">xs</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">min_x</span>= xs<span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">]</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">max_x</span>= xs<span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">]</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">x</span> : xs<span style="color: #bc6ec5;">){</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span>x &lt; min_x<span style="color: #2d9574;">){</span>
+      min_x= x;
+    <span style="color: #2d9574;">}</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span> x &gt; max_x<span style="color: #2d9574;">){</span>
+      max_x= x;
+    <span style="color: #2d9574;">}</span>
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">std</span>::make_tuple<span style="color: #bc6ec5;">(</span>min_x, max_x<span style="color: #bc6ec5;">)</span>;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #4f97d7; font-weight: bold;">template</span><span style="color: #4f97d7;">&lt;</span><span style="color: #4f97d7; font-weight: bold;">typename</span> <span style="color: #ce537a; font-weight: bold;">T</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">tuple</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">T</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #bc6ec5; font-weight: bold;">limites_generic</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">T</span><span style="color: #bc6ec5;">&gt;</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">xs</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #ce537a; font-weight: bold;">T</span> <span style="color: #7590db;">min_x</span>= xs<span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">]</span>;
+  <span style="color: #ce537a; font-weight: bold;">T</span> <span style="color: #7590db;">max_x</span>= xs<span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">]</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">T</span> <span style="color: #7590db;">x</span> : xs<span style="color: #bc6ec5;">){</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span>x &lt; min_x<span style="color: #2d9574;">){</span>
+      min_x= x;
+    <span style="color: #2d9574;">}</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span> x &gt; max_x<span style="color: #2d9574;">){</span>
+      max_x= x;
+    <span style="color: #2d9574;">}</span>
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">std</span>::make_tuple<span style="color: #bc6ec5;">(</span>min_x, max_x<span style="color: #bc6ec5;">)</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+</section>
+<section >
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #4f97d7; font-weight: bold;">template</span><span style="color: #4f97d7;">&lt;</span><span style="color: #4f97d7; font-weight: bold;">typename</span> <span style="color: #ce537a; font-weight: bold;">It</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">tuple</span><span style="color: #4f97d7;">&lt;</span><span style="color: #4f97d7; font-weight: bold;">decltype</span><span style="color: #bc6ec5;">(</span>*It<span style="color: #bc6ec5;">)</span>, <span style="color: #4f97d7; font-weight: bold;">decltype</span><span style="color: #bc6ec5;">(</span>*It<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5; font-weight: bold;">limites_iter</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">begin</span>, <span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">end</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">typedef</span> <span style="color: #4f97d7; font-weight: bold;">decltype</span><span style="color: #bc6ec5;">(</span>*It<span style="color: #bc6ec5;">)</span> <span style="color: #ce537a; font-weight: bold;">T</span>;
+  <span style="color: #ce537a; font-weight: bold;">T</span> <span style="color: #7590db;">min_x</span>= *begin; <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">!!!</span>
+  <span style="color: #ce537a; font-weight: bold;">T</span> <span style="color: #7590db;">max_x</span>= *begin;
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">it</span>=begin; it != end; ++it<span style="color: #bc6ec5;">){</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span>*it &lt; min_x<span style="color: #2d9574;">){</span>
+      min_x= *it;
+    <span style="color: #2d9574;">}</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span> *it &gt; max_x<span style="color: #2d9574;">){</span>
+      max_x= *it;
+    <span style="color: #2d9574;">}</span>
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">std</span>::make_tuple<span style="color: #bc6ec5;">(</span>min_x, max_x<span style="color: #bc6ec5;">)</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+</section>
+<section >
+<div class="org-src-container">
+
+<pre  class="src src-C++">  <span style="color: #4f97d7; font-weight: bold;">template</span><span style="color: #4f97d7;">&lt;</span><span style="color: #4f97d7; font-weight: bold;">typename</span> <span style="color: #ce537a; font-weight: bold;">It</span><span style="color: #4f97d7;">&gt;</span>
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">tuple</span><span style="color: #4f97d7;">&lt;</span><span style="color: #4f97d7; font-weight: bold;">decltype</span><span style="color: #bc6ec5;">(</span>*It<span style="color: #bc6ec5;">)</span>, <span style="color: #4f97d7; font-weight: bold;">decltype</span><span style="color: #bc6ec5;">(</span>*It<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">&gt;</span>
+  <span style="color: #bc6ec5; font-weight: bold;">limites_iter2</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">begin</span>, <span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">end</span><span style="color: #4f97d7;">){</span>
+    <span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">min_it</span>= begin; <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">!!!</span>
+    <span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">max_it</span>= begin;
+    <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">it</span>=begin; it != end; ++it<span style="color: #bc6ec5;">){</span>
+      <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span>*it &lt; *min_it<span style="color: #2d9574;">){</span>
+        min_it= it;
+      <span style="color: #2d9574;">}</span>
+      <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span> *it &gt; *max_it<span style="color: #2d9574;">){</span>
+        max_it= it;
+      <span style="color: #2d9574;">}</span>
+    <span style="color: #bc6ec5;">}</span>
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">std</span>::make_tuple<span style="color: #bc6ec5;">(</span>*min_it, *max_it<span style="color: #bc6ec5;">)</span>;<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">!!!</span>
+  <span style="color: #4f97d7;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">template</span><span style="color: #4f97d7;">&lt;</span><span style="color: #4f97d7; font-weight: bold;">typename</span> <span style="color: #ce537a; font-weight: bold;">It</span><span style="color: #4f97d7;">&gt;</span>
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">tuple</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">It</span>, <span style="color: #ce537a; font-weight: bold;">It</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #bc6ec5; font-weight: bold;">limites_idiomatic</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">begin</span>, <span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">end</span><span style="color: #4f97d7;">){</span>
+    <span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">min_it</span>= begin; <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">!!!</span>
+    <span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">max_it</span>= begin;
+    <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">it</span>=begin; it != end; ++it<span style="color: #bc6ec5;">){</span>
+      <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span>*it &lt; *min_it<span style="color: #2d9574;">){</span>
+        min_it= it;
+      <span style="color: #2d9574;">}</span>
+      <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span> *it &gt; *max_it<span style="color: #2d9574;">){</span>
+        max_it= it;
+      <span style="color: #2d9574;">}</span>
+    <span style="color: #bc6ec5;">}</span>
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">std</span>::make_tuple<span style="color: #bc6ec5;">(</span>min_it, max_it<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7;">}</span>
+
+<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">En fait,  std::minmax_element() existe !</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgdc59846">
+<h3 id="orgdc59846"><span class="section-number-3">11.2</span> Fusion</h3>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">char != code point !</span>
+<span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #bc6ec5; font-weight: bold;">fusion</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">str1</span>, <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">str2</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">res</span>;
+  <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #bc6ec5;">(</span>str1.size<span style="color: #2d9574;">()</span> == str2.size<span style="color: #2d9574;">()</span><span style="color: #bc6ec5;">){</span>
+    <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #2d9574;">(</span><span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">it1</span>= str1.begin<span style="color: #67b11d;">()</span>, <span style="color: #7590db;">it2</span>= str2.begin<span style="color: #67b11d;">()</span>; it1 != str1.end<span style="color: #67b11d;">()</span>; ++it1, ++it2<span style="color: #2d9574;">){</span>
+      res.push_back<span style="color: #67b11d;">(</span>*it1<span style="color: #67b11d;">)</span>;
+      res.push_back<span style="color: #67b11d;">(</span>*it2<span style="color: #67b11d;">)</span>;
+    <span style="color: #2d9574;">}</span>
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> res;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">char != code point !</span>
+<span style="color: #4f97d7; font-weight: bold;">template</span><span style="color: #4f97d7;">&lt;</span><span style="color: #4f97d7; font-weight: bold;">typename</span> <span style="color: #ce537a; font-weight: bold;">It1</span>, <span style="color: #4f97d7; font-weight: bold;">typename</span> <span style="color: #ce537a; font-weight: bold;">It2</span>, <span style="color: #4f97d7; font-weight: bold;">typename</span> <span style="color: #ce537a; font-weight: bold;">Out</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">Out</span> <span style="color: #bc6ec5; font-weight: bold;">fusion_idiomatic</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">It1</span> <span style="color: #7590db;">begin1</span>, <span style="color: #ce537a; font-weight: bold;">It1</span> <span style="color: #7590db;">end1</span>, <span style="color: #ce537a; font-weight: bold;">It2</span> <span style="color: #7590db;">begin2</span>, <span style="color: #ce537a; font-weight: bold;">It2</span> <span style="color: #7590db;">end2</span>, <span style="color: #ce537a; font-weight: bold;">Out</span> <span style="color: #7590db;">out</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">std</span>::distance<span style="color: #2d9574;">(</span>begin1, end1<span style="color: #2d9574;">)</span>== <span style="color: #a45bad;">std</span>::distance<span style="color: #2d9574;">(</span>begin2, end2<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">){</span>
+    <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #2d9574;">(</span>; begin1 != end1; ++begin1, ++begin2<span style="color: #2d9574;">){</span>
+      *out= *begin1;
+      ++out;
+      *out= *begin2;
+      ++out;
+    <span style="color: #2d9574;">}</span>
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> out;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+</section>
+<section id="slide-orgeaf5add">
+<h3 id="orgeaf5add"><span class="section-number-3">11.3</span> Palindrome</h3>
+<div class="org-src-container">
+
+<pre  class="src src-C++">
+<span style="color: #ce537a; font-weight: bold;">bool</span> <span style="color: #bc6ec5; font-weight: bold;">palindrome</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">str</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">i</span>= <span style="color: #a45bad;">0</span>; i != str.size<span style="color: #2d9574;">()</span>/<span style="color: #a45bad;">2</span>; ++i<span style="color: #bc6ec5;">){</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span>str<span style="color: #67b11d;">[</span>i<span style="color: #67b11d;">]</span> != str<span style="color: #67b11d;">[</span>str.size<span style="color: #b1951d;">()</span>-i<span style="color: #67b11d;">]</span><span style="color: #2d9574;">){</span>
+      <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">false</span>;
+    <span style="color: #2d9574;">}</span>
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">true</span>;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #ce537a; font-weight: bold;">bool</span> <span style="color: #bc6ec5; font-weight: bold;">palindrome2</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">str</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">it</span>= str.begin<span style="color: #bc6ec5;">()</span>;
+  <span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">r_it</span>= str.rbegin<span style="color: #bc6ec5;">()</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">i</span>= <span style="color: #a45bad;">0</span>; i != str.size<span style="color: #2d9574;">()</span>/<span style="color: #a45bad;">2</span>; ++i, ++it, ++r_it<span style="color: #bc6ec5;">){</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span>*it != *r_it<span style="color: #2d9574;">){</span>
+      <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">false</span>;
+    <span style="color: #2d9574;">}</span>
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">true</span>;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #ce537a; font-weight: bold;">bool</span> <span style="color: #bc6ec5; font-weight: bold;">palindrom_idiomatic</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">begin</span>, <span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">end</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">half</span>= <span style="color: #a45bad;">std</span>::distance<span style="color: #bc6ec5;">(</span>begin, end<span style="color: #bc6ec5;">)</span>/<span style="color: #a45bad;">2</span>;
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">reverse_iterator</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">It</span><span style="color: #bc6ec5;">&gt;</span> <span style="color: #bc6ec5; font-weight: bold;">rbegin</span><span style="color: #bc6ec5;">(</span>end<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">i</span>=<span style="color: #a45bad;">0</span>; i != half; ++i, ++begin, ++rbegin<span style="color: #bc6ec5;">){</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span>*begin != *rbegin<span style="color: #2d9574;">){</span><span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">false</span>;<span style="color: #2d9574;">}</span>
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">true</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgeaad001">
+<h3 id="orgeaad001"><span class="section-number-3">11.4</span> Extraction de données</h3>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #4f97d7; font-weight: bold;">typedef</span> <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">tuple</span><span style="color: #4f97d7;">&lt;</span><span style="color: #a45bad;">std</span>::string, <span style="color: #a45bad;">std</span>::string, <span style="color: #ce537a; font-weight: bold;">double</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #ce537a; font-weight: bold;">data_t</span>;
+
+<span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">data_t</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #bc6ec5; font-weight: bold;">extraction</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">data_t</span><span style="color: #bc6ec5;">&gt;</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">xs</span>, <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">crit</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">data_t</span><span style="color: #bc6ec5;">&gt;</span> <span style="color: #7590db;">res</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">data_t</span> <span style="color: #7590db;">x</span> : xs<span style="color: #bc6ec5;">){</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span><span style="color: #a45bad;">std</span>::get<span style="color: #67b11d;">&lt;</span><span style="color: #a45bad;">0</span><span style="color: #67b11d;">&gt;(</span>x<span style="color: #67b11d;">)</span> == crit<span style="color: #2d9574;">){</span>
+      res.push_back<span style="color: #67b11d;">(</span>x<span style="color: #67b11d;">)</span>;
+    <span style="color: #2d9574;">}</span>
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> res;
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #4f97d7; font-weight: bold;">template</span><span style="color: #4f97d7;">&lt;</span><span style="color: #4f97d7; font-weight: bold;">typename</span> <span style="color: #ce537a; font-weight: bold;">It</span>, <span style="color: #4f97d7; font-weight: bold;">typename</span> <span style="color: #ce537a; font-weight: bold;">Out</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">Out</span> <span style="color: #bc6ec5; font-weight: bold;">extraction_idiomatic</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">begin</span>, <span style="color: #ce537a; font-weight: bold;">It</span> <span style="color: #7590db;">end</span>, <span style="color: #ce537a; font-weight: bold;">Out</span> <span style="color: #7590db;">out</span>, <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">crit</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span>; begin != end; ++begin<span style="color: #bc6ec5;">){</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span><span style="color: #a45bad;">std</span>::get<span style="color: #67b11d;">&lt;</span><span style="color: #a45bad;">0</span><span style="color: #67b11d;">&gt;(</span>*begin<span style="color: #67b11d;">)</span> == crit<span style="color: #2d9574;">){</span>
+      *out= *begin;
+      ++out;
+    <span style="color: #2d9574;">}</span>
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> out;
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #2aa1ae; background-color: #292e34;">/*</span>
+<span style="color: #2aa1ae; background-color: #292e34;">std::copy_if(data.begin(), data.end(), std::back_inserter(selection)</span>
+<span style="color: #2aa1ae; background-color: #292e34;">             , [&amp;category](data_t const&amp; x)-&gt;bool{return std::get&lt;0&gt;(x) == category;})</span>
+
+<span style="color: #2aa1ae; background-color: #292e34;">*/</span>
+</pre>
+</div>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #4f97d7; font-weight: bold;">typedef</span> <span style="color: #ce537a; font-weight: bold;">tuple</span><span style="color: #4f97d7;">&lt;</span><span style="color: #a45bad;">std</span>::string, <span style="color: #a45bad;">std</span>::string, <span style="color: #ce537a; font-weight: bold;">double</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #ce537a; font-weight: bold;">data_t</span>;
+
+<span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">data_t</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #bc6ec5; font-weight: bold;">extract_dict</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::unordered_map&lt;<span style="color: #a45bad;">std</span>::string, <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">data_t</span><span style="color: #bc6ec5;">&gt;</span> <span style="color: #7590db;">dict</span>, <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">cat</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> dict<span style="color: #bc6ec5;">[</span>cat<span style="color: #bc6ec5;">]</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org18cc846">
+<h3 id="org18cc846"><span class="section-number-3">11.5</span> Pliage</h3>
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">pliage</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">str</span>, <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">n</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">i</span><span style="color: #2d9574;">(</span><span style="color: #a45bad;">0</span><span style="color: #2d9574;">)</span>; i != str.size<span style="color: #2d9574;">()</span>; ++i<span style="color: #bc6ec5;">){</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span> <span style="color: #67b11d;">(</span>i != <span style="color: #a45bad;">0</span><span style="color: #67b11d;">)</span> &amp;&amp; <span style="color: #67b11d;">(</span>i % n == <span style="color: #a45bad;">0</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">){</span>
+      <span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+    <span style="color: #2d9574;">}</span>
+    <span style="color: #a45bad;">std</span>::cout&lt;&lt;str<span style="color: #2d9574;">[</span>i<span style="color: #2d9574;">]</span>;
+  <span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #4f97d7; font-weight: bold;">template</span><span style="color: #4f97d7;">&lt;</span><span style="color: #4f97d7; font-weight: bold;">typename</span> <span style="color: #ce537a; font-weight: bold;">In</span>, <span style="color: #4f97d7; font-weight: bold;">typename</span> <span style="color: #ce537a; font-weight: bold;">Out</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">Out</span> <span style="color: #bc6ec5; font-weight: bold;">pliage_idiomatic</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">In</span> <span style="color: #7590db;">begin</span>, <span style="color: #ce537a; font-weight: bold;">In</span> <span style="color: #7590db;">end</span>, <span style="color: #ce537a; font-weight: bold;">Out</span> <span style="color: #7590db;">out</span>, <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">n</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">i</span><span style="color: #2d9574;">(</span><span style="color: #a45bad;">0</span><span style="color: #2d9574;">)</span>; begin != end; ++begin<span style="color: #bc6ec5;">){</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span><span style="color: #67b11d;">(</span>i != <span style="color: #a45bad;">0</span><span style="color: #67b11d;">)</span> &amp;&amp; <span style="color: #67b11d;">(</span>i % n == <span style="color: #a45bad;">0</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">){</span>
+      *out= <span style="color: #2d9574;">'\n'</span>;
+      ++out;
+    <span style="color: #2d9574;">}</span>
+    *out= *begin;
+    ++out;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> out;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb1faeb7">
+<h2 id="orgb1faeb7"><span class="section-number-2">12</span> Programmes</h2>
+<div class="outline-text-2" id="text-12">
+</div>
+</section>
+<section id="slide-org9febda8">
+<h3 id="org9febda8"><span class="section-number-3">12.1</span> Pendu</h3>
+<p>
+On eut essayer de <a href="https://gist.github.com/bhugueney/55bbd89b3092ce9860a3d28c118b9cb3">réécrire le programme de jeu de pendu en C++</a>. Cependant, la
+notion de lettre n'étant pas gérée (ne pas confondre lettres et caractères !),
+le programme ne marchera pas avec des lettres codées sur plusieurs octets
+(accentuées par exemple). Pour ce genre de programmes sans impératifs de
+performance, python est donc plus adapté.
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">iostream</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">string</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">vector</span><span style="color: #4f97d7;">&gt;</span>
+
+<span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #bc6ec5; font-weight: bold;">initialiser_mot_mystere</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">mot</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">res</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">i</span>=<span style="color: #a45bad;">0</span>; i != mot.size<span style="color: #2d9574;">()</span>; ++i<span style="color: #bc6ec5;">){</span>
+    res.push_back<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'_'</span><span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> res;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+</section>
+<section >
+<div class="org-src-container">
+
+<pre  class="src src-C++">
+<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">affichage_mot_mystere</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">mot_mystere</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">c</span> : mot_mystere<span style="color: #bc6ec5;">){</span>
+    <span style="color: #a45bad;">std</span>::cout &lt;&lt; c &lt;&lt; <span style="color: #2d9574;">' '</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">affichage_coups_restants</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">nb_coups_restants</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #2d9574;">"Il vous reste "</span> &lt;&lt; nb_coups_restants &lt;&lt; <span style="color: #2d9574;">" coups."</span>&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #bc6ec5; font-weight: bold;">saisie_joueur2</span><span style="color: #4f97d7;">(){</span>
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">saisie</span>;
+  <span style="color: #4f97d7; font-weight: bold;">while</span><span style="color: #bc6ec5;">(</span> saisie.size<span style="color: #2d9574;">()</span> == <span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">){</span>
+    <span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #2d9574;">"Lettre &#229; tester :"</span>&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+    <span style="color: #a45bad;">std</span>::cin &gt;&gt; saisie;
+    <span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> saisie<span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">]</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+</section>
+<section >
+<div class="org-src-container">
+
+<pre  class="src src-C++">
+<span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #bc6ec5; font-weight: bold;">mise_a_jour_mot_mystere</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">lettre</span>, <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">mot</span>, <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">mot_mystere</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">res</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">i</span>=<span style="color: #a45bad;">0</span>; i != mot.size<span style="color: #2d9574;">()</span>; ++i<span style="color: #bc6ec5;">){</span>
+    res.push_back<span style="color: #2d9574;">(</span>mot<span style="color: #67b11d;">[</span>i<span style="color: #67b11d;">]</span> == lettre ? lettre : mot_mystere<span style="color: #67b11d;">[</span>i<span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> res;
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #bc6ec5; font-weight: bold;">choix_joueur2</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">mot</span>, <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">mot_mystere</span>
+                          , <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">nb_coups_restants</span><span style="color: #4f97d7;">){</span>
+  affichage_mot_mystere<span style="color: #bc6ec5;">(</span>mot_mystere<span style="color: #bc6ec5;">)</span>;
+  affichage_coups_restants<span style="color: #bc6ec5;">(</span>nb_coups_restants<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">lettre_saisie</span>= saisie_joueur2<span style="color: #bc6ec5;">()</span>;
+  <span style="color: #4f97d7; font-weight: bold;">return</span> mise_a_jour_mot_mystere<span style="color: #bc6ec5;">(</span>lettre_saisie, mot, mot_mystere<span style="color: #bc6ec5;">)</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+</section>
+<section >
+<div class="org-src-container">
+
+<pre  class="src src-C++">
+<span style="color: #ce537a; font-weight: bold;">bool</span> <span style="color: #bc6ec5; font-weight: bold;">test_jeu_fini</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">mot_mystere</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">nb_coups_restants</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #bc6ec5;">(</span>mot_mystere.find<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'_'</span><span style="color: #2d9574;">)</span> == <span style="color: #a45bad;">std</span>::<span style="color: #a45bad;">string</span>::npos<span style="color: #bc6ec5;">){</span>
+    <span style="color: #a45bad;">std</span>::cout&lt;&lt; <span style="color: #2d9574;">"F&#233;licitations! Vous avez trouv&#233; le mot myst&#232;re."</span>&lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">true</span>;
+  <span style="color: #bc6ec5;">}</span><span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #bc6ec5;">(</span>nb_coups_restants == <span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">){</span>
+    <span style="color: #a45bad;">std</span>::cout&lt;&lt; <span style="color: #2d9574;">"F&#233;licitations! Vous avez trouv&#233; le mot myst&#232;re."</span>&lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">true</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">false</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+</section>
+<section >
+<div class="org-src-container">
+
+<pre  class="src src-C++">
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span>* <span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">while</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">true</span><span style="color: #bc6ec5;">){</span>
+    <span style="color: #a45bad;">std</span>::cout &lt;&lt;  <span style="color: #2d9574;">"*************************************"</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl
+              &lt;&lt; <span style="color: #2d9574;">"Bienvenu sur le jeu du Pendu"</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl
+              &lt;&lt; <span style="color: #2d9574;">"1 - Commencer une nouvelle partie"</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl
+              &lt;&lt; <span style="color: #2d9574;">"0 - Quitter"</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl
+              &lt;&lt; <span style="color: #2d9574;">"*************************************"</span>&lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">choix</span>;
+    <span style="color: #a45bad;">std</span>::cout&lt;&lt;<span style="color: #2d9574;">"Faites votre choix"</span>&lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+    <span style="color: #a45bad;">std</span>::cin &gt;&gt; choix;
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span> choix == <span style="color: #a45bad;">0</span><span style="color: #2d9574;">){</span>
+      <span style="color: #4f97d7; font-weight: bold;">break</span>;
+    <span style="color: #2d9574;">}</span>
+        <span style="color: #a45bad;">std</span>::cerr&lt;&lt;<span style="color: #2d9574;">" choix:"</span> &lt;&lt; choix &lt;&lt;<span style="color: #a45bad;">std</span>::endl;
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #2d9574;">(</span> choix != <span style="color: #a45bad;">1</span><span style="color: #2d9574;">){</span>
+      <span style="color: #4f97d7; font-weight: bold;">continue</span>;
+    <span style="color: #2d9574;">}</span>
+    <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">mot</span>;
+    <span style="color: #a45bad;">std</span>::getline<span style="color: #2d9574;">(</span><span style="color: #a45bad;">std</span>::cin, mot<span style="color: #2d9574;">)</span>;<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">flush line break</span>
+    <span style="color: #4f97d7; font-weight: bold;">while</span><span style="color: #2d9574;">(</span> mot.size<span style="color: #67b11d;">()</span> ==<span style="color: #a45bad;">0</span><span style="color: #2d9574;">){</span>
+      <span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #2d9574;">"Joueur 1 - Saisissez le mot myst&#232;re:"</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+      <span style="color: #a45bad;">std</span>::getline<span style="color: #67b11d;">(</span><span style="color: #a45bad;">std</span>::cin, mot<span style="color: #67b11d;">)</span>;
+    <span style="color: #2d9574;">}</span>
+
+    <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">mot_mystere</span>= initialiser_mot_mystere<span style="color: #2d9574;">(</span>mot<span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #2d9574;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">i</span>=<span style="color: #a45bad;">0</span>; i != <span style="color: #a45bad;">100</span>; ++i<span style="color: #2d9574;">){</span>
+      <span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+    <span style="color: #2d9574;">}</span>
+    <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #2d9574;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">nb_coups_restants</span>= <span style="color: #a45bad;">10</span>; <span style="color: #a45bad;">!</span>test_jeu_fini<span style="color: #67b11d;">(</span>mot_mystere, nb_coups_restants<span style="color: #67b11d;">)</span>; --nb_coups_restants<span style="color: #2d9574;">){</span>
+      mot_mystere= choix_joueur2<span style="color: #67b11d;">(</span>mot, mot_mystere, nb_coups_restants<span style="color: #67b11d;">)</span>;
+    <span style="color: #2d9574;">}</span>
+  <span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7;">}</span>
+
+</pre>
+</div>
+</section>
+<section id="slide-orgf470e9e">
+<h3 id="orgf470e9e"><span class="section-number-3">12.2</span> Chaos Game</h3>
+<p>
+Soit le programme suivant en python, qui implémente un dessin paramétrable suivant le principe du chaos game.
+On peut lancer ce programme de la façon suivante :
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-shell">python ./chaos-game.py <span style="color: #a45bad;">4</span>  &gt;chaos-game-py-frame-4.pgm
+</pre>
+</div>
+
+<p>
+et obtenir le fichier image <code>chaos-game-py-frame-4.pgm</code> au format PGM.
+</p>
+
+<p>
+Avec le program <code>convert</code> d'ImageMagick, on peut convertir à la volée au format PNG :
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-shell">python ./chaos-game.py <span style="color: #a45bad;">5</span>  | convert pgm:- chaos-game-py-frame-5.pgm
+</pre>
+</div>
+
+<p>
+pour d'obtenir l'image suivante :
+</p>
+</section>
+<section >
+
+<div class="figure">
+<p><img src="chaos-game-py-frame-5.png" alt="chaos-game-py-frame-5.png" />
+</p>
+</div>
+
+<p>
+On voudrait faire varier progressivement le paramètre de 3.00 à 8.00 avec un
+incrément de 0.01 pour générer une animation. Comme le programme python met 2
+minutes par image, les 500 images nécessaires prendraient 1000 minutes, soit
+beaucoup trop longtemps ! On va donc réécrire le programme en C++.
+</p>
+</section>
+<section id="slide-org194620f">
+<h4 id="org194620f"><span class="section-number-4">12.2.1</span> Programme en Python</h4>
+<p>
+<a href="https://gist.github.com/bhugueney/570df58e6f0e2172f90785ed21c200a2">Implémentation en python</a>
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #4f97d7; font-weight: bold;">import</span> sys
+<span style="color: #4f97d7; font-weight: bold;">import</span> math
+<span style="color: #4f97d7; font-weight: bold;">import</span> random
+
+
+<span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">midpoint</span><span style="color: #4f97d7;">(</span>p0, p1<span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7;">(</span>x0, y0<span style="color: #4f97d7;">)</span>= p0
+    <span style="color: #4f97d7;">(</span>x1, y1<span style="color: #4f97d7;">)</span>= p1
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">(</span>x0 + x1<span style="color: #bc6ec5;">)</span>/<span style="color: #a45bad;">2</span>, <span style="color: #bc6ec5;">(</span>y0 + y1<span style="color: #bc6ec5;">)</span>/<span style="color: #a45bad;">2</span><span style="color: #4f97d7;">)</span>
+
+<span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">rotate</span><span style="color: #4f97d7;">(</span>center, a, p<span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7;">(</span>x0, y0<span style="color: #4f97d7;">)</span>= center
+    <span style="color: #4f97d7;">(</span>x, y<span style="color: #4f97d7;">)</span>= p
+    <span style="color: #7590db;">x</span>-= x0
+    <span style="color: #7590db;">y</span>-= y0
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #4f97d7;">(</span>x0+math.cos<span style="color: #bc6ec5;">(</span>a<span style="color: #bc6ec5;">)</span>*x - math.sin<span style="color: #bc6ec5;">(</span>a<span style="color: #bc6ec5;">)</span>*y,
+            y0+math.sin<span style="color: #bc6ec5;">(</span>a<span style="color: #bc6ec5;">)</span>*x + math.cos<span style="color: #bc6ec5;">(</span>a<span style="color: #bc6ec5;">)</span>*y<span style="color: #4f97d7;">)</span>
+
+<span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">polygon</span><span style="color: #4f97d7;">(</span>center, p, n<span style="color: #4f97d7;">)</span>:
+    <span style="color: #7590db;">res</span>=<span style="color: #4f97d7;">[]</span>
+    <span style="color: #4f97d7; font-weight: bold;">for</span> i <span style="color: #4f97d7; font-weight: bold;">in</span> <span style="color: #4f97d7;">range</span><span style="color: #4f97d7;">(</span>math.ceil<span style="color: #bc6ec5;">(</span>n<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>:
+        res.append<span style="color: #4f97d7;">(</span>p<span style="color: #4f97d7;">)</span>
+        <span style="color: #7590db;">p</span>= rotate<span style="color: #4f97d7;">(</span>center, <span style="color: #a45bad;">2</span>*math.pi/n, p<span style="color: #4f97d7;">)</span>
+    <span style="color: #4f97d7; font-weight: bold;">return</span> res
+
+<span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">brighten</span><span style="color: #4f97d7;">(</span>screen, p, white<span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7;">(</span>x,y<span style="color: #4f97d7;">)</span>= p
+    <span style="color: #7590db;">x</span>= <span style="color: #4f97d7;">int</span><span style="color: #4f97d7;">(</span>x<span style="color: #4f97d7;">)</span>
+    <span style="color: #7590db;">y</span>= <span style="color: #4f97d7;">int</span><span style="color: #4f97d7;">(</span>y<span style="color: #4f97d7;">)</span>
+    screen<span style="color: #4f97d7;">[</span>y<span style="color: #4f97d7;">][</span>x<span style="color: #4f97d7;">]</span>= <span style="color: #4f97d7;">min</span><span style="color: #4f97d7;">(</span>screen<span style="color: #bc6ec5;">[</span>y<span style="color: #bc6ec5;">][</span>x<span style="color: #bc6ec5;">]</span>+<span style="color: #a45bad;">1</span>, white<span style="color: #4f97d7;">)</span>
+
+<span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">create_screen</span><span style="color: #4f97d7;">(</span>init, w, h<span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #4f97d7;">[</span><span style="color: #bc6ec5;">[</span>init <span style="color: #4f97d7; font-weight: bold;">for</span> x <span style="color: #4f97d7; font-weight: bold;">in</span> <span style="color: #4f97d7;">range</span><span style="color: #2d9574;">(</span>w<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">]</span> <span style="color: #4f97d7; font-weight: bold;">for</span> y <span style="color: #4f97d7; font-weight: bold;">in</span> <span style="color: #4f97d7;">range</span><span style="color: #bc6ec5;">(</span>h<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">]</span>
+
+<span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">print_image</span><span style="color: #4f97d7;">(</span>white, screen<span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7; font-weight: bold;">print</span><span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"P2"</span><span style="color: #4f97d7;">)</span>
+    <span style="color: #4f97d7; font-weight: bold;">print</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7;">len</span><span style="color: #bc6ec5;">(</span>screen<span style="color: #2d9574;">[</span><span style="color: #a45bad;">0</span><span style="color: #2d9574;">]</span><span style="color: #bc6ec5;">)</span>, <span style="color: #4f97d7;">len</span><span style="color: #bc6ec5;">(</span>screen<span style="color: #2d9574;">[</span><span style="color: #a45bad;">1</span><span style="color: #2d9574;">]</span><span style="color: #bc6ec5;">)</span>, sep=<span style="color: #2d9574;">" "</span><span style="color: #4f97d7;">)</span>
+    <span style="color: #4f97d7; font-weight: bold;">print</span><span style="color: #4f97d7;">(</span>white<span style="color: #4f97d7;">)</span>
+    <span style="color: #4f97d7; font-weight: bold;">for</span> line <span style="color: #4f97d7; font-weight: bold;">in</span> screen:
+        <span style="color: #4f97d7; font-weight: bold;">for</span> c <span style="color: #4f97d7; font-weight: bold;">in</span> line :
+            <span style="color: #4f97d7; font-weight: bold;">print</span><span style="color: #4f97d7;">(</span>c, end=<span style="color: #2d9574;">" "</span><span style="color: #4f97d7;">)</span>
+    <span style="color: #4f97d7; font-weight: bold;">print</span><span style="color: #4f97d7;">()</span>
+
+<span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span>argv<span style="color: #4f97d7;">)</span>:
+    <span style="color: #7590db;">n_edges</span>= <span style="color: #4f97d7;">float</span><span style="color: #4f97d7;">(</span>argv<span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #4f97d7;">len</span><span style="color: #4f97d7;">(</span>argv<span style="color: #4f97d7;">)</span>&gt;<span style="color: #a45bad;">0</span> <span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #a45bad;">3</span>.
+    <span style="color: #7590db;">w</span>= <span style="color: #a45bad;">1024</span>
+    <span style="color: #7590db;">h</span>= <span style="color: #a45bad;">1024</span>
+    <span style="color: #7590db;">black</span>= <span style="color: #a45bad;">0</span>
+    <span style="color: #7590db;">white</span>= <span style="color: #a45bad;">255</span>
+    <span style="color: #7590db;">n</span>= <span style="color: #4f97d7;">int</span><span style="color: #4f97d7;">(</span>n_edges * <span style="color: #bc6ec5;">(</span> <span style="color: #4f97d7;">int</span><span style="color: #2d9574;">(</span>argv<span style="color: #67b11d;">[</span><span style="color: #a45bad;">1</span><span style="color: #67b11d;">]</span> <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #4f97d7;">len</span><span style="color: #67b11d;">(</span>argv<span style="color: #67b11d;">)</span> &gt; <span style="color: #a45bad;">1</span> <span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #a45bad;">10000000</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+    <span style="color: #7590db;">poly</span>= polygon<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">(</span>w/<span style="color: #a45bad;">2</span>, h/<span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">)</span>, <span style="color: #bc6ec5;">(</span>w/<span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">1</span>.<span style="color: #a45bad;">75</span>*h/<span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">)</span>, n_edges<span style="color: #4f97d7;">)</span>
+    <span style="color: #7590db;">screen</span>= create_screen<span style="color: #4f97d7;">(</span>black, w, h<span style="color: #4f97d7;">)</span>
+    <span style="color: #7590db;">prev_idx</span>= <span style="color: #a45bad;">0</span>
+    <span style="color: #7590db;">p</span>= poly<span style="color: #4f97d7;">[</span>prev_idx<span style="color: #4f97d7;">]</span>
+    <span style="color: #4f97d7; font-weight: bold;">for</span> i <span style="color: #4f97d7; font-weight: bold;">in</span> <span style="color: #4f97d7;">range</span><span style="color: #4f97d7;">(</span>n<span style="color: #4f97d7;">)</span>:
+      <span style="color: #7590db;">idx</span>= random.randrange<span style="color: #4f97d7;">(</span><span style="color: #4f97d7;">len</span><span style="color: #bc6ec5;">(</span>poly<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+      <span style="color: #4f97d7; font-weight: bold;">while</span> idx == prev_idx:
+        <span style="color: #7590db;">idx</span>= random.randrange<span style="color: #4f97d7;">(</span><span style="color: #4f97d7;">len</span><span style="color: #bc6ec5;">(</span>poly<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+      <span style="color: #7590db;">prev_idx</span>= idx
+      <span style="color: #7590db;">p</span>= midpoint<span style="color: #4f97d7;">(</span>poly<span style="color: #bc6ec5;">[</span>idx<span style="color: #bc6ec5;">]</span>, p<span style="color: #4f97d7;">)</span>
+      brighten<span style="color: #4f97d7;">(</span>screen, p, white<span style="color: #4f97d7;">)</span>
+    print_image<span style="color: #4f97d7;">(</span>white, screen<span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #4f97d7;">__name__</span> == <span style="color: #2d9574;">"__main__"</span>:
+    main<span style="color: #4f97d7;">(</span>sys.argv<span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">1</span>:<span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org31f978f">
+<h4 id="org31f978f"><span class="section-number-4">12.2.2</span> Réécriture partielle en C++</h4>
+<p>
+Au lieu de 17 heures pour générer les 500 images, on peut réduite le temps d'exécution à 17 minutes sur la
+base du <a href="https://gist.github.com/bhugueney/affd277baac3eb8f8ae8801d54eee285">programme suivant</a>. 
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">iostream</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">tuple</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">cmath</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">cstdlib</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">vector</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #2aa1ae; background-color: #292e34;">/*</span>
+<span style="color: #2aa1ae; background-color: #292e34;">STEPS=100;</span>
+<span style="color: #2aa1ae; background-color: #292e34;">PREFIX=chaos-game-frame-${STEPS}</span>
+<span style="color: #2aa1ae; background-color: #292e34;">for i in $(seq $((3 * $STEPS)) $((8 * $STEPS))); do</span>
+<span style="color: #2aa1ae; background-color: #292e34;">  ./chaos-game-double $(bc -l &lt;&lt;&lt; "scale=2;$i / $STEPS") | convert pgm:- ${PREFIX}-$i.png;</span>
+<span style="color: #2aa1ae; background-color: #292e34;">done</span>
+<span style="color: #2aa1ae; background-color: #292e34;">ffmpeg -start_number 300 -i ${PREFIX}-%03d.png -filter_complex "[0:v]reverse,fifo[r];[0:v][r] concat=n=2:v=1 [v]" -map "[v]" \</span>
+<span style="color: #2aa1ae; background-color: #292e34;">chaos-game.mp4</span>
+<span style="color: #2aa1ae; background-color: #292e34;">*/</span>
+
+<span style="color: #4f97d7; font-weight: bold;">typedef</span> <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">tuple</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">double</span>, <span style="color: #ce537a; font-weight: bold;">double</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #ce537a; font-weight: bold;">point_t</span>;
+
+<span style="color: #ce537a; font-weight: bold;">point_t</span> <span style="color: #bc6ec5; font-weight: bold;">midpoint</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">point_t</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">p0</span>, <span style="color: #ce537a; font-weight: bold;">point_t</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">p1</span><span style="color: #4f97d7;">){</span>
+<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #cc9393;">TODO</span>
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #ce537a; font-weight: bold;">point_t</span> <span style="color: #bc6ec5; font-weight: bold;">rotate</span><span style="color: #4f97d7;">(</span> <span style="color: #ce537a; font-weight: bold;">point_t</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">center</span>, <span style="color: #ce537a; font-weight: bold;">float</span> <span style="color: #7590db;">a</span>, <span style="color: #ce537a; font-weight: bold;">point_t</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">p</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">x</span>= <span style="color: #a45bad;">std</span>::get<span style="color: #bc6ec5;">&lt;</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">&gt;(</span>p<span style="color: #bc6ec5;">)</span>-<span style="color: #a45bad;">std</span>::get<span style="color: #bc6ec5;">&lt;</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">&gt;(</span>center<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">y</span>= <span style="color: #a45bad;">std</span>::get<span style="color: #bc6ec5;">&lt;</span><span style="color: #a45bad;">1</span><span style="color: #bc6ec5;">&gt;(</span>p<span style="color: #bc6ec5;">)</span>-<span style="color: #a45bad;">std</span>::get<span style="color: #bc6ec5;">&lt;</span><span style="color: #a45bad;">1</span><span style="color: #bc6ec5;">&gt;(</span>center<span style="color: #bc6ec5;">)</span>;
+
+  <span style="color: #4f97d7; font-weight: bold;">return</span> point_t<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">std</span>::get<span style="color: #2d9574;">&lt;</span><span style="color: #a45bad;">0</span><span style="color: #2d9574;">&gt;(</span>center<span style="color: #2d9574;">)</span>+<span style="color: #a45bad;">std</span>::cos<span style="color: #2d9574;">(</span>a<span style="color: #2d9574;">)</span>*x - <span style="color: #a45bad;">std</span>::sin<span style="color: #2d9574;">(</span>a<span style="color: #2d9574;">)</span>*y
+                         , <span style="color: #a45bad;">std</span>::get<span style="color: #2d9574;">&lt;</span><span style="color: #a45bad;">1</span><span style="color: #2d9574;">&gt;(</span>center<span style="color: #2d9574;">)</span>+<span style="color: #a45bad;">std</span>::sin<span style="color: #2d9574;">(</span>a<span style="color: #2d9574;">)</span>*x + <span style="color: #a45bad;">std</span>::cos<span style="color: #2d9574;">(</span>a<span style="color: #2d9574;">)</span>*y<span style="color: #bc6ec5;">)</span>;
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">pi</span>= <span style="color: #a45bad;">std</span>::atan<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">1</span><span style="color: #4f97d7;">)</span>*<span style="color: #a45bad;">4</span>;
+
+<span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">point_t</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #bc6ec5; font-weight: bold;">polygon</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">point_t</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">center</span>, <span style="color: #ce537a; font-weight: bold;">point_t</span> <span style="color: #7590db;">p</span>, <span style="color: #ce537a; font-weight: bold;">float</span> <span style="color: #7590db;">n</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">point_t</span><span style="color: #bc6ec5;">&gt;</span> <span style="color: #7590db;">res</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>= <span style="color: #a45bad;">0</span>; i &lt; <span style="color: #a45bad;">std</span>::ceil<span style="color: #2d9574;">(</span>n<span style="color: #2d9574;">)</span>; ++i<span style="color: #bc6ec5;">){</span>
+    res.push_back<span style="color: #2d9574;">(</span>p<span style="color: #2d9574;">)</span>;
+    p= rotate<span style="color: #2d9574;">(</span>center, <span style="color: #a45bad;">2</span>*pi/n, p<span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> res;
+<span style="color: #4f97d7;">}</span>
+<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #cc9393;">TODO</span><span style="color: #2aa1ae; background-color: #292e34;"> implementer brighten</span>
+
+<span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #4f97d7;">&lt;</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #bc6ec5;">&gt;</span> <span style="color: #4f97d7;">&gt;</span> <span style="color: #bc6ec5; font-weight: bold;">create_screen</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">init</span>, <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">w</span>, <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">h</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #2d9574;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #2d9574;">&gt;</span> <span style="color: #bc6ec5;">&gt;</span> <span style="color: #bc6ec5; font-weight: bold;">screen</span><span style="color: #bc6ec5;">(</span>h, <span style="color: #a45bad;">std</span>::vector<span style="color: #2d9574;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #2d9574;">&gt;(</span>w, init<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">return</span> screen;
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #4f97d7; font-weight: bold;">template</span><span style="color: #4f97d7;">&lt;</span><span style="color: #4f97d7; font-weight: bold;">typename</span> <span style="color: #ce537a; font-weight: bold;">C</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">ostream</span>&amp; <span style="color: #4f97d7; font-weight: bold;">operator</span><span style="color: #bc6ec5; font-weight: bold;">&lt;&lt;</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">ostream</span>&amp; <span style="color: #7590db;">os</span>, <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #2d9574;">&lt;</span><span style="color: #ce537a; font-weight: bold;">C</span><span style="color: #2d9574;">&gt;</span> <span style="color: #bc6ec5;">&gt;</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">screen</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">row</span> : screen<span style="color: #bc6ec5;">){</span>
+    <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #2d9574;">(</span><span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">c</span> : row<span style="color: #2d9574;">){</span>
+      os &lt;&lt; c &lt;&lt; <span style="color: #2d9574;">' '</span>;
+    <span style="color: #2d9574;">}</span>
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> os;
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span>* <span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">){</span>
+  <span style="color: #ce537a; font-weight: bold;">float</span> <span style="color: #7590db;">n_edges</span>= argc &gt; <span style="color: #a45bad;">1</span> ? <span style="color: #a45bad;">std</span>::atof<span style="color: #bc6ec5;">(</span>argv<span style="color: #2d9574;">[</span><span style="color: #a45bad;">1</span><span style="color: #2d9574;">]</span><span style="color: #bc6ec5;">)</span> : <span style="color: #a45bad;">3.f</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">n_e</span> = <span style="color: #4f97d7; font-weight: bold;">static_cast</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #bc6ec5;">&gt;(</span>n_edges<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">w</span>= <span style="color: #a45bad;">1024</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">h</span>= <span style="color: #a45bad;">1024</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">white</span>= <span style="color: #a45bad;">255</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">black</span>= <span style="color: #a45bad;">0</span>;
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">n</span>= <span style="color: #bc6ec5;">(</span>argc &gt; <span style="color: #a45bad;">2</span> ? <span style="color: #a45bad;">std</span>::atol<span style="color: #2d9574;">(</span>argv<span style="color: #67b11d;">[</span><span style="color: #a45bad;">2</span><span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span> : <span style="color: #a45bad;">10000000</span><span style="color: #bc6ec5;">)</span>*n_edges;
+
+  <span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">poly</span>= polygon<span style="color: #bc6ec5;">(</span>point_t<span style="color: #2d9574;">(</span>w/<span style="color: #a45bad;">2</span>, h/<span style="color: #a45bad;">2</span><span style="color: #2d9574;">)</span>, point_t<span style="color: #2d9574;">(</span>w/<span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">1.75</span>*h/<span style="color: #a45bad;">2</span><span style="color: #2d9574;">)</span>, n_edges<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">auto</span> <span style="color: #7590db;">sc</span>= create_screen<span style="color: #bc6ec5;">(</span>black, w, h<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">prev_idx</span>= <span style="color: #a45bad;">0</span>;
+  <span style="color: #ce537a; font-weight: bold;">point_t</span> <span style="color: #7590db;">p</span>= poly<span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">]</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">i</span>=<span style="color: #a45bad;">0</span>; i != n; ++i<span style="color: #bc6ec5;">){</span>
+    <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">idx</span>=<span style="color: #a45bad;">0</span>;
+    <span style="color: #4f97d7; font-weight: bold;">do</span><span style="color: #2d9574;">{</span>
+      idx= <span style="color: #a45bad;">std</span>::rand<span style="color: #67b11d;">()</span>%poly.size<span style="color: #67b11d;">()</span>;
+    <span style="color: #2d9574;">}</span><span style="color: #4f97d7; font-weight: bold;">while</span><span style="color: #2d9574;">(</span>idx == prev_idx<span style="color: #2d9574;">)</span>;
+    p= midpoint<span style="color: #2d9574;">(</span>poly<span style="color: #67b11d;">[</span>idx<span style="color: #67b11d;">]</span>, p<span style="color: #2d9574;">)</span>;
+    prev_idx= idx;
+    brighten<span style="color: #2d9574;">(</span>sc, p, white<span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #a45bad;">std</span>::cout &lt;&lt; <span style="color: #2d9574;">"P2"</span> &lt;&lt; <span style="color: #a45bad;">std</span>::endl &lt;&lt; w &lt;&lt; <span style="color: #2d9574;">' '</span> &lt;&lt; h &lt;&lt; <span style="color: #a45bad;">std</span>::endl &lt;&lt; white &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+  <span style="color: #a45bad;">std</span>::cout&lt;&lt; sc &lt;&lt; <span style="color: #a45bad;">std</span>::endl;
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
+
+</pre>
+</div>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/head.min.js"></script>
+<script src="https://cdn.jsdelivr.net/reveal.js/3.0.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>
