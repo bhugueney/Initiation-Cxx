@@ -27,25 +27,25 @@
 <body>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h1 class="title">Initiation au C++</h1><h2 class="author">Bernard Hugueney</h2><p class="date">Created: 2018-01-02 Tue 23:32</p>
+<section id="sec-title-slide"><h1 class="title">Initiation au C++</h1><h2 class="author">Bernard Hugueney</h2><p class="date">Created: 2018-01-12 Fri 12:46</p>
 </section>
 <section id="table-of-contents">
 <div id="table-of-contents">
 <h2>Table des matières</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#/slide-orgc84c215">1. Méta</a></li>
-<li><a href="#/slide-org50acd9a">2. Qu'est-ce que le C++ ?</a></li>
-<li><a href="#/slide-org645730f">3. Un langage polyvalent et multi-paradigme</a></li>
-<li><a href="#/slide-org4e10c84">4. Programmation Orientée Objet</a></li>
-<li><a href="#/slide-org623e723">5. Remarques générales</a></li>
-<li><a href="#/slide-orge76a672">6. Types</a></li>
-<li><a href="#/slide-org72d382d">7. Syntaxe</a></li>
-<li><a href="#/slide-org0bda66c">8. Passages d'arguments</a></li>
-<li><a href="#/slide-orga983122">9. Bibliothèque standard</a></li>
-<li><a href="#/slide-org8ddd9a9">10. Sémantique</a></li>
-<li><a href="#/slide-org11a286f">11. Exemples</a></li>
-<li><a href="#/slide-orgb1faeb7">12. Programmes</a></li>
+<li><a href="#/slide-orgf98824c">1. Méta</a></li>
+<li><a href="#/slide-orgc87429c">2. Qu'est-ce que le C++ ?</a></li>
+<li><a href="#/slide-org6f6a64d">3. Un langage polyvalent et multi-paradigme</a></li>
+<li><a href="#/slide-orgbb1a17d">4. Programmation Orientée Objet</a></li>
+<li><a href="#/slide-orgc76959c">5. Remarques générales</a></li>
+<li><a href="#/slide-org683c4f6">6. Types</a></li>
+<li><a href="#/slide-org23e11bc">7. Syntaxe</a></li>
+<li><a href="#/slide-orgef034cc">8. Passages d'arguments</a></li>
+<li><a href="#/slide-orgee7797c">9. Bibliothèque standard</a></li>
+<li><a href="#/slide-org8966948">10. Sémantique</a></li>
+<li><a href="#/slide-org5021303">11. Exemples</a></li>
+<li><a href="#/slide-org87bf9b6">12. Programmes</a></li>
 </ul>
 </div>
 </div>
@@ -53,30 +53,30 @@
 
 
 <section>
-<section id="slide-orgc84c215">
-<h2 id="orgc84c215"><span class="section-number-2">1</span> Méta</h2>
+<section id="slide-orgf98824c">
+<h2 id="orgf98824c"><span class="section-number-2">1</span> Méta</h2>
 <div class="outline-text-2" id="text-1">
 </div>
 </section>
-<section id="slide-org9a31f80">
-<h3 id="org9a31f80"><span class="section-number-3">1.1</span> Objectifs</h3>
+<section id="slide-orgd7560fc">
+<h3 id="orgd7560fc"><span class="section-number-3">1.1</span> Objectifs</h3>
 <p>
 Faciliter l'apprentissage ultérieur du C++
 </p>
 
 </section>
-<section id="slide-org41ad823">
-<h3 id="org41ad823"><span class="section-number-3">1.2</span> Prérequis</h3>
+<section id="slide-orge961deb">
+<h3 id="orge961deb"><span class="section-number-3">1.2</span> Prérequis</h3>
 <p>
 Comprendre le langage Python et savoir écrire des programmes en Python
 </p>
 
 </section>
-<section id="slide-orgabc1fb2">
-<h3 id="orgabc1fb2"><span class="section-number-3">1.3</span> Méthode</h3>
+<section id="slide-orgd17fade">
+<h3 id="orgd17fade"><span class="section-number-3">1.3</span> Méthode</h3>
 <p>
 Pratique :
-Essayer d'executer les fragments de code, par exemple sur :
+Essayer d'exécuter les fragments de code, par exemple sur :
 </p>
 <ul>
 <li><a href="https://www.onlinegdb.com/">https://www.onlinegdb.com/</a></li>
@@ -87,8 +87,8 @@ Essayer d'executer les fragments de code, par exemple sur :
 </section>
 </section>
 <section>
-<section id="slide-org50acd9a">
-<h2 id="org50acd9a"><span class="section-number-2">2</span> Qu'est-ce que le C++ ?</h2>
+<section id="slide-orgc87429c">
+<h2 id="orgc87429c"><span class="section-number-2">2</span> Qu'est-ce que le C++ ?</h2>
 <p>
 Par rapport à Python, le C++ est un langage :
 </p>
@@ -98,24 +98,24 @@ Par rapport à Python, le C++ est un langage :
 
 </ul>
 </section>
-<section id="slide-orgb944cfd">
-<h3 id="orgb944cfd"><span class="section-number-3">2.1</span> Compilation</h3>
+<section id="slide-org5f0e8db">
+<h3 id="org5f0e8db"><span class="section-number-3">2.1</span> Compilation</h3>
 <p>
 Le code C++ n'est pas exécuté directement et il n'y a pas de console (REPL) C++.
 Les programmes en C++ sont "traduits" (compilés) en <i>exécutables</i>.
 <a href="https://godbolt.org/">https://godbolt.org/</a>
 </p>
 </section>
-<section id="slide-org428e464">
-<h4 id="org428e464"><span class="section-number-4">2.1.1</span> Inconvénients de la compilation</h4>
+<section id="slide-org05fd33c">
+<h4 id="org05fd33c"><span class="section-number-4">2.1.1</span> Inconvénients de la compilation</h4>
 <ul>
 <li>pas d'interactivité</li>
 <li>les exécutables sont spécifiques à l'architecture (CPU &amp; Système d'exploitation)</li>
 
 </ul>
 </section>
-<section id="slide-org4862a30">
-<h4 id="org4862a30"><span class="section-number-4">2.1.2</span> Avantages de la compilation</h4>
+<section id="slide-org5fe143c">
+<h4 id="org5fe143c"><span class="section-number-4">2.1.2</span> Avantages de la compilation</h4>
 <ul>
 <li>rapidité d'exécution</li>
 <li>permet de tirer parti du <i>typage statique</i> pour avoir des erreurs de
@@ -125,8 +125,8 @@ compilations (!)</li>
 </ul>
 
 </section>
-<section id="slide-orga2b0723">
-<h4 id="orga2b0723"><span class="section-number-4">2.1.3</span> compilation en pratique</h4>
+<section id="slide-org0179639">
+<h4 id="org0179639"><span class="section-number-4">2.1.3</span> compilation en pratique</h4>
 <p>
 utilisation d'un compilateur sur chaque fichier source, puis édition de liens.
 </p>
@@ -136,8 +136,8 @@ utilisation d'un compilateur sur chaque fichier source, puis édition de liens.
 </pre>
 </div>
 </section>
-<section id="slide-orgfbeb339">
-<h3 id="orgfbeb339"><span class="section-number-3">2.2</span> Typage statique</h3>
+<section id="slide-org27b35fc">
+<h3 id="org27b35fc"><span class="section-number-3">2.2</span> Typage statique</h3>
 <p>
 Toutes les expressions ont un type connu à la compilation (<b>avant</b> l'exécution !)
 </p>
@@ -155,8 +155,8 @@ Toutes les expressions ont un type connu à la compilation (<b>avant</b> l'exéc
 </pre>
 </div>
 </section>
-<section id="slide-org739e953">
-<h4 id="org739e953"><span class="section-number-4">2.2.1</span> Typage générique</h4>
+<section id="slide-org433ea51">
+<h4 id="org433ea51"><span class="section-number-4">2.2.1</span> Typage générique</h4>
 <div class="org-src-container">
 
 <pre  class="src src-C++"><span style="color: #4f97d7; font-weight: bold;">template</span><span style="color: #4f97d7;">&lt;</span>T<span style="color: #4f97d7;">&gt;</span> <span style="color: #ce537a; font-weight: bold;">bool</span> <span style="color: #bc6ec5; font-weight: bold;">is_inside_unit_circle</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">T</span> <span style="color: #7590db;">x</span>, <span style="color: #ce537a; font-weight: bold;">T</span> <span style="color: #7590db;">y</span><span style="color: #4f97d7;">){</span>
@@ -168,8 +168,8 @@ Toutes les expressions ont un type connu à la compilation (<b>avant</b> l'exéc
 </div>
 
 </section>
-<section id="slide-orgbc8360a">
-<h4 id="orgbc8360a"><span class="section-number-4">2.2.2</span> Typage automatique</h4>
+<section id="slide-orgf8158a1">
+<h4 id="orgf8158a1"><span class="section-number-4">2.2.2</span> Typage automatique</h4>
 <div class="org-src-container">
 
 <pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">str</span><span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"test"</span><span style="color: #4f97d7;">)</span>;
@@ -186,8 +186,8 @@ test concat 2
 </pre>
 
 </section>
-<section id="slide-org7e52bc2">
-<h4 id="org7e52bc2"><span class="section-number-4">2.2.3</span> conversions de type</h4>
+<section id="slide-org6e2d298">
+<h4 id="org6e2d298"><span class="section-number-4">2.2.3</span> conversions de type</h4>
 <p>
 <code>-Wconversion -Werror</code>
 </p>
@@ -248,8 +248,8 @@ cc1plus: all warnings being treated as errors
 
 
 </section>
-<section id="slide-org9f8d4ec">
-<h3 id="org9f8d4ec"><span class="section-number-3">2.3</span> Le type peut indiquer qu'une valeur est constante</h3>
+<section id="slide-org2583db0">
+<h3 id="org2583db0"><span class="section-number-3">2.3</span> Le type peut indiquer qu'une valeur est constante</h3>
 <div class="org-src-container">
 
 <pre  class="src src-python"><span style="color: #4f97d7; font-weight: bold;">import</span> math
@@ -281,8 +281,8 @@ pi= 2.0;
 
 
 </section>
-<section id="slide-org6925d4d">
-<h3 id="org6925d4d"><span class="section-number-3">2.4</span> Erreurs de compilation</h3>
+<section id="slide-orgc1a7264">
+<h3 id="orgc1a7264"><span class="section-number-3">2.4</span> Erreurs de compilation</h3>
 <p>
 Détection automatique des erreurs de type.
 </p>
@@ -304,8 +304,8 @@ Mieux qu'une erreur à l'exécution !
 </div>
 
 </section>
-<section id="slide-org1631465">
-<h3 id="org1631465"><span class="section-number-3">2.5</span> Performance</h3>
+<section id="slide-orgaf05d8f">
+<h3 id="orgaf05d8f"><span class="section-number-3">2.5</span> Performance</h3>
 <div class="org-src-container">
 
 <pre  class="src src-python"><span style="color: #4f97d7; font-weight: bold;">import</span> random
@@ -372,8 +372,8 @@ Sur 100000000 fléchettes, 78544111 à l'intérieur. Pi ~ 3.14176
 </pre>
 
 </section>
-<section id="slide-orgf233b72">
-<h3 id="orgf233b72"><span class="section-number-3">2.6</span> Remarques sur la performance en python</h3>
+<section id="slide-orgb4a2df1">
+<h3 id="orgb4a2df1"><span class="section-number-3">2.6</span> Remarques sur la performance en python</h3>
 <p>
 Il est possible d'écrire des programmes performants en Python !
 </p>
@@ -385,8 +385,8 @@ En utilisant des bibliothèques qui ne sont pas implémentées en python (e.g.
 </section>
 </section>
 <section>
-<section id="slide-org645730f">
-<h2 id="org645730f"><span class="section-number-2">3</span> Un langage polyvalent et multi-paradigme</h2>
+<section id="slide-org6f6a64d">
+<h2 id="org6f6a64d"><span class="section-number-2">3</span> Un langage polyvalent et multi-paradigme</h2>
 <p>
 On peut programmer à peu près n'importe quoi et n'importe comment !
 </p>
@@ -397,16 +397,16 @@ Le C++ a <b>beaucoup</b> évolué depuis 20 ans ! (&rarr; chercher des sources r
 </section>
 </section>
 <section>
-<section id="slide-org4e10c84">
-<h2 id="org4e10c84"><span class="section-number-2">4</span> Programmation Orientée Objet</h2>
+<section id="slide-orgbb1a17d">
+<h2 id="orgbb1a17d"><span class="section-number-2">4</span> Programmation Orientée Objet</h2>
 <p>
 Le C++ <b>permet</b> la Programmation Orientée Objet, mais nous ne nous y intéresserons pas (cf. cours de Java).
 </p>
 </section>
 </section>
 <section>
-<section id="slide-org623e723">
-<h2 id="org623e723"><span class="section-number-2">5</span> Remarques générales</h2>
+<section id="slide-orgc76959c">
+<h2 id="orgc76959c"><span class="section-number-2">5</span> Remarques générales</h2>
 <p>
 Pour utiliser des bibliothèques, on utilise la directive <code>#include</code>.
 </p>
@@ -418,18 +418,18 @@ Le programme est une fonction <code class="src src-C"><span style="color: #ce537
 </section>
 </section>
 <section>
-<section id="slide-orge76a672">
-<h2 id="orge76a672"><span class="section-number-2">6</span> Types</h2>
+<section id="slide-org683c4f6">
+<h2 id="org683c4f6"><span class="section-number-2">6</span> Types</h2>
 <div class="outline-text-2" id="text-6">
 </div>
 </section>
-<section id="slide-org7a6c380">
-<h3 id="org7a6c380"><span class="section-number-3">6.1</span> types primitifs</h3>
+<section id="slide-org91789fb">
+<h3 id="org91789fb"><span class="section-number-3">6.1</span> types primitifs</h3>
 <div class="outline-text-3" id="text-6-1">
 </div>
 </section>
-<section id="slide-orgca1134b">
-<h4 id="orgca1134b"><span class="section-number-4">6.1.1</span> entiers</h4>
+<section id="slide-orgab4099c">
+<h4 id="orgab4099c"><span class="section-number-4">6.1.1</span> entiers</h4>
 <p>
 Généralement, on utilise des types qui ne sont pas précisément spécifiés pour
 pouvoir correspondre avec l'architecture de compilation (e.g. 32 bits vs 64
@@ -473,12 +473,12 @@ sizeof(std::size_t): 8
 
 </pre>
 <ol class="org-ol">
-<li><a id="orgee84bf6"></a>Débordements<br /></li>
+<li><a id="org7d3e715"></a>Débordements<br /></li>
 </ol>
 
 </section>
-<section id="slide-org8e29bc7">
-<h4 id="org8e29bc7"><span class="section-number-4">6.1.2</span> virgule flottante</h4>
+<section id="slide-org6caf483">
+<h4 id="org6caf483"><span class="section-number-4">6.1.2</span> virgule flottante</h4>
 <ul>
 <li><code>float</code></li>
 <li><code>double</code></li>
@@ -504,17 +504,17 @@ Comme en python :
 </pre>
 
 </section>
-<section id="slide-org952b294">
-<h4 id="org952b294"><span class="section-number-4">6.1.3</span> booléen</h4>
+<section id="slide-org799f2a4">
+<h4 id="org799f2a4"><span class="section-number-4">6.1.3</span> booléen</h4>
 
 </section>
-<section id="slide-orgc44e209">
-<h3 id="orgc44e209"><span class="section-number-3">6.2</span> Tableaux, pointeurs, itérateurs</h3>
+<section id="slide-org061299d">
+<h3 id="org061299d"><span class="section-number-3">6.2</span> Tableaux, pointeurs, itérateurs</h3>
 <div class="outline-text-3" id="text-6-2">
 </div>
 </section>
-<section id="slide-org5b78fa5">
-<h4 id="org5b78fa5"><span class="section-number-4">6.2.1</span> Tableaux</h4>
+<section id="slide-org680f144">
+<h4 id="org680f144"><span class="section-number-4">6.2.1</span> Tableaux</h4>
 <p>
 valeurs de même type, contiguës en mémoire la valeur représentant le tabeau
 est en fait son adresse en mémoire (pas d'information sur le nombre
@@ -543,8 +543,8 @@ d'éléments !)
 </pre>
 
 </section>
-<section id="slide-org9e32ed4">
-<h4 id="org9e32ed4"><span class="section-number-4">6.2.2</span> Pointeurs</h4>
+<section id="slide-org6150973">
+<h4 id="org6150973"><span class="section-number-4">6.2.2</span> Pointeurs</h4>
 <p>
 adresse (typée !) en mémoire
 </p>
@@ -576,8 +576,8 @@ ptr_arr[-1]:0.25, ptr_arr[0]:1
 
 </pre>
 </section>
-<section id="slide-org0390e0c">
-<h4 id="org0390e0c"><span class="section-number-4">6.2.3</span> tableaux de tabeaux</h4>
+<section id="slide-org0f86d1b">
+<h4 id="org0f86d1b"><span class="section-number-4">6.2.3</span> tableaux de tabeaux</h4>
 <div class="org-src-container">
 
 <pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">a</span><span style="color: #4f97d7;">[</span><span style="color: #a45bad;">4</span><span style="color: #4f97d7;">][</span><span style="color: #a45bad;">3</span><span style="color: #4f97d7;">]</span>=<span style="color: #4f97d7;">{</span><span style="color: #bc6ec5;">{</span>-<span style="color: #a45bad;">1</span>, <span style="color: #a45bad;">4</span>, -<span style="color: #a45bad;">1</span><span style="color: #bc6ec5;">}</span>, <span style="color: #bc6ec5;">{</span><span style="color: #a45bad;">0</span>,<span style="color: #a45bad;">1</span>,<span style="color: #a45bad;">3</span>,<span style="color: #bc6ec5;">}</span>, <span style="color: #bc6ec5;">{</span><span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">1</span>,<span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">}</span>, <span style="color: #bc6ec5;">{</span><span style="color: #a45bad;">0</span>,<span style="color: #a45bad;">0</span>,<span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">}</span>;
@@ -597,8 +597,8 @@ a[0][1]=4 **a=-1
 </div>
 
 </section>
-<section id="slide-orgc5ea566">
-<h4 id="orgc5ea566"><span class="section-number-4">6.2.4</span> Itérateurs</h4>
+<section id="slide-org62852ce">
+<h4 id="org62852ce"><span class="section-number-4">6.2.4</span> Itérateurs</h4>
 <p>
 Généralisation du concept de pointeur pour traverser des ensembles de valeurs.
 </p>
@@ -618,8 +618,8 @@ green ,blue ,red ,
 
 
 </section>
-<section id="slide-org316b622">
-<h3 id="org316b622"><span class="section-number-3">6.3</span> chaîne de caractères</h3>
+<section id="slide-orgfeb750d">
+<h3 id="orgfeb750d"><span class="section-number-3">6.3</span> chaîne de caractères</h3>
 <p>
 pointeur sur un tableau de caractères (<code>char</code>) terminé par <code>'\0'</code>
 </p>
@@ -630,7 +630,7 @@ pointeur sur un tableau de caractères (<code>char</code>) terminé par <code>'\
 </div>
 
 <ol class="org-ol">
-<li><a id="org064dc2b"></a>Attention aux caractères non ASCII !<br />
+<li><a id="orgb29b0c3"></a>Attention aux caractères non ASCII !<br />
 <div class="org-src-container">
 
 <pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #4f97d7; font-weight: bold;">const</span> * <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">str_ascii</span>=<span style="color: #2d9574;">"e"</span>;
@@ -648,7 +648,7 @@ strlen(é)=2
 </section>
 <section >
 </li>
-<li><a id="orgb72f19f"></a>Attention aux comparaisons et affectactions<br />
+<li><a id="org0700a03"></a>Attention aux comparaisons et affectactions<br />
 <p>
 les opérations s'appliquent aux <b>pointeurs</b>:
 </p>
@@ -672,8 +672,8 @@ str2:tito
 </ol>
 
 </section>
-<section id="slide-org7c6a699">
-<h3 id="org7c6a699"><span class="section-number-3">6.4</span> std::string</h3>
+<section id="slide-orga787686">
+<h3 id="orga787686"><span class="section-number-3">6.4</span> std::string</h3>
 <p>
 <a href="http://www.cplusplus.com/reference/string/string/">std::string</a> : <i>classe</i> permettant de faire de opération sur des chaîne de caractères (par
  exemple les copier et les comparer !)
@@ -707,19 +707,19 @@ str2:toto
 </section>
 </section>
 <section>
-<section id="slide-org72d382d">
-<h2 id="org72d382d"><span class="section-number-2">7</span> Syntaxe</h2>
+<section id="slide-org23e11bc">
+<h2 id="org23e11bc"><span class="section-number-2">7</span> Syntaxe</h2>
 <div class="outline-text-2" id="text-7">
 </div>
 </section>
-<section id="slide-org754cbb1">
-<h3 id="org754cbb1"><span class="section-number-3">7.1</span> instructions</h3>
+<section id="slide-org860ff57">
+<h3 id="org860ff57"><span class="section-number-3">7.1</span> instructions</h3>
 <p>
 séparées par des <code>;</code>
 </p>
 </section>
-<section id="slide-org6004160">
-<h3 id="org6004160"><span class="section-number-3">7.2</span> blocs de code</h3>
+<section id="slide-org50cb459">
+<h3 id="org50cb459"><span class="section-number-3">7.2</span> blocs de code</h3>
 <p>
 Délimités par des <code>{</code> et <code>}</code> et non pas indiqués par l'indentation (qui reste
 utilisées, mais seulement pour permettre la visualisation).
@@ -750,8 +750,8 @@ utilisées, mais seulement pour permettre la visualisation).
 </pre>
 </div>
 </section>
-<section id="slide-org03d01a0">
-<h3 id="org03d01a0"><span class="section-number-3">7.3</span> ATTENTION aux blocs "manquants" !</h3>
+<section id="slide-orgcdb465a">
+<h3 id="orgcdb465a"><span class="section-number-3">7.3</span> ATTENTION aux blocs "manquants" !</h3>
 <p>
 Les blocs sont syntaxiquement facultatifs.
 </p>
@@ -792,8 +792,8 @@ not indented
 </pre>
 
 </section>
-<section id="slide-org599b6f9">
-<h3 id="org599b6f9"><span class="section-number-3">7.4</span> redéfinition d'opérateurs</h3>
+<section id="slide-orge5b1d8e">
+<h3 id="orge5b1d8e"><span class="section-number-3">7.4</span> redéfinition d'opérateurs</h3>
 <p>
 Le sens de certain opérateurs dépend de ce quoi à ils s'appliquent !
 <code>&lt;&lt;</code>, <code>*</code>,…
@@ -814,8 +814,8 @@ a=4
 </pre>
 
 </section>
-<section id="slide-org4d47fe9">
-<h3 id="org4d47fe9"><span class="section-number-3">7.5</span> Exécution conditionnelle : <code>if</code></h3>
+<section id="slide-org1bbd284">
+<h3 id="org1bbd284"><span class="section-number-3">7.5</span> Exécution conditionnelle : <code>if</code></h3>
 <p>
 L'expression testée est fausse si elle vaut <code>0</code>, vraie sinon.
 </p>
@@ -839,8 +839,8 @@ true vaut 1
 </pre>
 
 </section>
-<section id="slide-org9da8c06">
-<h3 id="org9da8c06"><span class="section-number-3">7.6</span> Évaluation conditionnelle : <code>?:</code></h3>
+<section id="slide-org5b74b78">
+<h3 id="org5b74b78"><span class="section-number-3">7.6</span> Évaluation conditionnelle : <code>?:</code></h3>
 <p>
 l'expression <code class="src src-C"><span style="color: #4f97d7;">(</span> e ? t : v<span style="color: #4f97d7;">)</span></code> est équivalente à l'expression python scr_python[:export code]{t if e else v}
 </p>
@@ -860,8 +860,8 @@ true vaut 1
 </pre>
 
 </section>
-<section id="slide-orgb899484">
-<h3 id="orgb899484"><span class="section-number-3">7.7</span> Exécution conditionnelle : <code>switch</code></h3>
+<section id="slide-org40bda50">
+<h3 id="org40bda50"><span class="section-number-3">7.7</span> Exécution conditionnelle : <code>switch</code></h3>
 <p>
 branchement conditionnel selon différentes valeurs entières pour une expression testée.
 Attention au <code>break</code> !
@@ -884,8 +884,8 @@ i vaut dix i vaut vingt (ou j'ai oublié le break avant)
 </pre>
 
 </section>
-<section id="slide-org7c44a90">
-<h3 id="org7c44a90"><span class="section-number-3">7.8</span> Boucle <code>while</code></h3>
+<section id="slide-org4e2e786">
+<h3 id="org4e2e786"><span class="section-number-3">7.8</span> Boucle <code>while</code></h3>
 <p>
 Comme la boucle <code>while</code> en python, mais il existe aussi une variante <code>do{}while();</code>
 </p>
@@ -905,8 +905,8 @@ Comme la boucle <code>while</code> en python, mais il existe aussi une variante 
 </pre>
 
 </section>
-<section id="slide-orgd8bc0e9">
-<h3 id="orgd8bc0e9"><span class="section-number-3">7.9</span> Boucle <code>for</code></h3>
+<section id="slide-orgbfe1ad7">
+<h3 id="orgbfe1ad7"><span class="section-number-3">7.9</span> Boucle <code>for</code></h3>
 <p>
 <code class="src src-C"><span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #4f97d7;">(</span> initialisation; test; mise <span style="color: #ce537a; font-weight: bold;">&#224;</span> <span style="color: #7590db;">jour</span><span style="color: #4f97d7;">)</span></code>
 </p>
@@ -936,8 +936,8 @@ t_o_t_o_
 </pre>
 
 </section>
-<section id="slide-org0b52ba9">
-<h3 id="org0b52ba9"><span class="section-number-3">7.10</span> Boucle <code>for</code> sur une séquence</h3>
+<section id="slide-orgb1d5317">
+<h3 id="orgb1d5317"><span class="section-number-3">7.10</span> Boucle <code>for</code> sur une séquence</h3>
 <p>
 Comme en python mais avec typage :
 </p>
@@ -958,8 +958,8 @@ Comme en python mais avec typage :
 </section>
 </section>
 <section>
-<section id="slide-org0bda66c">
-<h2 id="org0bda66c"><span class="section-number-2">8</span> Passages d'arguments</h2>
+<section id="slide-orgef034cc">
+<h2 id="orgef034cc"><span class="section-number-2">8</span> Passages d'arguments</h2>
 <p>
 Les arguments sont passés par valeur sauf si l'on indique un passage par référence.
 </p>
@@ -991,18 +991,18 @@ j= 2
 </section>
 </section>
 <section>
-<section id="slide-orga983122">
-<h2 id="orga983122"><span class="section-number-2">9</span> Bibliothèque standard</h2>
+<section id="slide-orgee7797c">
+<h2 id="orgee7797c"><span class="section-number-2">9</span> Bibliothèque standard</h2>
 <div class="outline-text-2" id="text-9">
 </div>
 </section>
-<section id="slide-org69c08f5">
-<h3 id="org69c08f5"><span class="section-number-3">9.1</span> Structures de données</h3>
+<section id="slide-org606adf8">
+<h3 id="org606adf8"><span class="section-number-3">9.1</span> Structures de données</h3>
 <div class="outline-text-3" id="text-9-1">
 </div>
 </section>
-<section id="slide-orgc2ec815">
-<h4 id="orgc2ec815"><span class="section-number-4">9.1.1</span> tuple</h4>
+<section id="slide-org7a540be">
+<h4 id="org7a540be"><span class="section-number-4">9.1.1</span> tuple</h4>
 <p>
 L'utilisation de la classe <a href="http://www.cplusplus.com/reference/tuple/tuple/">std::tuple</a> nécessite <code class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">tuple</span><span style="color: #4f97d7;">&gt;</span></code>
 </p>
@@ -1021,8 +1021,8 @@ L'utilisation de la classe <a href="http://www.cplusplus.com/reference/tuple/tup
 
 </pre>
 </section>
-<section id="slide-orgc6585dd">
-<h4 id="orgc6585dd"><span class="section-number-4">9.1.2</span> array</h4>
+<section id="slide-orgb412d84">
+<h4 id="orgb412d84"><span class="section-number-4">9.1.2</span> array</h4>
 <p>
 L'utilisation de la classe <a href="http://www.cplusplus.com/reference/array/array/">std::array</a> nécessite <code class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">array</span><span style="color: #4f97d7;">&gt;</span></code>.
  La taille fait partie du type (donc fixe). Joue pour les tableaux le
@@ -1046,8 +1046,8 @@ b<span style="color: #4f97d7;">[</span><span style="color: #a45bad;">0</span><sp
 </pre>
 
 </section>
-<section id="slide-org92894e1">
-<h4 id="org92894e1"><span class="section-number-4">9.1.3</span> vector</h4>
+<section id="slide-org2ab254e">
+<h4 id="org2ab254e"><span class="section-number-4">9.1.3</span> vector</h4>
 <p>
 <a href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a> est semblable aux listes de python, mais avec éléments de même type.
 Nécessite <code class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">vector</span><span style="color: #4f97d7;">&gt;</span></code>
@@ -1069,8 +1069,8 @@ v_i.pop_back<span style="color: #4f97d7;">()</span>;
 </pre>
 
 </section>
-<section id="slide-org04db332">
-<h4 id="org04db332"><span class="section-number-4">9.1.4</span> list</h4>
+<section id="slide-org46e29af">
+<h4 id="org46e29af"><span class="section-number-4">9.1.4</span> list</h4>
 <p>
 <a href="http://www.cplusplus.com/reference/list/list/">std::list</a> permet des opérations efficaces en tête de liste (<i>front</i>). Ne permet pas un accès aléatoire.
 Nécessite <code class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">list</span><span style="color: #4f97d7;">&gt;</span></code>
@@ -1096,8 +1096,8 @@ c.empty():0, elts:4,2
 </pre>
 
 </section>
-<section id="slide-orgbcb4a78">
-<h4 id="orgbcb4a78"><span class="section-number-4">9.1.5</span> unordered_map</h4>
+<section id="slide-org6ea21b2">
+<h4 id="org6ea21b2"><span class="section-number-4">9.1.5</span> unordered_map</h4>
 <p>
 <a href="http://www.cplusplus.com/reference/unordered_map/unordered_map/">std::unordered_map</a> est équivalent aux dictionnaires de python, mais avec des types.
 </p>
@@ -1125,10 +1125,10 @@ bernard : 32
 </pre>
 
 </section>
-<section id="slide-org7aabf40">
-<h4 id="org7aabf40"><span class="section-number-4">9.1.6</span> unordered_set</h4>
+<section id="slide-org4983532">
+<h4 id="org4983532"><span class="section-number-4">9.1.6</span> unordered_set</h4>
 <p>
-<a href="http://www.cplusplus.com/reference/unordered_set/unordered_set/">std::unordered_set</a> ermet de tester <b>efficacement</b> si un ensemle contient un élément, et d'éviter
+<a href="http://www.cplusplus.com/reference/unordered_set/unordered_set/">std::unordered_set</a> permet de tester <b>efficacement</b> si un ensemble contient un élément, et d'éviter
 les doublons.
 </p>
 
@@ -1154,8 +1154,8 @@ titi trouvé dans titi, toto,
 </pre>
 
 </section>
-<section id="slide-org6a4ca72">
-<h3 id="org6a4ca72"><span class="section-number-3">9.2</span> Itérateurs</h3>
+<section id="slide-org1859cd4">
+<h3 id="org1859cd4"><span class="section-number-3">9.2</span> Itérateurs</h3>
 <p>
 Les structures de données, entre autres !, donnent accès aux éléments à travers
 des <i>iterateurs</i>. Ils sont catégorisés selon les opérations qu'ils permettent
@@ -1163,8 +1163,8 @@ des <i>iterateurs</i>. Ils sont catégorisés selon les opérations qu'ils perme
 comparaison par l'opérateur <code class="src src-C++"> == </code>).
 </p>
 </section>
-<section id="slide-orga75e43a">
-<h4 id="orga75e43a"><span class="section-number-4">9.2.1</span> forward iterator</h4>
+<section id="slide-org5bfb37b">
+<h4 id="org5bfb37b"><span class="section-number-4">9.2.1</span> forward iterator</h4>
 <p>
    Incrémentation pour passer à l'élément suivant avec l'opérateur
 <code class="src src-C++">++</code>.
@@ -1185,8 +1185,8 @@ comparaison par l'opérateur <code class="src src-C++"> == </code>).
 </pre>
 
 </section>
-<section id="slide-orgc7206cf">
-<h4 id="orgc7206cf"><span class="section-number-4">9.2.2</span> Bidirectional iterator</h4>
+<section id="slide-org41f32da">
+<h4 id="org41f32da"><span class="section-number-4">9.2.2</span> Bidirectional iterator</h4>
 <p>
 En plus des opérations du <i>forward iterator</i>, on peut aussi décrémenter pour
 aller à l'élément précédant :
@@ -1210,8 +1210,8 @@ aller à l'élément précédant :
 </pre>
 
 </section>
-<section id="slide-org80f80cd">
-<h4 id="org80f80cd"><span class="section-number-4">9.2.3</span> Random access iterator</h4>
+<section id="slide-orga746918">
+<h4 id="orga746918"><span class="section-number-4">9.2.3</span> Random access iterator</h4>
 <p>
 En plus des opérations du <i>bidirection iterator</i>, on peut aller directement à
 n'importe quel élément situé à <code>n</code> positions dans un sens ou dans l'autre (comme
@@ -1232,17 +1232,17 @@ it += <span style="color: #a45bad;">2</span>;
 </pre>
 
 </section>
-<section id="slide-org6fad17e">
-<h3 id="org6fad17e"><span class="section-number-3">9.3</span> Algorithmes</h3>
+<section id="slide-org294b7e8">
+<h3 id="org294b7e8"><span class="section-number-3">9.3</span> Algorithmes</h3>
 <p>
 On peut appliquer <a href="http://www.cplusplus.com/reference/algorithm/copy/">des algorithmes</a> sur n'importe quel intervalle de n'importe
 quelle structure de données grâce à des intervalles \( \left[ begin, end \right[
- \) et des itérateurs en écriture. Ils nécessire l'inclusion du header
+ \) et des itérateurs en écriture. Ils nécessaire l'inclusion du header
 correspondant avec <code class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">algorithm</span><span style="color: #4f97d7;">&gt;</span></code>
 </p>
 </section>
-<section id="slide-orgf8b868a">
-<h4 id="orgf8b868a"><span class="section-number-4">9.3.1</span> copy</h4>
+<section id="slide-orgf01f70a">
+<h4 id="orgf01f70a"><span class="section-number-4">9.3.1</span> copy</h4>
 <p>
 <a href="http://www.cplusplus.com/reference/algorithm/copy/">std::copy</a>
 </p>
@@ -1258,8 +1258,8 @@ correspondant avec <code class="src src-C++"><span style="color: #bc6ec5;">#incl
 
 </pre>
 </section>
-<section id="slide-org35c3e1d">
-<h4 id="org35c3e1d"><span class="section-number-4">9.3.2</span> shuffle</h4>
+<section id="slide-org92a3f2f">
+<h4 id="org92a3f2f"><span class="section-number-4">9.3.2</span> shuffle</h4>
 <p>
 <a href="http://www.cplusplus.com/reference/algorithm/shuffle/">std::shuffle</a> nécessite un générateur de nombres aléatoires (Random Numbers Generator), avec
 <code class="src src-C++"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">random</span><span style="color: #4f97d7;">&gt;</span></code>. L'initialisation de celui-ci peut
@@ -1275,8 +1275,8 @@ changer en se basant sur l'instant au moment d'exécution (cf. <code class="src 
 </div>
 
 </section>
-<section id="slide-orge3bf555">
-<h4 id="orge3bf555"><span class="section-number-4">9.3.3</span> sort</h4>
+<section id="slide-org479fb71">
+<h4 id="org479fb71"><span class="section-number-4">9.3.3</span> sort</h4>
 <p>
 On peut trier un intervalle d'éléments d'une séquence avec <a href="http://www.cplusplus.com/reference/algorithm/sort/">std::sort</a>. La relation d'ordre est paramétrable.
 </p>
@@ -1294,14 +1294,14 @@ On peut trier un intervalle d'éléments d'une séquence avec <a href="http://ww
 </section>
 </section>
 <section>
-<section id="slide-org8ddd9a9">
-<h2 id="org8ddd9a9"><span class="section-number-2">10</span> Sémantique</h2>
+<section id="slide-org8966948">
+<h2 id="org8966948"><span class="section-number-2">10</span> Sémantique</h2>
 <p>
 Par défaut les valeurs sont passées par <b>copie</b>.
 </p>
 </section>
-<section id="slide-orgd943962">
-<h3 id="orgd943962"><span class="section-number-3">10.1</span> passage par copie</h3>
+<section id="slide-orga152d6f">
+<h3 id="orga152d6f"><span class="section-number-3">10.1</span> passage par copie</h3>
 <div class="org-src-container">
 
 <pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">f</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span><span style="color: #4f97d7;">){</span>
@@ -1328,8 +1328,8 @@ Par défaut les valeurs sont passées par <b>copie</b>.
 </pre>
 
 </section>
-<section id="slide-orgc9f2628">
-<h3 id="orgc9f2628"><span class="section-number-3">10.2</span> passage par pointeur</h3>
+<section id="slide-org62e25fe">
+<h3 id="org62e25fe"><span class="section-number-3">10.2</span> passage par pointeur</h3>
 <p>
 Attention, si le pointeur est invalide (<i>NULL</i> ou <a href="http://en.cppreference.com/w/cpp/language/nullptr">nullptr</a>), tout utilisation (sauf test de comparaison avec <code class="src src-C++"><span style="color: #a45bad;">nullptr</span></code>) provoquera un plantage !
 </p>
@@ -1360,8 +1360,8 @@ Attention, si le pointeur est invalide (<i>NULL</i> ou <a href="http://en.cppref
 </pre>
 
 </section>
-<section id="slide-org0ce7806">
-<h3 id="org0ce7806"><span class="section-number-3">10.3</span> passage par référence</h3>
+<section id="slide-org8a8ccd5">
+<h3 id="org8a8ccd5"><span class="section-number-3">10.3</span> passage par référence</h3>
 <p>
 On peut vouloir :
 </p>
@@ -1405,14 +1405,14 @@ On peut vouloir :
 </section>
 </section>
 <section>
-<section id="slide-org11a286f">
-<h2 id="org11a286f"><span class="section-number-2">11</span> Exemples</h2>
+<section id="slide-org5021303">
+<h2 id="org5021303"><span class="section-number-2">11</span> Exemples</h2>
 <p>
 Traductions en C++ de fonctions vues en DS.
 </p>
 </section>
-<section id="slide-org4f348bf">
-<h3 id="org4f348bf"><span class="section-number-3">11.1</span> Limites</h3>
+<section id="slide-org1b00319">
+<h3 id="org1b00319"><span class="section-number-3">11.1</span> Limites</h3>
 <div class="org-src-container">
 
 <pre  class="src src-C++"><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">tuple</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #bc6ec5; font-weight: bold;">limites</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">vector</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #bc6ec5;">&gt;</span> <span style="color: #4f97d7; font-weight: bold;">const</span>&amp; <span style="color: #7590db;">xs</span><span style="color: #4f97d7;">){</span>
@@ -1506,8 +1506,8 @@ Traductions en C++ de fonctions vues en DS.
 </div>
 
 </section>
-<section id="slide-orgdc59846">
-<h3 id="orgdc59846"><span class="section-number-3">11.2</span> Fusion</h3>
+<section id="slide-orgd9e8ef6">
+<h3 id="orgd9e8ef6"><span class="section-number-3">11.2</span> Fusion</h3>
 <div class="org-src-container">
 
 <pre  class="src src-C++"><span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">char != code point !</span>
@@ -1537,8 +1537,8 @@ Traductions en C++ de fonctions vues en DS.
 </pre>
 </div>
 </section>
-<section id="slide-orgeaf5add">
-<h3 id="orgeaf5add"><span class="section-number-3">11.3</span> Palindrome</h3>
+<section id="slide-orgb245ca8">
+<h3 id="orgb245ca8"><span class="section-number-3">11.3</span> Palindrome</h3>
 <div class="org-src-container">
 
 <pre  class="src src-C++">
@@ -1572,8 +1572,8 @@ Traductions en C++ de fonctions vues en DS.
 </div>
 
 </section>
-<section id="slide-orgeaad001">
-<h3 id="orgeaad001"><span class="section-number-3">11.4</span> Extraction de données</h3>
+<section id="slide-org32f1466">
+<h3 id="org32f1466"><span class="section-number-3">11.4</span> Extraction de données</h3>
 <div class="org-src-container">
 
 <pre  class="src src-C++"><span style="color: #4f97d7; font-weight: bold;">typedef</span> <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">tuple</span><span style="color: #4f97d7;">&lt;</span><span style="color: #a45bad;">std</span>::string, <span style="color: #a45bad;">std</span>::string, <span style="color: #ce537a; font-weight: bold;">double</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #ce537a; font-weight: bold;">data_t</span>;
@@ -1617,8 +1617,8 @@ Traductions en C++ de fonctions vues en DS.
 </div>
 
 </section>
-<section id="slide-org18cc846">
-<h3 id="org18cc846"><span class="section-number-3">11.5</span> Pliage</h3>
+<section id="slide-orgf7ecca4">
+<h3 id="orgf7ecca4"><span class="section-number-3">11.5</span> Pliage</h3>
 <div class="org-src-container">
 
 <pre  class="src src-C++"><span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">pliage</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">string</span> <span style="color: #7590db;">str</span>, <span style="color: #a45bad;">std</span>::<span style="color: #ce537a; font-weight: bold;">size_t</span> <span style="color: #7590db;">n</span><span style="color: #4f97d7;">){</span>
@@ -1648,13 +1648,13 @@ Traductions en C++ de fonctions vues en DS.
 </section>
 </section>
 <section>
-<section id="slide-orgb1faeb7">
-<h2 id="orgb1faeb7"><span class="section-number-2">12</span> Programmes</h2>
+<section id="slide-org87bf9b6">
+<h2 id="org87bf9b6"><span class="section-number-2">12</span> Programmes</h2>
 <div class="outline-text-2" id="text-12">
 </div>
 </section>
-<section id="slide-org9febda8">
-<h3 id="org9febda8"><span class="section-number-3">12.1</span> Pendu</h3>
+<section id="slide-orgf434d70">
+<h3 id="orgf434d70"><span class="section-number-3">12.1</span> Pendu</h3>
 <p>
 On eut essayer de <a href="https://gist.github.com/bhugueney/55bbd89b3092ce9860a3d28c118b9cb3">réécrire le programme de jeu de pendu en C++</a>. Cependant, la
 notion de lettre n'étant pas gérée (ne pas confondre lettres et caractères !),
@@ -1786,10 +1786,10 @@ performance, python est donc plus adapté.
 </pre>
 </div>
 </section>
-<section id="slide-orgf470e9e">
-<h3 id="orgf470e9e"><span class="section-number-3">12.2</span> Chaos Game</h3>
+<section id="slide-org2a41ed8">
+<h3 id="org2a41ed8"><span class="section-number-3">12.2</span> Chaos Game</h3>
 <p>
-Soit le programme suivant en python, qui implémente un dessin paramétrable suivant le principe du chaos game.
+Soit le programme suivant en python, qui implémente un dessin paramétrable suivant le principe du <i>chaos game</i>.
 On peut lancer ce programme de la façon suivante :
 </p>
 <div class="org-src-container">
@@ -1803,7 +1803,7 @@ et obtenir le fichier image <code>chaos-game-py-frame-4.pgm</code> au format PGM
 </p>
 
 <p>
-Avec le program <code>convert</code> d'ImageMagick, on peut convertir à la volée au format PNG :
+Avec le programme <code>convert</code> d'ImageMagick, on peut convertir à la volée au format PNG :
 </p>
 <div class="org-src-container">
 
@@ -1829,8 +1829,8 @@ minutes par image, les 500 images nécessaires prendraient 1000 minutes, soit
 beaucoup trop longtemps ! On va donc réécrire le programme en C++.
 </p>
 </section>
-<section id="slide-org194620f">
-<h4 id="org194620f"><span class="section-number-4">12.2.1</span> Programme en Python</h4>
+<section id="slide-orgda55bb9">
+<h4 id="orgda55bb9"><span class="section-number-4">12.2.1</span> Programme en Python</h4>
 <p>
 <a href="https://gist.github.com/bhugueney/570df58e6f0e2172f90785ed21c200a2">Implémentation en python</a>
 </p>
@@ -1904,8 +1904,8 @@ beaucoup trop longtemps ! On va donc réécrire le programme en C++.
 </div>
 
 </section>
-<section id="slide-org31f978f">
-<h4 id="org31f978f"><span class="section-number-4">12.2.2</span> Réécriture partielle en C++</h4>
+<section id="slide-orgd5a344d">
+<h4 id="orgd5a344d"><span class="section-number-4">12.2.2</span> Réécriture partielle en C++</h4>
 <p>
 Au lieu de 17 heures pour générer les 500 images, on peut réduite le temps d'exécution à 17 minutes sur la
 base du <a href="https://gist.github.com/bhugueney/affd277baac3eb8f8ae8801d54eee285">programme suivant</a>. 

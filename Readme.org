@@ -49,7 +49,7 @@
 
 ** Méthode
  Pratique :
- Essayer d'executer les fragments de code, par exemple sur :
+ Essayer d'exécuter les fragments de code, par exemple sur :
  - https://www.onlinegdb.com/
  - http://coliru.stacked-crooked.com/
 
@@ -751,7 +751,7 @@ Les arguments sont passés par valeur sauf si l'on indique un passage par réfé
  : bernard : 32
 
 *** unordered_set
- [[http://www.cplusplus.com/reference/unordered_set/unordered_set/][std::unordered_set]] ermet de tester *efficacement* si un ensemle contient un élément, et d'éviter
+ [[http://www.cplusplus.com/reference/unordered_set/unordered_set/][std::unordered_set]] permet de tester *efficacement* si un ensemble contient un élément, et d'éviter
  les doublons.
 
  #+BEGIN_SRC C++ :includes <iostream> <unordered_set> :results output verbatim :exports both
@@ -824,7 +824,7 @@ Les arguments sont passés par valeur sauf si l'on indique un passage par réfé
 ** Algorithmes
  On peut appliquer [[http://www.cplusplus.com/reference/algorithm/copy/][des algorithmes]] sur n'importe quel intervalle de n'importe
  quelle structure de données grâce à des intervalles \( \left[ begin, end \right[
- \) et des itérateurs en écriture. Ils nécessire l'inclusion du header
+ \) et des itérateurs en écriture. Ils nécessaire l'inclusion du header
  correspondant avec src_C++[:exports code]{#include <algorithm>}
 *** copy
  [[http://www.cplusplus.com/reference/algorithm/copy/][std::copy]]
@@ -1271,7 +1271,7 @@ performance, python est donc plus adapté.
 
 #+END_SRC
 ** Chaos Game
-Soit le programme suivant en python, qui implémente un dessin paramétrable suivant le principe du chaos game.
+Soit le programme suivant en python, qui implémente un dessin paramétrable suivant le principe du /chaos game/.
 On peut lancer ce programme de la façon suivante :
 #+BEGIN_SRC shell :exports code
 python ./chaos-game.py 4  >chaos-game-py-frame-4.pgm
@@ -1279,7 +1279,7 @@ python ./chaos-game.py 4  >chaos-game-py-frame-4.pgm
 
 et obtenir le fichier image =chaos-game-py-frame-4.pgm= au format PGM.
 
-Avec le program =convert= d'ImageMagick, on peut convertir à la volée au format PNG :
+Avec le programme =convert= d'ImageMagick, on peut convertir à la volée au format PNG :
 #+BEGIN_SRC shell 
 python ./chaos-game.py 5  | convert pgm:- chaos-game-py-frame-5.pgm
 #+END_SRC
